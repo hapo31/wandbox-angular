@@ -1,16 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModel } from '@angular/forms';
+import { NgModule, Pipe, Directive, Component } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { CodemirrorModule } from '@ng4/codemirror';
+
+import { WandboxCodemirrorComponent } from './components/codemirror/wb-codemirror.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,
+        CodemirrorModule
+    ],
+    declarations: [
+        AppComponent,
+        WandboxCodemirrorComponent
+    ],
+    exports: [
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

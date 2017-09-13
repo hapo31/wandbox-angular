@@ -1,20 +1,295 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12" id="header">
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#wandbox-navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Wandbox</a>
+        </div>
+        <div class="collapse navbar-collapse" id="wandbox-navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a target="_blank" href="https://github.com/melpon/wandbox">Source</a>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Plugin <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="https://github.com/rhysd/wandbox-vim" target="_blank">for Vimmer</a>
+                </li>
+                <li>
+                  <a href="https://github.com/kosh04/emacs-wandbox" target="_blank">for Emacser</a>
+                </li>
+                <li>
+                  <a href="https://gist.github.com/kikairoya/7544234" target="_blank">for xyzzy-er</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Link <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/nojs">Wandbox Simple</a>
+                </li>
+                <li>
+                  <a href="https://wandbox.fetus.jp/" target="_blank">Wandbox for PHP/Hack</a>
+                </li>
+              </ul>
+            </li>
 
+              <li>
+                <a href="https://github.com/login/oauth/authorize?client_id=f9d429d939d997e6b08e">Sign in</a>
+              </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-2">
+
+  <div class="row">
+    <div class="col-md-12">
+      <p class="wandbox-current-compiler-language label label-success">C#</p>
+      <div id="wandbox-compiler" class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
+          <span class="wandbox-current-compiler-text" title="mcs HEAD 5.7.0.0">mcs HEAD 5.7.0.0</span>
+          <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu wandbox-dropdown-area" role="menu" aria-labelledby="dropdown-language">
+          <div class="wandbox-dropdown-version"></div>
+          <div class="clearfix"></div>
+          <div class="wandbox-dropdown-detail-area">
+            <div class="tab-content">
+              <div id="language-tab-205" role="tabpanel" class="tab-pane">
+                  <legend>Vim script</legend>
+                  <ul>
+                        <li>
+                          <a class="wandbox-dropdown-listitem" href="#compiler-tab-200" data-toggle="tab" data-display-name="Vim HEAD 8.0.1097" data-name="vim-head">
+                            Vim HEAD 8.0.1097
+                          </a>
+                        </li>
+                  </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="wandbox-compile-options" class="tab-content">
+
+
+            <div id="compiler-tab-227" role="tabpanel" class="tab-pane" data-compiler="bash" data-language="Bash script" data-display-name="bash" data-command="bash prog.sh" data-full-name="[Bash script] bash 4.3.48(1)-release" data-options-raw="runtime" data-default-template="bash">
+              <p class="wandbox-insert-template"><a href="#">Load template</a></p>
+
+
+
+
+                <label>Runtime options:</label>
+                <div class="option-raw runtime-option-raw"><div class="CodeMirror cm-s-default"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code"></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div></div>
+
+
+            </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="  visible-md-block visible-lg-block">
+          <div class="wandbox-sponsors">
+            <div class="wandbox-corporate-sponsors">
+              <label>🐕 Corporate Sponsors:</label>
+                  <ul>
+                          <li><a target="_blank" href="http://theolizer.com/" data-toggle="tooltip" data-placement="top" title="" data-original-title="セオライド テクノロジー">セオライド テクノロジー</a></li>
+                  </ul>
+            </div>
+
+            <div class="wandbox-personal-sponsors">
+              <label>🐶 Personal Sponsors:</label>
+                  <ul>
+                      <li><a target="_blank" href="https://twitter.com/voluntas" data-toggle="tooltip" data-placement="top" title="" data-original-title="voluntas">voluntas</a></li>
+                  </ul>
+            </div>
+          </div>
+
+          <div class="wandbox-about-sponsors">
+            <a target="_blank" href="https://gist.github.com/melpon/8f5d7a8e991ed466d09cf887bd8d92ce">About sponsors(Japanese)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    </div>
+    <div class="col-md-10" id="codepanel">
+
+  <div class="row">
+    <div class="col-md-offset-8 col-md-4">
+      <div class="wandbox-author">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-10">
+      <div class="wandbox-editor">
+        <ul id="wandbox-editor-header" class="nav nav-tabs" role="tablist">
+          <li class="active">
+            <a id="wandbox-editor-default-tab" href="#wandbox-editor-default" role="tab" data-toggle="tab">
+              <i class="glyphicon glyphicon-file"></i>
+            </a>
+          </li>
+          <li>
+            <a id="wandbox-editor-add-tab" class="btn btn-default">
+              <i class="glyphicon glyphicon-plus"></i>
+            </a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+        <div id="wandbox-editor-content" class="tab-content" data-language="C#">
+          <wandbox-codemirror></wandbox-codemirror>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2" id="wandbox-editor-settings">
+      <label>Editor settings:</label>
+      <div class="checkbox">
+        <select class="wandbox-select">
+          <option value="default" selected="">editor: default</option>
+          <option value="vim">editor: Vim</option>
+          <option value="emacs">editor: Emacs</option>
+        </select>
+      </div>
+      <div class="checkbox">
+        <select class="wandbox-spaces-or-tab">
+          <option value="spaces-2">tab: 2-spaces</option>
+          <option value="spaces-4" selected="">tab: 4-spaces</option>
+          <option value="spaces-8">tab: 8-spaces</option>
+          <option value="tab">tab: TAB</option>
+        </select>
+      </div>
+      <div class="checkbox">
+        <select class="wandbox-tab-width">
+          <option value="tab-2">tab width: 2</option>
+          <option value="tab-4" selected="">tab width: 4</option>
+          <option value="tab-8">tab width: 8</option>
+        </select>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input class="smart-indent" type="checkbox" value="smart-indent" checked="">Smart Indent
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input class="expand-editor" type="checkbox" value="expand-editor">Expand
+        </label>
+      </div>
+    </div>
+  </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <p id="compile_command"><code>$ mcs -out:prog.exe prog.cs  </code></p>
+        </div>
+      </div>
+
+  <div class="row">
+    <div class="col-md-10">
+      <div class="panel-group" role="tablist" id="wandbox-stdin-accordion" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <a id="wandbox-stdin-button" data-toggle="collapse" data-parent="#wandbox-stdin-accordion" href="#wandbox-stdin-body" aria-expanded="true">
+            Stdin
+          </a>
+          <div id="wandbox-stdin-body" class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="stdin" id="stdin"><div class="CodeMirror cm-s-default"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code"></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <a href="/compile" class="btn btn-default" id="wandbox-compile">Run (or Ctrl+Enter)</a>
+          <img src="/static/compiling.gif" alt="Compiling" id="wandbox-compiling" style="display: none;">
+        </div>
+      </div>
+
+  <div class="row">
+    <div class="col-md-10">
+      <div id="result-container">
+        <div class="tabbable tabs-left">
+          <ul class="nav nav-tabs"></ul>
+        </div>
+        <div class="tab-content"></div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div id="result-container-settings">
+        <div class="checkbox">
+          <label>
+            <input class="nowrap-output-window" type="checkbox" value="nowrap-output-window">No Wrap
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input class="expand-output-window" type="checkbox" value="expand-output-window">Expand
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="visible-xs-block visible-sm-block  ">
+          <div class="wandbox-sponsors">
+            <div class="wandbox-corporate-sponsors">
+              <label>🐕 Corporate Sponsors:</label>
+                  <ul>
+                      <li><a target="_blank" href="http://theolizer.com/" data-toggle="tooltip" data-placement="top" title="" data-original-title="セオライド テクノロジー">セオライド テクノロジー</a></li>
+                  </ul>
+            </div>
+
+            <div class="wandbox-personal-sponsors">
+              <label>🐶 Personal Sponsors:</label>
+              <ul>
+                      <li><a target="_blank" href="https://twitter.com/voluntas" data-toggle="tooltip" data-placement="top" title="" data-original-title="voluntas">voluntas</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="wandbox-about-sponsors">
+            <a target="_blank" href="https://gist.github.com/melpon/8f5d7a8e991ed466d09cf887bd8d92ce">About sponsors(Japanese)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    </div>
+  </div>
+
+        </div> //johr
