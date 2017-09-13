@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-10">
+        <div class="wandbox-editor">
+            <ul id="wandbox-editor-header" class="nav nav-tabs" role="tablist">
+                <li class="active">
+                    <a id="wandbox-editor-default-tab" href="#wandbox-editor-default" role="tab" data-toggle="tab">
+                        <i class="glyphicon glyphicon-file"></i>
+                    </a>
+                </li>
+                <li>
+                    <a id="wandbox-editor-add-tab" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+            <div id="wandbox-editor-content" class="tab-content">
+                <wandbox-codemirror>
+
+                </wandbox-codemirror>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2" id="wandbox-editor-settings">
+        <label>Editor settings:</label>
+        <div class="checkbox">
+            <select class="wandbox-select">
+                <option value="default" selected="">editor: default</option>
+                <option value="vim">editor: Vim</option>
+                <option value="emacs">editor: Emacs</option>
+            </select>
+        </div>
+        <div class="checkbox">
+            <select class="wandbox-spaces-or-tab">
+                <option value="spaces-2">tab: 2-spaces</option>
+                <option value="spaces-4" selected="">tab: 4-spaces</option>
+                <option value="spaces-8">tab: 8-spaces</option>
+            <option value="tab">tab: TAB</option>
+            </select>
+        </div>
+        <div class="checkbox">
+            <select class="wandbox-tab-width">
+                <option value="tab-2">tab width: 2</option>
+                <option value="tab-4" selected="">tab width: 4</option>
+                <option value="tab-8">tab width: 8</option>
+            </select>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input class="smart-indent" type="checkbox" value="smart-indent" checked="">Smart Indent
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input class="expand-editor" type="checkbox" value="expand-editor">Expand
+            </label>
+        </div>
+    </div>
+</div>

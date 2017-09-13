@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-md-10">
+        <div class="panel-group" role="tablist" id="wandbox-stdin-accordion" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <a id="wandbox-stdin-button" data-toggle="collapse" data-parent="#wandbox-stdin-accordion" href="#wandbox-stdin-body" aria-expanded="true">
+                    Stdin
+                </a>
+                <div id="wandbox-stdin-body" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="stdin" id="stdin">
+                            <div class="CodeMirror cm-s-default">
+                                <div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div>
+                                <div class="CodeMirror-vscrollbar" cm-not-content="true">
+                                    <div style="min-width: 1px;"></div>
+                                </div>
+                                <div class="CodeMirror-hscrollbar" cm-not-content="true">
+                                    <div style="height: 100%; min-height: 1px;"></div>
+                                </div>
+                                <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
+                                <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
+                                <div class="CodeMirror-scroll" tabindex="-1">
+                                    <div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;">
+                                        <div style="position: relative;">
+                                            <div class="CodeMirror-lines">
+                                                <div style="position: relative; outline: none;">
+                                                    <div class="CodeMirror-measure"></div>
+                                                    <div class="CodeMirror-measure">
+                                                        <pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre>
+                                                    </div>
+                                                    <div style="position: relative; z-index: 1;"></div>
+                                                    <div class="CodeMirror-cursors"></div>
+                                                    <div class="CodeMirror-code"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="position: absolute; height: 30px; width: 1px;"></div>
+                                    <div class="CodeMirror-gutters" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <a href="/compile" class="btn btn-default" id="wandbox-compile">Run (or Ctrl+Enter)</a>
+        <img src="/static/compiling.gif" alt="Compiling" id="wandbox-compiling" style="display: none;">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <div id="result-container">
+            <div class="tabbable tabs-left">
+                <ul class="nav nav-tabs"></ul>
+            </div>
+            <div class="tab-content"></div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div id="result-container-settings">
+            <div class="checkbox">
+                <label>
+        <input class="nowrap-output-window" type="checkbox" value="nowrap-output-window">No Wrap
+      </label>
+            </div>
+            <div class="checkbox">
+                <label>
+        <input class="expand-output-window" type="checkbox" value="expand-output-window">Expand
+      </label>
+            </div>
+        </div>
+    </div>
+</div>
