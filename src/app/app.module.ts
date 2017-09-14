@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModel } from '@angular/forms';
 import { NgModule, Pipe, Directive, Component } from '@angular/core';
 
@@ -15,6 +16,7 @@ import { CompileComponent } from './components/compile/compile.component';
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
         CodemirrorModule
     ],
     declarations: [
