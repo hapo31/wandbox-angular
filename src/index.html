@@ -2,697 +2,670 @@
 <!--<![endif]-->
 
 <head>
-  <meta charset="UTF-8">
-
-  <title>[Wandbox]三へ( へ՞ਊ ՞)へ ﾊｯﾊｯ</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="description" content="Wandbox is Online Compiler">
-  <meta name="author" content="melpon, kikairoya">
-
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/codemirror.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/addon/dialog/dialog.min.css">
-  <link rel="stylesheet" href="./assets/css/root.css">
-
-  <script async="" src="https://www.google-analytics.com/analytics.js"></script>
-  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script src="//platform.twitter.com/widgets.js" async=""></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/codemirror.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/addon/mode/simple.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/clike/clike.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/d/d.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/ruby/ruby.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/python/python.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/perl/perl.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/erlang/erlang.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/haskell/haskell.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/shell/shell.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/lua/lua.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/php/php.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/commonlisp/commonlisp.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/pascal/pascal.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/rust/rust.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/groovy/groovy.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/javascript/javascript.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/coffeescript/coffeescript.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/swift/swift.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/mllike/mllike.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/go/go.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/crystal/crystal.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/keymap/vim.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/keymap/emacs.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/addon/search/searchcursor.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/addon/edit/matchbrackets.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/addon/dialog/dialog.min.js"></script>
-  <script src="/static/js/jquery.url.js"></script>
-  <script src="/static/js/jquery.cookie.js"></script>
-  <script src="/static/js/ansi_up.js"></script>
-  <script src="/static/js/PostEventSource.js"></script>
-
-  <script>
-    var URL_COMPILE = '/compile';
-    var URL_PERMLINK = '/permlink';
-    var URL_API_TEMPLATE = '/api/template/';
-    var USING_PERMLINK = false;
-    var JSON_CODE = null;
-    var LOGIN_NAME = null;
-    var LOGIN_AVATAR_URL = null;
-    var DEFAULT_COMPILER = 'gcc-head';
-    var EDITOR_MODE_MAPPING = {
-      'C++': 'text/x-c++src',
-      'C': 'text/x-csrc',
-      'CPP': 'text/x-csrc',
-      'D': 'text/x-d',
-      'Ruby': 'text/x-ruby',
-      'Python': 'text/x-python',
-      'Perl': 'text/x-perl',
-      'Erlang': 'text/x-erlang',
-      'C#': 'text/x-csharp',
-      'Haskell': 'text/x-haskell',
-      'Bash script': 'text/x-sh',
-      'Lua': 'text/x-lua',
-      'PHP': 'text/x-php',
-      'Lisp': 'text/x-common-lisp',
-      'Pascal': 'text/x-pascal',
-      'Rust': 'text/x-rustsrc',
-      'Java': 'text/x-java',
-      'Groovy': 'text/x-groovy',
-      'JavaScript': 'text/javascript',
-      'CoffeeScript': 'text/x-coffeescript',
-      'Elixir': 'text/x-ruby',
-      'Scala': 'text/x-scala',
-      'Vim script': 'text/x-csrc',
-      'Swift': 'text/x-swift',
-      'OCaml': 'text/x-ocaml',
-      'Go': 'text/x-go',
-      'Crystal': 'text/x-crystal',
-      'OpenSSL': 'text/x-sh',
-    };
-    var COMPILER_NAME_TO_TAB_ID = {
+    <meta charset="UTF-8">
+
+    <title>[Wandbox]三へ( へ՞ਊ ՞)へ ﾊｯﾊｯ</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="Wandbox is Online Compiler">
+    <meta name="author" content="melpon, kikairoya">
 
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-      'bash': 'compiler-tab-227',
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/codemirror.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/addon/dialog/dialog.min.css">
+    <link rel="stylesheet" href="./assets/css/root.css">
 
-      'clang-3.1': 'compiler-tab-75',
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//platform.twitter.com/widgets.js" async=""></script>
+    <script src="/static/js/jquery.url.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/ansi_up.js"></script>
+    <script src="/static/js/PostEventSource.js"></script>
 
-      'clang-3.1-c': 'compiler-tab-61',
+    <script>
+        var URL_COMPILE = '/compile';
+        var URL_PERMLINK = '/permlink';
+        var URL_API_TEMPLATE = '/api/template/';
+        var USING_PERMLINK = false;
+        var JSON_CODE = null;
+        var LOGIN_NAME = null;
+        var LOGIN_AVATAR_URL = null;
+        var DEFAULT_COMPILER = 'gcc-head';
+        var EDITOR_MODE_MAPPING = {
+            'C++': 'text/x-c++src',
+            'C': 'text/x-csrc',
+            'CPP': 'text/x-csrc',
+            'D': 'text/x-d',
+            'Ruby': 'text/x-ruby',
+            'Python': 'text/x-python',
+            'Perl': 'text/x-perl',
+            'Erlang': 'text/x-erlang',
+            'C#': 'text/x-csharp',
+            'Haskell': 'text/x-haskell',
+            'Bash script': 'text/x-sh',
+            'Lua': 'text/x-lua',
+            'PHP': 'text/x-php',
+            'Lisp': 'text/x-common-lisp',
+            'Pascal': 'text/x-pascal',
+            'Rust': 'text/x-rustsrc',
+            'Java': 'text/x-java',
+            'Groovy': 'text/x-groovy',
+            'JavaScript': 'text/javascript',
+            'CoffeeScript': 'text/x-coffeescript',
+            'Elixir': 'text/x-ruby',
+            'Scala': 'text/x-scala',
+            'Vim script': 'text/x-csrc',
+            'Swift': 'text/x-swift',
+            'OCaml': 'text/x-ocaml',
+            'Go': 'text/x-go',
+            'Crystal': 'text/x-crystal',
+            'OpenSSL': 'text/x-sh',
+        };
+        var COMPILER_NAME_TO_TAB_ID = {
 
-      'clang-3.2': 'compiler-tab-74',
 
-      'clang-3.2-c': 'compiler-tab-60',
+            'bash': 'compiler-tab-227',
 
-      'clang-3.3': 'compiler-tab-73',
+            'clang-3.1': 'compiler-tab-75',
 
-      'clang-3.3-c': 'compiler-tab-59',
+            'clang-3.1-c': 'compiler-tab-61',
 
-      'clang-3.4': 'compiler-tab-72',
+            'clang-3.2': 'compiler-tab-74',
 
-      'clang-3.4-c': 'compiler-tab-58',
+            'clang-3.2-c': 'compiler-tab-60',
 
-      'clang-3.5.0': 'compiler-tab-71',
+            'clang-3.3': 'compiler-tab-73',
 
-      'clang-3.5.0-c': 'compiler-tab-57',
+            'clang-3.3-c': 'compiler-tab-59',
 
-      'clang-3.6.0': 'compiler-tab-70',
+            'clang-3.4': 'compiler-tab-72',
 
-      'clang-3.6.0-c': 'compiler-tab-56',
+            'clang-3.4-c': 'compiler-tab-58',
 
-      'clang-3.7.1': 'compiler-tab-69',
+            'clang-3.5.0': 'compiler-tab-71',
 
-      'clang-3.7.1-c': 'compiler-tab-55',
+            'clang-3.5.0-c': 'compiler-tab-57',
 
-      'clang-3.8.1': 'compiler-tab-68',
+            'clang-3.6.0': 'compiler-tab-70',
 
-      'clang-3.8.1-c': 'compiler-tab-54',
+            'clang-3.6.0-c': 'compiler-tab-56',
 
-      'clang-3.9.1': 'compiler-tab-67',
+            'clang-3.7.1': 'compiler-tab-69',
 
-      'clang-3.9.1-c': 'compiler-tab-53',
+            'clang-3.7.1-c': 'compiler-tab-55',
 
-      'clang-4.0.0': 'compiler-tab-66',
+            'clang-3.8.1': 'compiler-tab-68',
 
-      'clang-4.0.0-c': 'compiler-tab-52',
+            'clang-3.8.1-c': 'compiler-tab-54',
 
-      'clang-4.0.1': 'compiler-tab-65',
+            'clang-3.9.1': 'compiler-tab-67',
 
-      'clang-4.0.1-c': 'compiler-tab-51',
+            'clang-3.9.1-c': 'compiler-tab-53',
 
-      'clang-5.0.0': 'compiler-tab-64',
+            'clang-4.0.0': 'compiler-tab-66',
 
-      'clang-5.0.0-c': 'compiler-tab-50',
+            'clang-4.0.0-c': 'compiler-tab-52',
 
-      'clang-head': 'compiler-tab-63',
+            'clang-4.0.1': 'compiler-tab-65',
 
-      'clang-head-c': 'compiler-tab-49',
+            'clang-4.0.1-c': 'compiler-tab-51',
 
-      'clang-head-pp': 'compiler-tab-62',
+            'clang-5.0.0': 'compiler-tab-64',
 
-      'clisp-2.49': 'compiler-tab-198',
+            'clang-5.0.0-c': 'compiler-tab-50',
 
-      'coffeescript-1.10.0': 'compiler-tab-162',
+            'clang-head': 'compiler-tab-63',
 
-      'coffeescript-1.11.1': 'compiler-tab-161',
+            'clang-head-c': 'compiler-tab-49',
 
-      'coffeescript-1.12.3': 'compiler-tab-160',
+            'clang-head-pp': 'compiler-tab-62',
 
-      'coffeescript-1.12.6': 'compiler-tab-159',
+            'clisp-2.49': 'compiler-tab-198',
 
-      'coffeescript-1.12.7': 'compiler-tab-158',
+            'coffeescript-1.10.0': 'compiler-tab-162',
 
-      'coffeescript-head': 'compiler-tab-157',
+            'coffeescript-1.11.1': 'compiler-tab-161',
 
-      'cpython-2.7-head': 'compiler-tab-120',
+            'coffeescript-1.12.3': 'compiler-tab-160',
 
-      'cpython-2.7.13': 'compiler-tab-127',
+            'coffeescript-1.12.6': 'compiler-tab-159',
 
-      'cpython-2.7.3': 'compiler-tab-128',
+            'coffeescript-1.12.7': 'compiler-tab-158',
 
-      'cpython-3.4.3': 'compiler-tab-126',
+            'coffeescript-head': 'compiler-tab-157',
 
-      'cpython-3.5.0': 'compiler-tab-125',
+            'cpython-2.7-head': 'compiler-tab-120',
 
-      'cpython-3.5.1': 'compiler-tab-124',
+            'cpython-2.7.13': 'compiler-tab-127',
 
-      'cpython-3.6.0': 'compiler-tab-123',
+            'cpython-2.7.3': 'compiler-tab-128',
 
-      'cpython-3.6.1': 'compiler-tab-122',
+            'cpython-3.4.3': 'compiler-tab-126',
 
-      'cpython-3.6.2': 'compiler-tab-121',
+            'cpython-3.5.0': 'compiler-tab-125',
 
-      'cpython-head': 'compiler-tab-119',
+            'cpython-3.5.1': 'compiler-tab-124',
 
-      'crystal-0.20.5': 'compiler-tab-235',
+            'cpython-3.6.0': 'compiler-tab-123',
 
-      'crystal-0.21.1': 'compiler-tab-234',
+            'cpython-3.6.1': 'compiler-tab-122',
 
-      'crystal-0.22.0': 'compiler-tab-233',
+            'cpython-3.6.2': 'compiler-tab-121',
 
-      'crystal-0.23.1': 'compiler-tab-232',
+            'cpython-head': 'compiler-tab-119',
 
-      'crystal-head': 'compiler-tab-231',
+            'crystal-0.20.5': 'compiler-tab-235',
 
-      'dmd-2.069.2': 'compiler-tab-104',
+            'crystal-0.21.1': 'compiler-tab-234',
 
-      'dmd-2.073.0': 'compiler-tab-103',
+            'crystal-0.22.0': 'compiler-tab-233',
 
-      'dmd-2.074.1': 'compiler-tab-102',
+            'crystal-0.23.1': 'compiler-tab-232',
 
-      'dmd-2.076.0': 'compiler-tab-101',
+            'crystal-head': 'compiler-tab-231',
 
-      'dmd-head': 'compiler-tab-100',
+            'dmd-2.069.2': 'compiler-tab-104',
 
-      'elixir-1.3.4': 'compiler-tab-94',
+            'dmd-2.073.0': 'compiler-tab-103',
 
-      'elixir-1.4.1': 'compiler-tab-93',
+            'dmd-2.074.1': 'compiler-tab-102',
 
-      'elixir-1.4.5': 'compiler-tab-92',
+            'dmd-2.076.0': 'compiler-tab-101',
 
-      'elixir-1.5.0': 'compiler-tab-91',
+            'dmd-head': 'compiler-tab-100',
 
-      'elixir-1.5.1': 'compiler-tab-90',
+            'elixir-1.3.4': 'compiler-tab-94',
 
-      'elixir-head': 'compiler-tab-89',
+            'elixir-1.4.1': 'compiler-tab-93',
 
-      'erlang-17.5': 'compiler-tab-88',
+            'elixir-1.4.5': 'compiler-tab-92',
 
-      'erlang-18.3': 'compiler-tab-87',
+            'elixir-1.5.0': 'compiler-tab-91',
 
-      'erlang-19.2': 'compiler-tab-86',
+            'elixir-1.5.1': 'compiler-tab-90',
 
-      'erlang-20.0': 'compiler-tab-85',
+            'elixir-head': 'compiler-tab-89',
 
-      'erlang-head': 'compiler-tab-84',
+            'erlang-17.5': 'compiler-tab-88',
 
-      'fpc-2.6.2': 'compiler-tab-197',
+            'erlang-18.3': 'compiler-tab-87',
 
-      'fpc-2.6.4': 'compiler-tab-196',
+            'erlang-19.2': 'compiler-tab-86',
 
-      'fpc-3.0.2': 'compiler-tab-195',
+            'erlang-20.0': 'compiler-tab-85',
 
-      'fpc-head': 'compiler-tab-194',
+            'erlang-head': 'compiler-tab-84',
 
-      'gcc-4.4.7': 'compiler-tab-48',
+            'fpc-2.6.2': 'compiler-tab-197',
 
-      'gcc-4.4.7-c': 'compiler-tab-23',
+            'fpc-2.6.4': 'compiler-tab-196',
 
-      'gcc-4.5.4': 'compiler-tab-47',
+            'fpc-3.0.2': 'compiler-tab-195',
 
-      'gcc-4.5.4-c': 'compiler-tab-22',
+            'fpc-head': 'compiler-tab-194',
 
-      'gcc-4.6.4': 'compiler-tab-46',
+            'gcc-4.4.7': 'compiler-tab-48',
 
-      'gcc-4.6.4-c': 'compiler-tab-21',
+            'gcc-4.4.7-c': 'compiler-tab-23',
 
-      'gcc-4.7.3': 'compiler-tab-45',
+            'gcc-4.5.4': 'compiler-tab-47',
 
-      'gcc-4.7.3-c': 'compiler-tab-20',
+            'gcc-4.5.4-c': 'compiler-tab-22',
 
-      'gcc-4.7.4': 'compiler-tab-44',
+            'gcc-4.6.4': 'compiler-tab-46',
 
-      'gcc-4.7.4-c': 'compiler-tab-19',
+            'gcc-4.6.4-c': 'compiler-tab-21',
 
-      'gcc-4.8.1': 'compiler-tab-43',
+            'gcc-4.7.3': 'compiler-tab-45',
 
-      'gcc-4.8.1-c': 'compiler-tab-18',
+            'gcc-4.7.3-c': 'compiler-tab-20',
 
-      'gcc-4.8.2': 'compiler-tab-42',
+            'gcc-4.7.4': 'compiler-tab-44',
 
-      'gcc-4.8.2-c': 'compiler-tab-17',
+            'gcc-4.7.4-c': 'compiler-tab-19',
 
-      'gcc-4.8.3': 'compiler-tab-41',
+            'gcc-4.8.1': 'compiler-tab-43',
 
-      'gcc-4.8.3-c': 'compiler-tab-16',
+            'gcc-4.8.1-c': 'compiler-tab-18',
 
-      'gcc-4.8.4': 'compiler-tab-40',
+            'gcc-4.8.2': 'compiler-tab-42',
 
-      'gcc-4.8.4-c': 'compiler-tab-15',
+            'gcc-4.8.2-c': 'compiler-tab-17',
 
-      'gcc-4.8.5': 'compiler-tab-39',
+            'gcc-4.8.3': 'compiler-tab-41',
 
-      'gcc-4.8.5-c': 'compiler-tab-14',
+            'gcc-4.8.3-c': 'compiler-tab-16',
 
-      'gcc-4.9.0': 'compiler-tab-38',
+            'gcc-4.8.4': 'compiler-tab-40',
 
-      'gcc-4.9.0-c': 'compiler-tab-13',
+            'gcc-4.8.4-c': 'compiler-tab-15',
 
-      'gcc-4.9.1': 'compiler-tab-37',
+            'gcc-4.8.5': 'compiler-tab-39',
 
-      'gcc-4.9.1-c': 'compiler-tab-12',
+            'gcc-4.8.5-c': 'compiler-tab-14',
 
-      'gcc-4.9.2': 'compiler-tab-36',
+            'gcc-4.9.0': 'compiler-tab-38',
 
-      'gcc-4.9.2-c': 'compiler-tab-11',
+            'gcc-4.9.0-c': 'compiler-tab-13',
 
-      'gcc-4.9.3': 'compiler-tab-35',
+            'gcc-4.9.1': 'compiler-tab-37',
 
-      'gcc-4.9.3-c': 'compiler-tab-10',
+            'gcc-4.9.1-c': 'compiler-tab-12',
 
-      'gcc-5.1.0': 'compiler-tab-34',
+            'gcc-4.9.2': 'compiler-tab-36',
 
-      'gcc-5.1.0-c': 'compiler-tab-9',
+            'gcc-4.9.2-c': 'compiler-tab-11',
 
-      'gcc-5.2.0': 'compiler-tab-33',
+            'gcc-4.9.3': 'compiler-tab-35',
 
-      'gcc-5.2.0-c': 'compiler-tab-8',
+            'gcc-4.9.3-c': 'compiler-tab-10',
 
-      'gcc-5.3.0': 'compiler-tab-32',
+            'gcc-5.1.0': 'compiler-tab-34',
 
-      'gcc-5.3.0-c': 'compiler-tab-7',
+            'gcc-5.1.0-c': 'compiler-tab-9',
 
-      'gcc-5.4.0': 'compiler-tab-31',
+            'gcc-5.2.0': 'compiler-tab-33',
 
-      'gcc-5.4.0-c': 'compiler-tab-6',
+            'gcc-5.2.0-c': 'compiler-tab-8',
 
-      'gcc-6.1.0': 'compiler-tab-30',
+            'gcc-5.3.0': 'compiler-tab-32',
 
-      'gcc-6.1.0-c': 'compiler-tab-5',
+            'gcc-5.3.0-c': 'compiler-tab-7',
 
-      'gcc-6.2.0': 'compiler-tab-29',
+            'gcc-5.4.0': 'compiler-tab-31',
 
-      'gcc-6.2.0-c': 'compiler-tab-4',
+            'gcc-5.4.0-c': 'compiler-tab-6',
 
-      'gcc-6.3.0': 'compiler-tab-28',
+            'gcc-6.1.0': 'compiler-tab-30',
 
-      'gcc-6.3.0-c': 'compiler-tab-3',
+            'gcc-6.1.0-c': 'compiler-tab-5',
 
-      'gcc-7.1.0': 'compiler-tab-27',
+            'gcc-6.2.0': 'compiler-tab-29',
 
-      'gcc-7.1.0-c': 'compiler-tab-2',
+            'gcc-6.2.0-c': 'compiler-tab-4',
 
-      'gcc-7.2.0': 'compiler-tab-26',
+            'gcc-6.3.0': 'compiler-tab-28',
 
-      'gcc-7.2.0-c': 'compiler-tab-1',
+            'gcc-6.3.0-c': 'compiler-tab-3',
 
-      'gcc-head': 'compiler-tab-25',
+            'gcc-7.1.0': 'compiler-tab-27',
 
-      'gcc-head-c': 'compiler-tab-0',
+            'gcc-7.1.0-c': 'compiler-tab-2',
 
-      'gcc-head-pp': 'compiler-tab-24',
+            'gcc-7.2.0': 'compiler-tab-26',
 
-      'gdc-head': 'compiler-tab-105',
+            'gcc-7.2.0-c': 'compiler-tab-1',
 
-      'ghc-7.10.3': 'compiler-tab-97',
+            'gcc-head': 'compiler-tab-25',
 
-      'ghc-7.6.3': 'compiler-tab-99',
+            'gcc-head-c': 'compiler-tab-0',
 
-      'ghc-7.8.3': 'compiler-tab-98',
+            'gcc-head-pp': 'compiler-tab-24',
 
-      'ghc-8.0.2': 'compiler-tab-96',
+            'gdc-head': 'compiler-tab-105',
 
-      'ghc-head': 'compiler-tab-95',
+            'ghc-7.10.3': 'compiler-tab-97',
 
-      'go-1.5.4': 'compiler-tab-222',
+            'ghc-7.6.3': 'compiler-tab-99',
 
-      'go-1.6.3': 'compiler-tab-221',
+            'ghc-7.8.3': 'compiler-tab-98',
 
-      'go-1.7.5': 'compiler-tab-220',
+            'ghc-8.0.2': 'compiler-tab-96',
 
-      'go-1.8': 'compiler-tab-219',
+            'ghc-head': 'compiler-tab-95',
 
-      'go-1.8.3': 'compiler-tab-218',
+            'go-1.5.4': 'compiler-tab-222',
 
-      'go-head': 'compiler-tab-217',
+            'go-1.6.3': 'compiler-tab-221',
 
-      'groovy-2.4.11': 'compiler-tab-148',
+            'go-1.7.5': 'compiler-tab-220',
 
-      'groovy-2.4.8': 'compiler-tab-149',
+            'go-1.8': 'compiler-tab-219',
 
-      'groovy-head': 'compiler-tab-147',
+            'go-1.8.3': 'compiler-tab-218',
 
-      'lazyk': 'compiler-tab-199',
+            'go-head': 'compiler-tab-217',
 
-      'ldc-1.1.1': 'compiler-tab-108',
+            'groovy-2.4.11': 'compiler-tab-148',
 
-      'ldc-1.2.0': 'compiler-tab-107',
+            'groovy-2.4.8': 'compiler-tab-149',
 
-      'ldc-head': 'compiler-tab-106',
+            'groovy-head': 'compiler-tab-147',
 
-      'lua-5.2.2': 'compiler-tab-189',
+            'lazyk': 'compiler-tab-199',
 
-      'lua-5.3.0': 'compiler-tab-188',
+            'ldc-1.1.1': 'compiler-tab-108',
 
-      'lua-5.3.4': 'compiler-tab-187',
+            'ldc-1.2.0': 'compiler-tab-107',
 
-      'mcs-2.6.7': 'compiler-tab-247',
+            'ldc-head': 'compiler-tab-106',
 
-      'mono-3.12.0': 'compiler-tab-80',
+            'lua-5.2.2': 'compiler-tab-189',
 
-      'mono-3.2.0': 'compiler-tab-82',
+            'lua-5.3.0': 'compiler-tab-188',
 
-      'mono-3.4.0': 'compiler-tab-81',
+            'lua-5.3.4': 'compiler-tab-187',
 
-      'mono-4.8.0.382': 'compiler-tab-79',
+            'mcs-2.6.7': 'compiler-tab-247',
 
-      'mono-5.0.1.1': 'compiler-tab-78',
+            'mono-3.12.0': 'compiler-tab-80',
 
-      'mono-head': 'compiler-tab-77',
+            'mono-3.2.0': 'compiler-tab-82',
 
-      'mruby-1.0.0': 'compiler-tab-140',
+            'mono-3.4.0': 'compiler-tab-81',
 
-      'mruby-1.1.0': 'compiler-tab-139',
+            'mono-4.8.0.382': 'compiler-tab-79',
 
-      'mruby-1.2.0': 'compiler-tab-138',
+            'mono-5.0.1.1': 'compiler-tab-78',
 
-      'mruby-head': 'compiler-tab-137',
+            'mono-head': 'compiler-tab-77',
 
-      'nim-0.16.0': 'compiler-tab-238',
+            'mruby-1.0.0': 'compiler-tab-140',
 
-      'nim-0.17.0': 'compiler-tab-237',
+            'mruby-1.1.0': 'compiler-tab-139',
 
-      'nim-head': 'compiler-tab-236',
+            'mruby-1.2.0': 'compiler-tab-138',
 
-      'nodejs-4.7.3': 'compiler-tab-156',
+            'mruby-head': 'compiler-tab-137',
 
-      'nodejs-5.12.0': 'compiler-tab-155',
+            'nim-0.16.0': 'compiler-tab-238',
 
-      'nodejs-6.11.0': 'compiler-tab-153',
+            'nim-0.17.0': 'compiler-tab-237',
 
-      'nodejs-6.9.5': 'compiler-tab-154',
+            'nim-head': 'compiler-tab-236',
 
-      'nodejs-7.5.0': 'compiler-tab-152',
+            'nodejs-4.7.3': 'compiler-tab-156',
 
-      'nodejs-8.1.2': 'compiler-tab-151',
+            'nodejs-5.12.0': 'compiler-tab-155',
 
-      'nodejs-head': 'compiler-tab-150',
+            'nodejs-6.11.0': 'compiler-tab-153',
 
-      'ocaml-4.04.0': 'compiler-tab-216',
+            'nodejs-6.9.5': 'compiler-tab-154',
 
-      'ocaml-4.04.2': 'compiler-tab-215',
+            'nodejs-7.5.0': 'compiler-tab-152',
 
-      'ocaml-head': 'compiler-tab-214',
+            'nodejs-8.1.2': 'compiler-tab-151',
 
-      'openjdk-head': 'compiler-tab-109',
+            'nodejs-head': 'compiler-tab-150',
 
-      'openjdk-jdk-10+13': 'compiler-tab-110',
+            'ocaml-4.04.0': 'compiler-tab-216',
 
-      'openjdk-jdk-9+155': 'compiler-tab-112',
+            'ocaml-4.04.2': 'compiler-tab-215',
 
-      'openjdk-jdk-9+175': 'compiler-tab-111',
+            'ocaml-head': 'compiler-tab-214',
 
-      'openjdk-jdk7u121-b00': 'compiler-tab-114',
+            'openjdk-head': 'compiler-tab-109',
 
-      'openjdk-jdk8u121-b13': 'compiler-tab-113',
+            'openjdk-jdk-10+13': 'compiler-tab-110',
 
-      'openssl-0.9.8zh': 'compiler-tab-246',
+            'openjdk-jdk-9+155': 'compiler-tab-112',
 
-      'openssl-1.0.0s': 'compiler-tab-245',
+            'openjdk-jdk-9+175': 'compiler-tab-111',
 
-      'openssl-1.0.1u': 'compiler-tab-244',
+            'openjdk-jdk7u121-b00': 'compiler-tab-114',
 
-      'openssl-1.0.2k': 'compiler-tab-243',
+            'openjdk-jdk8u121-b13': 'compiler-tab-113',
 
-      'openssl-1.0.2l': 'compiler-tab-242',
+            'openssl-0.9.8zh': 'compiler-tab-246',
 
-      'openssl-1.1.0e': 'compiler-tab-241',
+            'openssl-1.0.0s': 'compiler-tab-245',
 
-      'openssl-1.1.0f': 'compiler-tab-240',
+            'openssl-1.0.1u': 'compiler-tab-244',
 
-      'openssl-head': 'compiler-tab-239',
+            'openssl-1.0.2k': 'compiler-tab-243',
 
-      'perl-5.18.4': 'compiler-tab-181',
+            'openssl-1.0.2l': 'compiler-tab-242',
 
-      'perl-5.20.3': 'compiler-tab-180',
+            'openssl-1.1.0e': 'compiler-tab-241',
 
-      'perl-5.22.3': 'compiler-tab-179',
+            'openssl-1.1.0f': 'compiler-tab-240',
 
-      'perl-5.24.1': 'compiler-tab-178',
+            'openssl-head': 'compiler-tab-239',
 
-      'perl-5.25.10': 'compiler-tab-177',
+            'perl-5.18.4': 'compiler-tab-181',
 
-      'perl-5.26.0': 'compiler-tab-176',
+            'perl-5.20.3': 'compiler-tab-180',
 
-      'perl-5.27.1': 'compiler-tab-175',
+            'perl-5.22.3': 'compiler-tab-179',
 
-      'perl-head': 'compiler-tab-174',
+            'perl-5.24.1': 'compiler-tab-178',
 
-      'php-5.5.6': 'compiler-tab-186',
+            'perl-5.25.10': 'compiler-tab-177',
 
-      'php-5.6.30': 'compiler-tab-185',
+            'perl-5.26.0': 'compiler-tab-176',
 
-      'php-7.1.2': 'compiler-tab-184',
+            'perl-5.27.1': 'compiler-tab-175',
 
-      'php-7.1.6': 'compiler-tab-183',
+            'perl-head': 'compiler-tab-174',
 
-      'php-head': 'compiler-tab-182',
+            'php-5.5.6': 'compiler-tab-186',
 
-      'pony-0.11.3': 'compiler-tab-230',
+            'php-5.6.30': 'compiler-tab-185',
 
-      'pony-0.14.0': 'compiler-tab-229',
+            'php-7.1.2': 'compiler-tab-184',
 
-      'pony-head': 'compiler-tab-228',
+            'php-7.1.6': 'compiler-tab-183',
 
-      'pypy-2.1': 'compiler-tab-213',
+            'php-head': 'compiler-tab-182',
 
-      'pypy-2.6.1': 'compiler-tab-212',
+            'pony-0.11.3': 'compiler-tab-230',
 
-      'pypy-4.0.1': 'compiler-tab-211',
+            'pony-0.14.0': 'compiler-tab-229',
 
-      'pypy-5.5.0': 'compiler-tab-210',
+            'pony-head': 'compiler-tab-228',
 
-      'pypy-5.6.0': 'compiler-tab-209',
+            'pypy-2.1': 'compiler-tab-213',
 
-      'pypy-5.8.0-2': 'compiler-tab-208',
+            'pypy-2.6.1': 'compiler-tab-212',
 
-      'pypy-5.8.0-3': 'compiler-tab-207',
+            'pypy-4.0.1': 'compiler-tab-211',
 
-      'pypy-head': 'compiler-tab-206',
+            'pypy-5.5.0': 'compiler-tab-210',
 
-      'rill-head': 'compiler-tab-83',
+            'pypy-5.6.0': 'compiler-tab-209',
 
-      'ruby-1.9.3-p551': 'compiler-tab-136',
+            'pypy-5.8.0-2': 'compiler-tab-208',
 
-      'ruby-2.0.0-p648': 'compiler-tab-135',
+            'pypy-5.8.0-3': 'compiler-tab-207',
 
-      'ruby-2.1.10': 'compiler-tab-134',
+            'pypy-head': 'compiler-tab-206',
 
-      'ruby-2.2.6': 'compiler-tab-133',
+            'rill-head': 'compiler-tab-83',
 
-      'ruby-2.3.3': 'compiler-tab-132',
+            'ruby-1.9.3-p551': 'compiler-tab-136',
 
-      'ruby-2.4.0': 'compiler-tab-131',
+            'ruby-2.0.0-p648': 'compiler-tab-135',
 
-      'ruby-2.4.1': 'compiler-tab-130',
+            'ruby-2.1.10': 'compiler-tab-134',
 
-      'ruby-head': 'compiler-tab-129',
+            'ruby-2.2.6': 'compiler-tab-133',
 
-      'rust-1.15.0': 'compiler-tab-117',
+            'ruby-2.3.3': 'compiler-tab-132',
 
-      'rust-1.18.0': 'compiler-tab-116',
+            'ruby-2.4.0': 'compiler-tab-131',
 
-      'rust-1.7.0': 'compiler-tab-118',
+            'ruby-2.4.1': 'compiler-tab-130',
 
-      'rust-head': 'compiler-tab-115',
+            'ruby-head': 'compiler-tab-129',
 
-      'sbcl-1.2.16': 'compiler-tab-226',
+            'rust-1.15.0': 'compiler-tab-117',
 
-      'sbcl-1.3.15': 'compiler-tab-225',
+            'rust-1.18.0': 'compiler-tab-116',
 
-      'sbcl-1.3.18': 'compiler-tab-224',
+            'rust-1.7.0': 'compiler-tab-118',
 
-      'sbcl-head': 'compiler-tab-223',
+            'rust-head': 'compiler-tab-115',
 
-      'scala-2.11.8': 'compiler-tab-146',
+            'sbcl-1.2.16': 'compiler-tab-226',
 
-      'scala-2.11.x': 'compiler-tab-143',
+            'sbcl-1.3.15': 'compiler-tab-225',
 
-      'scala-2.12.1': 'compiler-tab-145',
+            'sbcl-1.3.18': 'compiler-tab-224',
 
-      'scala-2.12.2': 'compiler-tab-144',
+            'sbcl-head': 'compiler-tab-223',
 
-      'scala-2.12.x': 'compiler-tab-142',
+            'scala-2.11.8': 'compiler-tab-146',
 
-      'scala-2.13.x': 'compiler-tab-141',
+            'scala-2.11.x': 'compiler-tab-143',
 
-      'spidermonkey-24.2.0': 'compiler-tab-166',
+            'scala-2.12.1': 'compiler-tab-145',
 
-      'spidermonkey-31.2.0.rc0': 'compiler-tab-165',
+            'scala-2.12.2': 'compiler-tab-144',
 
-      'spidermonkey-38.2.1.rc0': 'compiler-tab-164',
+            'scala-2.12.x': 'compiler-tab-142',
 
-      'spidermonkey-45.0.2': 'compiler-tab-163',
+            'scala-2.13.x': 'compiler-tab-141',
 
-      'sqlite-3.17.0': 'compiler-tab-192',
+            'spidermonkey-24.2.0': 'compiler-tab-166',
 
-      'sqlite-3.19.3': 'compiler-tab-191',
+            'spidermonkey-31.2.0.rc0': 'compiler-tab-165',
 
-      'sqlite-3.8.1': 'compiler-tab-193',
+            'spidermonkey-38.2.1.rc0': 'compiler-tab-164',
 
-      'sqlite-head': 'compiler-tab-190',
+            'spidermonkey-45.0.2': 'compiler-tab-163',
 
-      'swift-2.2': 'compiler-tab-173',
+            'sqlite-3.17.0': 'compiler-tab-192',
 
-      'swift-2.2.1': 'compiler-tab-172',
+            'sqlite-3.19.3': 'compiler-tab-191',
 
-      'swift-3.0': 'compiler-tab-171',
+            'sqlite-3.8.1': 'compiler-tab-193',
 
-      'swift-3.0.1': 'compiler-tab-170',
+            'sqlite-head': 'compiler-tab-190',
 
-      'swift-3.0.2': 'compiler-tab-169',
+            'swift-2.2': 'compiler-tab-173',
 
-      'swift-3.1.1': 'compiler-tab-168',
+            'swift-2.2.1': 'compiler-tab-172',
 
-      'swift-head': 'compiler-tab-167',
+            'swift-3.0': 'compiler-tab-171',
 
-      'vim-7.4.1714': 'compiler-tab-204',
+            'swift-3.0.1': 'compiler-tab-170',
 
-      'vim-7.4.2367': 'compiler-tab-203',
+            'swift-3.0.2': 'compiler-tab-169',
 
-      'vim-7.4.729': 'compiler-tab-205',
+            'swift-3.1.1': 'compiler-tab-168',
 
-      'vim-8.0.0354': 'compiler-tab-202',
+            'swift-head': 'compiler-tab-167',
 
-      'vim-8.0.0671': 'compiler-tab-201',
+            'vim-7.4.1714': 'compiler-tab-204',
 
-      'vim-head': 'compiler-tab-200',
+            'vim-7.4.2367': 'compiler-tab-203',
 
-      'zapcc-1.0.1': 'compiler-tab-76',
+            'vim-7.4.729': 'compiler-tab-205',
 
+            'vim-8.0.0354': 'compiler-tab-202',
 
-    };
-    var LANGUAGE_NAME_TO_TAB_ID = {
+            'vim-8.0.0671': 'compiler-tab-201',
 
+            'vim-head': 'compiler-tab-200',
 
-      'Bash script': 'language-tab-227',
+            'zapcc-1.0.1': 'compiler-tab-76',
 
-      'C': 'language-tab-61',
 
-      'C#': 'language-tab-247',
+        };
+        var LANGUAGE_NAME_TO_TAB_ID = {
 
-      'C++': 'language-tab-76',
 
-      'CPP': 'language-tab-62',
+            'Bash script': 'language-tab-227',
 
-      'CoffeeScript': 'language-tab-162',
+            'C': 'language-tab-61',
 
-      'Crystal': 'language-tab-235',
+            'C#': 'language-tab-247',
 
-      'D': 'language-tab-108',
+            'C++': 'language-tab-76',
 
-      'Elixir': 'language-tab-94',
+            'CPP': 'language-tab-62',
 
-      'Erlang': 'language-tab-88',
+            'CoffeeScript': 'language-tab-162',
 
-      'Go': 'language-tab-222',
+            'Crystal': 'language-tab-235',
 
-      'Groovy': 'language-tab-149',
+            'D': 'language-tab-108',
 
-      'Haskell': 'language-tab-99',
+            'Elixir': 'language-tab-94',
 
-      'Java': 'language-tab-114',
+            'Erlang': 'language-tab-88',
 
-      'JavaScript': 'language-tab-166',
+            'Go': 'language-tab-222',
 
-      'Lazy K': 'language-tab-199',
+            'Groovy': 'language-tab-149',
 
-      'Lisp': 'language-tab-226',
+            'Haskell': 'language-tab-99',
 
-      'Lua': 'language-tab-189',
+            'Java': 'language-tab-114',
 
-      'Nim': 'language-tab-238',
+            'JavaScript': 'language-tab-166',
 
-      'OCaml': 'language-tab-216',
+            'Lazy K': 'language-tab-199',
 
-      'OpenSSL': 'language-tab-246',
+            'Lisp': 'language-tab-226',
 
-      'PHP': 'language-tab-186',
+            'Lua': 'language-tab-189',
 
-      'Pascal': 'language-tab-197',
+            'Nim': 'language-tab-238',
 
-      'Perl': 'language-tab-181',
+            'OCaml': 'language-tab-216',
 
-      'Pony': 'language-tab-230',
+            'OpenSSL': 'language-tab-246',
 
-      'Python': 'language-tab-213',
+            'PHP': 'language-tab-186',
 
-      'Rill': 'language-tab-83',
+            'Pascal': 'language-tab-197',
 
-      'Ruby': 'language-tab-140',
+            'Perl': 'language-tab-181',
 
-      'Rust': 'language-tab-118',
+            'Pony': 'language-tab-230',
 
-      'SQL': 'language-tab-193',
+            'Python': 'language-tab-213',
 
-      'Scala': 'language-tab-146',
+            'Rill': 'language-tab-83',
 
-      'Swift': 'language-tab-173',
+            'Ruby': 'language-tab-140',
 
-      'Vim script': 'language-tab-205',
+            'Rust': 'language-tab-118',
 
+            'SQL': 'language-tab-193',
 
-    };
-  </script>
-  <!--[if lt IE 9]>
+            'Scala': 'language-tab-146',
+
+            'Swift': 'language-tab-173',
+
+            'Vim script': 'language-tab-205',
+
+
+        };
+    </script>
+    <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.2/timeago.min.js"></script>
-  <script type="text/javascript">
-    $(function () {
-      var timeAgo = timeago();
-      timeAgo.render(document.querySelectorAll('.time-ago'));
-    });
-  </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.2/timeago.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var timeAgo = timeago();
+            timeAgo.render(document.querySelectorAll('.time-ago'));
+        });
+    </script>
 
-  <script>
-    document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, 'js');
-  </script>
+    <script>
+        document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, 'js');
+    </script>
 </head>
 
 <body data-webroot="/">
 
-  <noscript>
+    <noscript>
     &lt;h1&gt;&lt;a href="/nojs"&gt;Click this for noscript browsers&lt;/a&gt;&lt;/h1&gt;
   </noscript>
 
-  <div id="main" role="main">
-    <app-root></app-root>
-  </div>
+    <div id="main" role="main">
+        <app-root></app-root>
+    </div>
 
-  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.  chromium.org/developers/how-tos/chrome-frame-getting-started -->
-  <!--[if lt IE 7 ]>
+    <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.  chromium.org/developers/how-tos/chrome-frame-getting-started -->
+    <!--[if lt IE 7 ]>
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
     <script>
       window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})
