@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-10">
         <div class="wandbox-editor">
-            <editor-tab></editor-tab>
+            <editor-tab (tabChanged)="tabChanged($event)" [tabs]="tabs"></editor-tab>
             <div class="clearfix"></div>
 
             <!-- TODO -->
@@ -12,7 +12,7 @@
             <!-- TODO -->
 
             <div id="wandbox-editor-content" class="tab-content">
-                <wandbox-codemirror [config]="model.config">
+                <wandbox-codemirror [config]="model.config" (change)="editorChanged($event)" [value]="tabs[tabIndex].editorContent">
 
                 </wandbox-codemirror>
             </div>
@@ -57,4 +57,7 @@
 
 <code>
     {{model.dump}}
+</code>
+<code>
+    {{tabDump}}
 </code>

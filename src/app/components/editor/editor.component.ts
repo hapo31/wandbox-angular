@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { EditorModel } from './editor.model';
 
 import { EditorService } from './editor.service';
 
+import { TabComponent } from './tab/tab.component';
+import { TabModel, TabChangedEvent } from './tab/tab.model';
 
 @Component({
     selector: 'wandbox-editor',
@@ -13,14 +15,22 @@ import { EditorService } from './editor.service';
 })
 export class EditorComponent implements OnInit {
 
-    model: EditorModel = new EditorModel();
+    model = new EditorModel();
+
+    tabs = new Array<TabModel>();
+    tabIndex = 0;
+
+    @ViewChild(TabComponent) editorTab: TabComponent;
 
     constructor(private service: EditorService) { }
 
     ngOnInit() {
-
+        const firstTab = new TabModel();
+        firstTab.isActive = true;
+        firstTab.fileName = '';
+        firstTab.editorContent = '';
+        this.tabs.push(firstTab);
     }
-
 
     changeConfig(configName: string, value: string | number) {
         console.log(configName, value);
@@ -30,4 +40,19 @@ export class EditorComponent implements OnInit {
         });
     }
 
+    editorChanged(event: string | Event) {
+        if (typeof event === 'string') {
+            this.tabs[this.tabIndex].editorContent = event;
+        }
+    }
+
+    tabChanged(event: TabChangedEvent) {
+        this.tabIndex = event.index;
+        this.tabs[this.tabIndex].editorContent = event.data.editorContent;
+        this.service.changeEditorTabNext(event.data.editorContent);
+    }
+
+    get tabDump() {
+        return JSON.stringify(this.tabs, null, '\t');
+    }
 }

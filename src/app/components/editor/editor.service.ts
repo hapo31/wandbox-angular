@@ -3,7 +3,8 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class EditorService {
-    changeConfigSubject = new Subject<ChangeConfigEvent>();
+    private changeConfigSubject = new Subject<ChangeConfigEvent>();
+    private changeEditorSubject = new Subject<string>();
 
     get changeConfig$() {
         return this.changeConfigSubject.asObservable();
@@ -11,6 +12,14 @@ export class EditorService {
 
     changeConfigNext$(eventValue: ChangeConfigEvent) {
         this.changeConfigSubject.next(eventValue);
+    }
+
+    get changeEditorTab$() {
+        return this.changeEditorSubject.asObservable();
+    }
+
+    changeEditorTabNext(value: string) {
+        this.changeEditorSubject.next(value);
     }
 }
 
