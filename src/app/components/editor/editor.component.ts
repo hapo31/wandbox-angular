@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { EditorModel } from './editor.model';
+import { TabModel, TabChangedEvent } from './tab/tab.model';
 
 import { EditorService } from './editor.service';
 
-import { TabComponent } from './tab/tab.component';
-import { TabModel, TabChangedEvent } from './tab/tab.model';
 
 @Component({
     selector: 'wandbox-editor',
@@ -19,8 +18,6 @@ export class EditorComponent implements OnInit {
 
     tabs = new Array<TabModel>();
     tabIndex = 0;
-
-    @ViewChild(TabComponent) editorTab: TabComponent;
 
     constructor(private service: EditorService) { }
 
