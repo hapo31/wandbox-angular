@@ -9,7 +9,7 @@ export class EditorService {
         return this.changeConfigSubject.asObservable();
     }
 
-    subscribeChange$(eventValue: ChangeConfigEvent) {
+    changeConfigNext$(eventValue: ChangeConfigEvent) {
         this.changeConfigSubject.next(eventValue);
     }
 }

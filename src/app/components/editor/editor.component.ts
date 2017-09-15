@@ -24,7 +24,7 @@ export class EditorComponent implements OnInit {
 
     changeConfig(configName: string, value: string | number) {
         console.log(configName, value);
-        this.service.subscribeChange$({
+        this.service.changeConfigNext$({
             name: configName,
             value: value
         });

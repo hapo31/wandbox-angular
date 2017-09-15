@@ -1,19 +1,16 @@
 <div class="row">
     <div class="col-md-10">
         <div class="wandbox-editor">
-            <ul id="wandbox-editor-header" class="nav nav-tabs" role="tablist">
-                <li class="active">
-                    <a id="wandbox-editor-default-tab" href="#wandbox-editor-default" role="tab" data-toggle="tab">
-                        <i class="glyphicon glyphicon-file"></i>
-                    </a>
-                </li>
-                <li>
-                    <a id="wandbox-editor-add-tab" class="btn btn-default">
-                        <i class="glyphicon glyphicon-plus"></i>
-                    </a>
-                </li>
-            </ul>
+            <editor-tab></editor-tab>
             <div class="clearfix"></div>
+
+            <!-- TODO -->
+            <input type="text" [(ngModel)]="model.mode">
+            <button class="btn" (click)="changeConfig('mode', model.mode)">
+                submit mode
+            </button>
+            <!-- TODO -->
+
             <div id="wandbox-editor-content" class="tab-content">
                 <wandbox-codemirror [config]="model.config">
 

@@ -9,7 +9,14 @@ export class EditorModel {
     config: EditorConfigModel = new EditorConfigModel();
 
     get dump() {
-        return JSON.stringify(this.config);
+        return JSON.stringify(this.config, null, '\n');
+    }
+
+    get mode() {
+        return this.config.mode;
+    }
+    set mode(value) {
+        this.config.mode = value;
     }
 
     get keyMap() {
@@ -64,5 +71,6 @@ export class EditorConfigModel {
     smartIndent: boolean = true;
     expand: boolean = false;
     tabSize: number = 4;
-    mode: string = 'JavaScript';
+    indentUnit: number = 4;
+    mode: string = 'text/x-csrc';
 }
