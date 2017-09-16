@@ -31,7 +31,7 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
 
     @ViewChild('host') host;
 
-    private codemirror: any = null;
+    private codemirror: CodeMirror.Editor = null;
 
     constructor(private service: EditorService) {
         service.changeConfig$.subscribe(v => {
