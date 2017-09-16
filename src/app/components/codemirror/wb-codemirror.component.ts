@@ -1,3 +1,7 @@
+/// <reference path="../../../../node_modules/@types/codemirror/index.d.ts" />
+
+declare let CodeMirror;
+
 import {
     Component,
     Input,
@@ -9,8 +13,6 @@ import {
 
 import { EditorConfigModel } from '../editor/editor.model';
 import { EditorService } from '../editor/editor.service';
-
-declare const CodeMirror: any;
 
 @Component({
     selector: 'wandbox-codemirror',

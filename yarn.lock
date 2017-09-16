@@ -175,6 +175,10 @@
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.0.33.tgz#bc0b28356af46fe9ec64495588ee61503fd34ce5"
 
+"@types/codemirror@^0.0.46":
+  version "0.0.46"
+  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-0.0.46.tgz#64e732e5b24d2fbacf29230e7db0089c15ef4b3e"
+
 "@types/jasmine@*", "@types/jasmine@~2.5.53":
   version "2.5.54"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.54.tgz#a6b5f2ae2afb6e0307774e8c7c608e037d491c63"
