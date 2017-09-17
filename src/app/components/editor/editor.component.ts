@@ -25,7 +25,7 @@ export class EditorComponent implements OnInit {
         const firstTab = new TabModel();
         firstTab.isActive = true;
         firstTab.fileName = '';
-        firstTab.editorContent = '';
+        firstTab.editorContent = '12345';
         this.tabs.push(firstTab);
     }
 
