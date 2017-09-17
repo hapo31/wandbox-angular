@@ -61,16 +61,16 @@ export class EditorModel {
         this.config.expand = value;
     }
 
-    private _tabWidth: number = 4;
+    private _tabWidth = 4;
 }
 
 export class EditorConfigModel {
-    keyMap: string = 'default';;
-    lineNumbers: boolean = true;
-    indentWithTabs: boolean = true;
-    smartIndent: boolean = true;
-    expand: boolean = false;
-    tabSize: number = 4;
-    indentUnit: number = 4;
-    mode: string = 'text/x-csrc';
+    keyMap = 'default';
+    lineNumbers = true;
+    indentWithTabs = true;
+    smartIndent = true;
+    expand = false;
+    tabSize = 4;
+    indentUnit = 4;
+    mode = 'text/x-csrc';
 }

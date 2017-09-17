@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LanguageModel, CheckboxOption } from './compiler.model';
+import { LanguageModel, OptionType } from './compiler.model';
 
 @Component({
     selector: 'wandbox-compiler',
@@ -95,7 +95,7 @@ export class CompilerComponent implements OnInit {
         } as any);
     }
 
-    clickLanguage(index:number, event: UIEvent) {
+    clickLanguage(index: number, event: UIEvent) {
         event.stopPropagation();
         event.preventDefault();
         this.selectedLangIndex = index;
@@ -108,7 +108,7 @@ export class CompilerComponent implements OnInit {
 
     }
 
-    changeOption(index: number, item: CheckboxOption) {
+    changeOption(index: number, item: OptionType) {
         console.log('changed', index, item);
     }
 

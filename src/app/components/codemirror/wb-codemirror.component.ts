@@ -1,4 +1,4 @@
-/// <reference path="../../../../node_modules/@types/codemirror/index.d.ts" />
+/// <reference path='../../../../node_modules/@types/codemirror/index.d.ts' />
 
 declare let CodeMirror;
 
@@ -78,8 +78,8 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
                     cm.replaceSelection(spaces, 'end', '+input');
                 }
             },
-            "Shift-Tab": (cm) => {
-                cm.execCommand("indentLess");
+            'Shift-Tab': (cm) => {
+                cm.execCommand('indentLess');
             },
 
         });
