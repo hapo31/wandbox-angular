@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-md-12">
-        <p class="wandbox-current-compiler-language label label-success">{{languages[selectedLangIndex].name}}</p>
+        <p class="wandbox-current-compiler-language label label-success">{{selectedCompiler.name}}</p>
         <div id="wandbox-compiler" class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
-                    <span class="wandbox-current-compiler-text" title="mcs HEAD 5.7.0.0">{{languages[selectedLangIndex].name}}</span>
+                    <span class="wandbox-current-compiler-text" title="mcs HEAD 5.7.0.0">{{selectedCompiler.name}} {{selectedCompiler.version}}</span>
                     <span class="caret"></span>
                 </button>
             <div class="dropdown-menu wandbox-dropdown-area" role="menu" aria-labelledby="dropdown-language">
@@ -12,10 +12,10 @@
                 <div class="wandbox-dropdown-detail-area">
                     <div class="tab-content">
                         <div class="tab-pane-">
-                            <legend>{{languages[selectedLangIndex].name}}</legend>
+                            <legend>{{selectedLanguage.name}}</legend>
                             <ul>
-                                <li *ngFor="let compiler of languages[selectedLangIndex].compilers;">
-                                    <a class="wandbox-dropdown-listitem" href="#TODO">
+                                <li *ngFor="let compiler of selectedLanguage.compilers;let i=index;">
+                                    <a class="wandbox-dropdown-listitem" (click)="clickCompiler(i)">
                                         {{compiler.name}} {{compiler.version}}
                                     </a>
                                 </li>
@@ -39,40 +39,27 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div id="wandbox-compile-options" class="tab-content">
-            <div id="compiler-tab-227" role="tabpanel" class="tab-pane" data-compiler="bash" data-language="Bash script" data-display-name="bash" data-command="bash prog.sh" data-full-name="[Bash script] bash 4.3.48(1)-release" data-options-raw="runtime" data-default-template="bash">
+        <div class="tab-content">
+            <div class="tab-pane-">
                 <p class="wandbox-insert-template"><a href="#">Load template</a></p>
-                <label>Runtime options:</label>
                 <div class="option-raw runtime-option-raw">
-                    <div class="CodeMirror cm-s-default">
-                        <div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div>
-                        <div class="CodeMirror-vscrollbar" cm-not-content="true">
-                            <div style="min-width: 1px;"></div>
-                        </div>
-                        <div class="CodeMirror-hscrollbar" cm-not-content="true">
-                            <div style="height: 100%; min-height: 1px;"></div>
-                        </div>
-                        <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
-                        <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
-                        <div class="CodeMirror-scroll" tabindex="-1">
-                            <div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px;">
-                                <div style="position: relative;">
-                                    <div class="CodeMirror-lines">
-                                        <div style="position: relative; outline: none;">
-                                            <div class="CodeMirror-measure"></div>
-                                            <div class="CodeMirror-measure">
-                                                <pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre>
-                                            </div>
-                                            <div style="position: relative; z-index: 1;"></div>
-                                            <div class="CodeMirror-cursors"></div>
-                                            <div class="CodeMirror-code"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="position: absolute; height: 30px; width: 1px;"></div>
-                            <div class="CodeMirror-gutters" style="display: none;"></div>
-                        </div>
+                    <div class="checkbox" *ngFor="let option of selectedCompiler.options; let i=index;">
+                        <ng-container *ngIf="option.type === 'checkbox'">
+                            <label (change)="changeOption(i, option)">
+                                <input type="checkbox" [(ngModel)]="option.item.checked" [attr.checked]="option.item.checked || null"/>
+                                {{option.item.name}}
+                            </label>
+                        </ng-container>
+                        <ng-container *ngIf="option.type === 'select'">
+                            <select class="col-md-12" [(ngModel)]="option.item.value" (change)="changeOption(i, option)">
+                                <option *ngFor="let name of option.item.names; let i=index;"
+                                        value="{{option.item.values[i]}}">{{name}}</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="option.type === 'textarea'">
+                            <label>{{option.item.name}}:</label>
+                            <textarea (keyup)="changeOption(i, option)" [(ngModel)]="option.item.value" rows="{{option.item.value.split('\n').length + 1}}"></textarea>
+                        </ng-container>
                     </div>
                 </div>
             </div>
