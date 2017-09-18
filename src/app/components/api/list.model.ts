@@ -1,7 +1,3 @@
-export interface ListResponse {
-    'hoge-fuga': string;
-}
-
 export interface CompilerInfo {
     'compiler-option-raw': boolean;
     'runtime-option-raw': boolean;
