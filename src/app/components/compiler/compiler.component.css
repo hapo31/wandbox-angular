@@ -2,6 +2,12 @@
     resize: none;
 }
 
+li>a.wandbox-dropdown-listitem.selected,
+li>a.wandbox-dropdown-language-item.selected {
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
 .radio label,
 .checkbox label {
     padding-left: 20px;

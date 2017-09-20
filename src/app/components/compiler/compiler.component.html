@@ -14,7 +14,7 @@
                             <legend>{{selectedLanguage.languageName}}</legend>
                             <ul>
                                 <li *ngFor="let compiler of selectedLanguage.compilers;let i=index;">
-                                    <a class="wandbox-dropdown-listitem" (click)="clickCompiler(i)">
+                                    <a class="wandbox-dropdown-listitem" [class.selected]="selectedLanguage.selectedCompilerIndex === i" (click)="clickCompiler(i)">
                                         {{compiler.name}} {{compiler.version}}
                                     </a>
                                 </li>
@@ -26,7 +26,7 @@
                     <legend>Languages</legend>
                     <ul>
                         <li *ngFor="let language of languages; let i=index;">
-                            <a [href]="'#' + language + '-' + i" (click)="clickLanguage(i, $event)">{{language.languageName}}</a>
+                            <a class="wandbox-dropdown-language-item" [class.selected]="selectedLangIndex === i" (click)="clickLanguage(i, $event)">{{language.languageName}}</a>
                             <span class="wandbox-badge">{{language.compilers.length}}</span>
                         </li>
                     </ul>
