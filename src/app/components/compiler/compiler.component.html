@@ -1,18 +1,17 @@
-<div class="row">
+<div class="row" *ngIf="fetched">
     <div class="col-md-12">
-        <p class="wandbox-current-compiler-language label label-success">{{selectedCompiler.name}}</p>
+        <p class="wandbox-current-compiler-language label label-success">{{selectedLanguage.languageName}}</p>
         <div id="wandbox-compiler" class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
-                    <span class="wandbox-current-compiler-text" title="mcs HEAD 5.7.0.0">{{selectedCompiler.name}} {{selectedCompiler.version}}</span>
+                    <span class="wandbox-current-compiler-text">{{selectedCompiler.name}} {{selectedCompiler.version}}</span>
                     <span class="caret"></span>
                 </button>
             <div class="dropdown-menu wandbox-dropdown-area" role="menu" aria-labelledby="dropdown-language">
                 <div class="wandbox-dropdown-version"></div>
-                <div class="clearfix">hogehoge</div>
                 <div class="wandbox-dropdown-detail-area">
                     <div class="tab-content">
                         <div class="tab-pane-">
-                            <legend>{{selectedLanguage.name}}</legend>
+                            <legend>{{selectedLanguage.languageName}}</legend>
                             <ul>
                                 <li *ngFor="let compiler of selectedLanguage.compilers;let i=index;">
                                     <a class="wandbox-dropdown-listitem" (click)="clickCompiler(i)">
@@ -27,7 +26,7 @@
                     <legend>Languages</legend>
                     <ul>
                         <li *ngFor="let language of languages; let i=index;">
-                            <a [href]="'#' + language + '-' + i" (click)="clickLanguage(i, $event)">{{language.name}}</a>
+                            <a [href]="'#' + language + '-' + i" (click)="clickLanguage(i, $event)">{{language.languageName}}</a>
                             <span class="wandbox-badge">{{language.compilers.length}}</span>
                         </li>
                     </ul>
@@ -37,11 +36,11 @@
     </div>
 </div>
 
-<div class="row">
+<div *ngIf="fetched" class="row">
     <div class="col-md-12">
         <div class="tab-content">
             <div class="tab-pane-">
-                <p class="wandbox-insert-template"><a href="#">Load template</a></p>
+                <p class="wandbox-insert-template"><a (click)="clickLoadTemplate(selectedCompiler.template)">Load template</a></p>
                 <div class="option-raw runtime-option-raw">
                     <div class="checkbox" *ngFor="let option of selectedCompiler.options; let i=index;">
                         <ng-container *ngIf="option.type === 'checkbox'">
@@ -57,12 +56,22 @@
                             </select>
                         </ng-container>
                         <ng-container *ngIf="option.type === 'textarea'">
-                            <label>{{option.item.name}}:</label>
+                            <label class="raw-flags">{{option.item.name}}:</label>
                             <textarea (keyup)="changeOption(i, option)" [(ngModel)]="option.item.value" rows="{{option.item.value.split('\n').length + 1}}"></textarea>
                         </ng-container>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div *ngIf="!fetched" class="row">
+    <div class="col-md-12">
+        <ng-container *ngIf="errorMessage.length === 0">
+            Loading...
+        </ng-container>
+        <ng-container *ngIf="errorMessage.length !== 0">
+            <span class="alert alert-danger">{{errorMessage}}</span>
+        </ng-container>
     </div>
 </div>

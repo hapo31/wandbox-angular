@@ -1,12 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageModel, OptionType } from './compiler.model';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
+import { CompilerListApi } from '../api/compiler-list.service';
+import { CompilerInfo } from '../api/compiler-list.model';
+
 @Component({
     selector: 'wandbox-compiler',
     templateUrl: './compiler.component.html',
-    styleUrls: ['./compiler.component.css']
+    styleUrls: ['./compiler.component.css'],
+    providers: [CompilerListApi]
 })
 export class CompilerComponent implements OnInit {
+
 
     get selectedLanguage() {
         return this.languages[this.selectedLangIndex];
@@ -21,78 +29,26 @@ export class CompilerComponent implements OnInit {
 
     languages = new Array<LanguageModel>();
 
-    constructor() {
-        this.languages.push({
-            name: 'test1',
-            mime: 'text/x-test',
-            compilers: [
-                {
-                    name: 'test',
-                    version: '1.1',
-                    options: [
-                        {
-                            type: 'checkbox',
-                            item: {
-                                name: 'testOption',
-                                value: '--testoption',
-                                checked: true
-                            }
-                        },
-                        {
-                            type: 'checkbox',
-                            item: {
-                                name: 'noDefaultTestOption',
-                                value: '--noDefaultTestOption',
-                                checked: false
-                            }
-                        },
-                        {
-                            type: 'select',
-                            item: {
-                                value: ['--testoption'],
-                                names: ['testOption', 'testOption2'],
-                                values: ['--testoption', '--testoption2'],
-                            }
-                        },
-                        {
-                            type: 'textarea',
-                            item: {
-                                name: 'test',
-                                value: ''
-                            }
-                        }
-                    ]
-                },
-                {
-                    name: 'test',
-                    version: '1.2',
-                    options: [
+    fetched = false;
 
-                    ]
-                },
-                {
-                    name: 'test',
-                    version: '1.3',
-                    options: [
+    errorMessage = '';
 
-                    ]
-                },
-            ]
-        } as any);
-        this.languages.push({
-            name: 'test2',
-            mime: 'text/x-test',
-            compilers: [
-                {
-                    name: 'test',
-                    version: '1.1'
-                },
-                {
-                    name: 'test',
-                    version: '1.2'
-                },
-            ]
-        } as any);
+    constructor(private listApi: CompilerListApi) {
+        this.listApi.fetch().subscribe(compilerList => {
+            const languageDic: { [key: string]: LanguageModel } = {};
+            for (let i = 0; i < compilerList.length; ++i) {
+                const languageName = compilerList[i].language;
+                if (languageDic[languageName] == null) {
+                    languageDic[languageName] = new LanguageModel();
+                    languageDic[languageName].languageName = languageName;
+                }
+                languageDic[languageName].addCompiler(compilerList[i]);
+            }
+            this.languages = Object.keys(languageDic).map(key => languageDic[key]);
+            this.fetched = true;
+        }, (err) => {
+            this.errorMessage = 'failed loading compiler list!';
+        });
     }
 
     clickLanguage(index: number, event: UIEvent) {
@@ -110,6 +66,10 @@ export class CompilerComponent implements OnInit {
 
     changeOption(index: number, item: OptionType) {
         console.log('changed', index, item);
+    }
+
+    clickLoadTemplate(templateName: string) {
+        console.log('template', templateName);
     }
 
     ngOnInit() {

@@ -1,19 +1,77 @@
+import { CompilerInfo, CompilerFlagInfo, CompilerFlagSelectionInfo } from '../api/compiler-list.model';
 
-export interface LanguageModel {
-    name: string;
-    mime: string;
-    templateName: string;
-    selectedCompilerIndex: number;
-    compilers: Array<CompilerModel>;
+export class LanguageModel {
+    languageName = '';
+    mime = '';
+    selectedCompilerIndex = 0;
+    compilers: Array<CompilerModel> = [];
+
+    addable(compiler: CompilerInfo) {
+        return this.languageName === compiler.language;
+    }
+
+    addCompiler(compiler: CompilerInfo) {
+        const result = new CompilerModel();
+        result.name = compiler['display-name'];
+        result.version = compiler.version;
+        result.template = compiler.templates[0] || '';
+        result.compileCommand = compiler['display-compile-command'];
+        result.options = [];
+        for (const flag of compiler.switches) {
+            const option = new CompilerOptionModel();
+            if (typeof flag.default === 'boolean') {
+                const compilerFlag = flag as CompilerFlagInfo;
+                option.type = 'checkbox';
+                option.item = {
+                    name: compilerFlag['display-name'],
+                    value: compilerFlag['display-flags'],
+                    checked: compilerFlag.default
+                };
+            } else {
+                const selectionFlag = flag as CompilerFlagSelectionInfo;
+                option.type = 'select';
+                option.item = {
+                    value: selectionFlag.default,
+                    names: selectionFlag.options.map(v => v['display-name']),
+                    values: selectionFlag.options.map(v => v.name)
+                };
+            }
+            result.options.push(option);
+        }
+
+        if (compiler['compiler-option-raw']) {
+            result.options.push({
+                type: 'textarea',
+                item: {
+                    name: 'Compiler options',
+                    value: ''
+                },
+            });
+        }
+
+        // if (compiler['runtime-option-raw']) {
+        result.options.push({
+            type: 'textarea',
+            item: {
+                name: 'Runtime options',
+                value: ''
+            },
+        });
+        // }
+        this.compilers.push(result);
+    }
 }
 
-export interface CompilerModel {
+export class CompilerModel {
     name: string;
+    compileCommand: string;
+    provider: number;
     version: string;
+    template: string;
     options: Array<CompilerOptionModel>;
 }
 
-export interface CompilerOptionModel {
+export class CompilerOptionModel {
     type: 'checkbox' | 'select' | 'textarea';
     item: CheckboxOption | SelectBoxOption | TextAreaOption;
 }

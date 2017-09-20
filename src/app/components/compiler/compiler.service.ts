@@ -12,4 +12,8 @@ export class CompilerService {
     public selectedLanguageNext(language: string) {
         this.languageSubject.next(language);
     }
+
+    public fetchCompilerList() {
+
+    }
 }

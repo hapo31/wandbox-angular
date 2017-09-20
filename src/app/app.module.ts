@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModel } from '@angular/forms';
 import { NgModule, Pipe, Directive, Component } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -17,6 +18,7 @@ import { TabComponent } from './components/editor/tab/tab.component';
     imports: [
         BrowserModule,
         FormsModule,
+        HttpClientModule,
     ],
     declarations: [
         AppComponent,
