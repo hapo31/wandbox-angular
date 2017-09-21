@@ -16,7 +16,8 @@ import { TabComponent } from './components/editor/tab/tab.component';
 
 
 import { CompilerService } from './components/compiler/compiler.service';
-import { CompilerListApi } from './components/api/compiler-list.service';
+import { CompilerListAPIService } from './components/api/compiler-list.service';
+import { TemplateAPIService } from './components/api/template.service';
 
 @NgModule({
     imports: [
@@ -36,7 +37,7 @@ import { CompilerListApi } from './components/api/compiler-list.service';
     ],
     exports: [
     ],
-    providers: [CompilerListApi, CompilerService],
+    providers: [TemplateAPIService, CompilerListAPIService, CompilerService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,7 +8,7 @@ import { LanguageModel, CompilerModel, OptionType } from '../compiler/compiler.m
 import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class CompilerListApi {
+export class CompilerListAPIService {
 
     constructor(private http: HttpClient) { }
 

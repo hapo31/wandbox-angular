@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageModel, OptionType } from './compiler.model';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
 import { CompilerService } from './compiler.service';
-
-import { CompilerListApi } from '../api/compiler-list.service';
 import { CompilerInfo } from '../api/compiler-list.model';
 
 @Component({
@@ -69,6 +66,7 @@ export class CompilerComponent implements OnInit {
     }
 
     clickLoadTemplate(templateName: string) {
+        this.service.loadTemplateNext(templateName);
         console.log('template', templateName);
     }
 

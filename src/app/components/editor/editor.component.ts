@@ -24,6 +24,12 @@ export class EditorComponent implements OnInit {
             this.model.mode = mime;
             this.changeConfig('mode', mime);
         });
+
+        this.compiler.loadTemplate$.subscribe(info => {
+            this.tabIndex = 0;
+            this.tabs[0].editorContent = info.code;
+            this.service.changeEditorTabNext(info.code);
+        });
     }
 
     ngOnInit() {
