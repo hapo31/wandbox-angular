@@ -3,14 +3,6 @@
         <div class="wandbox-editor">
             <editor-tab (tabChanged)="tabChanged($event)" [tabs]="tabs"></editor-tab>
             <div class="clearfix"></div>
-
-            <!-- TODO -->
-            <input type="text" [(ngModel)]="model.mode">
-            <button class="btn" (click)="changeConfig('mode', model.mode)">
-                submit mode
-            </button>
-            <!-- TODO -->
-
             <div id="wandbox-editor-content" class="tab-content">
                 <wandbox-codemirror [config]="model.config" (change)="editorChanged($event)" [value]="tabs[tabIndex].editorContent">
 

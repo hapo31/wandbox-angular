@@ -1,10 +1,10 @@
 <div class="row" *ngIf="fetched">
     <div class="col-md-12">
         <p class="wandbox-current-compiler-language label label-success">{{selectedLanguage.languageName}}</p>
-        <div id="wandbox-compiler" class="dropdown">
+        <div class="dropdown wandbox-compiler">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
                     <span class="wandbox-current-compiler-text">{{selectedCompiler.name}} {{selectedCompiler.version}}</span>
-                    <span class="caret"></span>
+                    <span class="wandbox-current-compiler-caret caret"></span>
                 </button>
             <div class="dropdown-menu wandbox-dropdown-area" role="menu" aria-labelledby="dropdown-language">
                 <div class="wandbox-dropdown-version"></div>
@@ -40,7 +40,9 @@
     <div class="col-md-12">
         <div class="tab-content">
             <div class="tab-pane-">
-                <p class="wandbox-insert-template"><a (click)="clickLoadTemplate(selectedCompiler.template)">Load template</a></p>
+                <p class="wandbox-insert-template">
+                    <a (click)="clickLoadTemplate(selectedCompiler.template)">Load template</a>
+                </p>
                 <div class="option-raw runtime-option-raw">
                     <div class="checkbox" *ngFor="let option of selectedCompiler.options; let i=index;">
                         <ng-container *ngIf="option.type === 'checkbox'">
@@ -50,13 +52,13 @@
                             </label>
                         </ng-container>
                         <ng-container *ngIf="option.type === 'select'">
-                            <select class="col-md-12" [(ngModel)]="option.item.value" (change)="changeOption(i, option)">
+                            <select class="col-md-12 wandbox-select-flags" [(ngModel)]="option.item.value" (change)="changeOption(i, option)">
                                 <option *ngFor="let name of option.item.names; let i=index;"
                                         value="{{option.item.values[i]}}">{{name}}</option>
                             </select>
                         </ng-container>
                         <ng-container *ngIf="option.type === 'textarea'">
-                            <label class="raw-flags">{{option.item.name}}:</label>
+                            <p class="raw-flags">{{option.item.name}}:</p>
                             <textarea (keyup)="changeOption(i, option)" [(ngModel)]="option.item.value" rows="{{option.item.value.split('\n').length + 1}}"></textarea>
                         </ng-container>
                     </div>

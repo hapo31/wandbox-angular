@@ -14,6 +14,10 @@ import { CompilerComponent } from './components/compiler/compiler.component';
 import { CompileComponent } from './components/compile/compile.component';
 import { TabComponent } from './components/editor/tab/tab.component';
 
+
+import { CompilerService } from './components/compiler/compiler.service';
+import { CompilerListApi } from './components/api/compiler-list.service';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -32,7 +36,7 @@ import { TabComponent } from './components/editor/tab/tab.component';
     ],
     exports: [
     ],
-    providers: [],
+    providers: [CompilerListApi, CompilerService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

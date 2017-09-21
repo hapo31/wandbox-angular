@@ -4,6 +4,8 @@ import { LanguageModel, OptionType } from './compiler.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { CompilerService } from './compiler.service';
+
 import { CompilerListApi } from '../api/compiler-list.service';
 import { CompilerInfo } from '../api/compiler-list.model';
 
@@ -11,10 +13,8 @@ import { CompilerInfo } from '../api/compiler-list.model';
     selector: 'wandbox-compiler',
     templateUrl: './compiler.component.html',
     styleUrls: ['./compiler.component.css'],
-    providers: [CompilerListApi]
 })
 export class CompilerComponent implements OnInit {
-
 
     get selectedLanguage() {
         return this.languages[this.selectedLangIndex];
@@ -33,8 +33,8 @@ export class CompilerComponent implements OnInit {
 
     errorMessage = '';
 
-    constructor(private listApi: CompilerListApi) {
-        this.listApi.fetch().subscribe(compilerList => {
+    constructor(private service: CompilerService) {
+        this.service.fetchCompilerList().subscribe(compilerList => {
             const languageDic: { [key: string]: LanguageModel } = {};
             for (let i = 0; i < compilerList.length; ++i) {
                 const languageName = compilerList[i].language;
@@ -56,12 +56,12 @@ export class CompilerComponent implements OnInit {
         event.preventDefault();
         this.selectedLangIndex = index;
         this.selectedLanguage.selectedCompilerIndex = 0;
+        this.service.loadTemplateNext(this.selectedLanguage.languageName);
         console.log('active', this.selectedLangIndex);
     }
 
     clickCompiler(index: number) {
         this.selectedLanguage.selectedCompilerIndex = index;
-
     }
 
     changeOption(index: number, item: OptionType) {

@@ -4,7 +4,7 @@ import { EditorModel } from './editor.model';
 import { TabModel, TabChangedEvent } from './tab/tab.model';
 
 import { EditorService } from './editor.service';
-
+import { CompilerService } from '../compiler/compiler.service';
 
 @Component({
     selector: 'wandbox-editor',
@@ -19,7 +19,12 @@ export class EditorComponent implements OnInit {
     tabs = new Array<TabModel>();
     tabIndex = 0;
 
-    constructor(private service: EditorService) { }
+    constructor(private service: EditorService, private compiler: CompilerService) {
+        this.compiler.loadTemplate$.subscribe(mime => {
+            this.model.mode = mime;
+            this.changeConfig('mode', mime);
+        });
+    }
 
     ngOnInit() {
         const firstTab = new TabModel();
