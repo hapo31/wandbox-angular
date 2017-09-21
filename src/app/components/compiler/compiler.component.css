@@ -2,6 +2,23 @@
     resize: none;
 }
 
+
+/* .wandbox-compiler>button {
+    width: 192px;
+}
+
+.wandbox-current-compiler-caret {
+    left: 90%;
+} */
+
+.wandbox-insert-template {
+    width: 180px;
+}
+
+.wandbox-select-flags {
+    max-width: 190px;
+}
+
 li>a.wandbox-dropdown-listitem.selected,
 li>a.wandbox-dropdown-language-item.selected {
     font-weight: bolder;
@@ -20,5 +37,5 @@ label.raw-flags {
     display: inline-block;
     max-width: 100%;
     margin-bottom: 5px;
-    font-weight: 700;
+    font-weight: bolder;
 }
