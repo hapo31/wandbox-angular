@@ -20,7 +20,7 @@ export class EditorComponent implements OnInit {
     tabIndex = 0;
 
     constructor(private service: EditorService, private compiler: CompilerService) {
-        this.compiler.loadTemplate$.subscribe(mime => {
+        this.compiler.selectedLanguage$.subscribe(mime => {
             this.model.mode = mime;
             this.changeConfig('mode', mime);
         });

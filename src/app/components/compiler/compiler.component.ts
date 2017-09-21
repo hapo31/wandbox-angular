@@ -56,7 +56,7 @@ export class CompilerComponent implements OnInit {
         event.preventDefault();
         this.selectedLangIndex = index;
         this.selectedLanguage.selectedCompilerIndex = 0;
-        this.service.loadTemplateNext(this.selectedLanguage.languageName);
+        this.service.selectedLanguageNext(this.selectedLanguage.languageName);
         console.log('active', this.selectedLangIndex);
     }
 

@@ -13,7 +13,7 @@ export class CompilerService {
 
     private compilerSubject = new Subject<CompilerInfo>();
 
-    private templateSubject = new Subject<string>();
+    private languageSubject = new Subject<string>();
 
     public get selectedCompiler$() {
         return this.compilerSubject.asObservable();
@@ -23,12 +23,12 @@ export class CompilerService {
         this.compilerSubject.next(compiler);
     }
 
-    public get loadTemplate$(){
-        return this.templateSubject.asObservable();
+    public get selectedLanguage$(){
+        return this.languageSubject.asObservable();
     }
 
-    public loadTemplateNext(languageName: string) {
-        this.templateSubject.next(mime(languageName));
+    public selectedLanguageNext(languageName: string) {
+        this.languageSubject.next(mime(languageName));
     }
 
     public fetchCompilerList() {
