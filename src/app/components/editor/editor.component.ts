@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { EditorModel } from './editor.model';
-import { TabModel, TabChangedEvent } from './tab/tab.model';
+import { TabModel, TabChangedEvent } from '../tab/tab.model';
 
 import { EditorService } from './editor.service';
 import { CompilerService } from '../compiler/compiler.service';
@@ -26,9 +26,9 @@ export class EditorComponent implements OnInit {
         });
 
         this.compiler.loadTemplate$.subscribe(info => {
-            this.tabIndex = 0;
+            // this.tabIndex = 0;
             this.tabs[0].editorContent = info.code;
-            this.service.changeEditorTabNext(info.code);
+            // this.service.changeEditorTabNext(info.code);
         });
     }
 
