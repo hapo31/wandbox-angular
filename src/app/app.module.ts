@@ -12,7 +12,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SponsorsComponent } from './components/sponsors/sponsors.component';
 import { CompilerComponent } from './components/compiler/compiler.component';
 import { CompileComponent } from './components/compile/compile.component';
-import { TabComponent } from './components/editor/tab/tab.component';
+import { TabComponent } from './components/tab/tab.component';
 
 
 import { CompilerService } from './components/compiler/compiler.service';
