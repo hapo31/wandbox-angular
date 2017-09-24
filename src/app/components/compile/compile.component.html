@@ -6,7 +6,7 @@
                     Stdin
                 </a>
                 <div id="wandbox-stdin-body" class="panel-collapse collapse">
-                    <div class="panel-body">
+                    <!-- <div class="panel-body">
                         <div class="stdin" id="stdin">
                             <div class="CodeMirror cm-s-default">
                                 <div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div>
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <a href="/compile" class="btn btn-default" id="wandbox-compile">Run (or Ctrl+Enter)</a>
+        <a (click)="postCompile()" class="btn btn-default" id="wandbox-compile">Run (or Ctrl+Enter)</a>x
         <img src="/static/compiling.gif" alt="Compiling" id="wandbox-compiling" style="display: none;">
     </div>
 </div>
@@ -56,22 +56,93 @@
     <div class="col-md-10">
         <div id="result-container">
             <div class="tabbable tabs-left">
-                <ul class="nav nav-tabs"></ul>
+                <ul class="nav nav-tabs">
+                    <li class="active"><button type="button" class="close" href="#">×</button><a data-toggle="tab" href="#result-container-tab-2">#2</a></li>
+                    <li class=""><button type="button" class="close" href="#">×</button><a data-toggle="tab" href="#result-container-tab-1">#1</a></li>
+                </ul>
             </div>
-            <div class="tab-content"></div>
+            <div class="tab-content">
+                <div class="tab-pane result-window active" id="result-container-tab-2">
+                    <div class="permlink"><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-share"></span> Share</a></div>
+                    <div class="wandbox-code-window">
+                        <div class="wandbox-code-window-code panel panel-default"> <a id="wandbox-resultwindow-code-header-2" data-toggle="collapse" href="#wandbox-resultwindow-code-body-2" aria-expanded="true" class="">    Code  </a>
+                            <div id="wandbox-resultwindow-code-body-2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="wandbox-resultwindow-compiler">
+                                        <div>
+                                            <p>[C++] gcc HEAD 8.0.0 20170921 (experimental)</p>
+                                        </div>
+                                    </div>
+                                    <div class="wandbox-resultwindow-code">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="active">
+                                                <a class="" href="#wandbox-resultwindow-code-body-2-0" role="tab" data-toggle="tab"> <i class="glyphicon glyphicon-file"></i> <span></span> </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div id="wandbox-resultwindow-code-body-2-0" role="tabpanel" class="tab-pane active"><pre>// This file is a "Hello, world!" in C++ language by GCC for wandbox.
+
+  </pre></div>
+                                        </div>
+                                    </div>
+                                    <div class="wandbox-resultwindow-stdin"><pre></pre></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-window"><pre class="Control" data-type="Control" data-text="Start">Start</pre><pre class="StdOut" data-type="StdOut" data-text="Hello, Wandbox!
+  ">Hello, Wandbox!
+  </pre><pre class="ExitCode" data-type="ExitCode" data-text="0">0</pre><pre class="Control" data-type="Control" data-text="Finish">Finish</pre></div>
+                </div>
+                <div class="tab-pane result-window" id="result-container-tab-1">
+                    <div class="permlink"><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-share"></span> Share</a></div>
+                    <div class="wandbox-code-window">
+                        <div class="wandbox-code-window-code panel panel-default"> <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body-1" aria-expanded="true" class="">    Code  </a>
+                            <div id="wandbox-resultwindow-code-body-1" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="wandbox-resultwindow-compiler">
+                                        <div>
+                                            <p>[C++] gcc HEAD 8.0.0 20170921 (experimental)</p>
+                                        </div>
+                                    </div>
+                                    <div class="wandbox-resultwindow-code">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="active">
+                                                <a class="" href="#wandbox-resultwindow-code-body-1-0" role="tab" data-toggle="tab"> <i class="glyphicon glyphicon-file"></i> <span></span> </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div id="wandbox-resultwindow-code-body-1-0" role="tabpanel" class="tab-pane active">
+                                                <pre>// This file is a "Hello, world!" in C++ language by GCC for wandbox.
+                                                </pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wandbox-resultwindow-stdin"><pre></pre></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-window"><pre class="Control" data-type="Control" data-text="Start">Start</pre>
+                        <pre class="StdOut" data-type="StdOut" data-text="Hello, Wandbox!">Hello, Wandbox!</pre>
+                        <pre class="ExitCode" data-type="ExitCode" data-text="0">0</pre>
+                        <pre class="Control" data-type="Control" data-text="Finish">Finish</pre>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-md-2">
         <div id="result-container-settings">
             <div class="checkbox">
                 <label>
-        <input class="nowrap-output-window" type="checkbox" value="nowrap-output-window">No Wrap
-      </label>
+            <input class="nowrap-output-window" type="checkbox" value="nowrap-output-window">No Wrap
+          </label>
             </div>
             <div class="checkbox">
                 <label>
-        <input class="expand-output-window" type="checkbox" value="expand-output-window">Expand
-      </label>
+            <input class="expand-output-window" type="checkbox" value="expand-output-window">Expand
+          </label>
             </div>
         </div>
     </div>
