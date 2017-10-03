@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, } from '@angular/core';
 
 import { EditorModel } from './editor.model';
 import { TabModel, TabChangedEvent } from '../tab/tab.model';
@@ -15,7 +15,6 @@ import { CompilerService } from '../compiler/compiler.service';
 export class EditorComponent implements OnInit {
 
     model = new EditorModel();
-
     tabs = new Array<TabModel>();
     tabIndex = 0;
 
@@ -26,9 +25,9 @@ export class EditorComponent implements OnInit {
         });
 
         this.compiler.loadTemplate$.subscribe(info => {
-            // this.tabIndex = 0;
+            this.tabIndex = 0;
             this.tabs[0].editorContent = info.code;
-            // this.service.changeEditorTabNext(info.code);
+            this.service.changeEditorTabNext(info.code);
         });
     }
 
@@ -36,7 +35,7 @@ export class EditorComponent implements OnInit {
         const firstTab = new TabModel();
         firstTab.isActive = true;
         firstTab.fileName = '';
-        firstTab.editorContent = '12345';
+        firstTab.editorContent = '';
         this.tabs.push(firstTab);
     }
 
