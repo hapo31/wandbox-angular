@@ -1,12 +1,17 @@
 export interface CompileRequest {
     compiler: string;
     code: string;
-    codes: string[];
+    codes: CodeListModel[];
     options: string;
     stdin: string;
     save: boolean;
     'compiler-option-raw': string;
     'runtime-option-raw': string;
+}
+
+export interface CodeListModel {
+    code: string;
+    file: string;
 }
 
 export interface CompileResponse {

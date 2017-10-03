@@ -14,11 +14,10 @@ import { CompilerComponent } from './components/compiler/compiler.component';
 import { CompileComponent } from './components/compile/compile.component';
 import { TabComponent } from './components/tab/tab.component';
 
-
 import { CompilerService } from './components/compiler/compiler.service';
 import { CompilerListAPIService } from './components/api/compiler-list.service';
 import { TemplateAPIService } from './components/api/template.service';
-import { CompileService } from './components/api/compile.service';
+import { PostCompileService } from './components/api/compile.service';
 
 @NgModule({
     imports: [
@@ -38,7 +37,7 @@ import { CompileService } from './components/api/compile.service';
     ],
     exports: [
     ],
-    providers: [TemplateAPIService, CompilerListAPIService, CompilerService, CompileService],
+    providers: [TemplateAPIService, CompilerListAPIService, CompilerService, PostCompileService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

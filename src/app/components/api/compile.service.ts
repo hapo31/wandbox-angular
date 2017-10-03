@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 import { CompileRequest, CompileResponse } from './compile.model';
 
 @Injectable()
-export class CompileService {
+export class PostCompileService {
     constructor(private http: HttpClient) {}
 
     public postCompile(param: CompileRequest): Observable<CompileResponse> {

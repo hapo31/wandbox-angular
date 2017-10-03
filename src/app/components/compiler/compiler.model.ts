@@ -12,7 +12,8 @@ export class LanguageModel {
 
     addCompiler(compiler: CompilerInfo) {
         const result = new CompilerModel();
-        result.name = compiler['display-name'];
+        result.name = compiler.name;
+        result.displayName = compiler['display-name'];
         result.version = compiler.version;
         result.template = compiler.templates[0] || '';
         result.compileCommand = compiler['display-compile-command'];
@@ -24,7 +25,7 @@ export class LanguageModel {
                 option.type = 'checkbox';
                 option.item = {
                     name: compilerFlag['display-name'],
-                    value: compilerFlag['display-flags'],
+                    value: compilerFlag.name,
                     checked: compilerFlag.default
                 };
             } else {
@@ -41,7 +42,7 @@ export class LanguageModel {
 
         if (compiler['compiler-option-raw']) {
             result.options.push({
-                type: 'textarea',
+                type: 'compile',
                 item: {
                     name: 'Compiler options',
                     value: ''
@@ -51,7 +52,7 @@ export class LanguageModel {
 
         // if (compiler['runtime-option-raw']) {
         result.options.push({
-            type: 'textarea',
+            type: 'runtime',
             item: {
                 name: 'Runtime options',
                 value: ''
@@ -64,6 +65,7 @@ export class LanguageModel {
 
 export class CompilerModel {
     name: string;
+    displayName: string;
     compileCommand: string;
     provider: number;
     version: string;
@@ -72,7 +74,7 @@ export class CompilerModel {
 }
 
 export class CompilerOptionModel {
-    type: 'checkbox' | 'select' | 'textarea';
+    type: 'checkbox' | 'select' | 'runtime' | 'compile';
     item: CheckboxOption | SelectBoxOption | TextAreaOption;
 }
 

@@ -3,7 +3,7 @@
         <p class="wandbox-current-compiler-language label label-success">{{selectedLanguage.languageName}}</p>
         <div class="dropdown wandbox-compiler">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
-                    <span class="wandbox-current-compiler-text">{{selectedCompiler.name}} {{selectedCompiler.version}}</span>
+                    <span class="wandbox-current-compiler-text">{{selectedCompiler.displayName}} {{selectedCompiler.version}}</span>
                     <span class="wandbox-current-compiler-caret caret"></span>
                 </button>
             <div class="dropdown-menu wandbox-dropdown-area" role="menu" aria-labelledby="dropdown-language">
@@ -15,7 +15,7 @@
                             <ul>
                                 <li *ngFor="let compiler of selectedLanguage.compilers;let i=index;">
                                     <a class="wandbox-dropdown-listitem" [class.selected]="selectedLanguage.selectedCompilerIndex === i" (click)="clickCompiler(i)">
-                                        {{compiler.name}} {{compiler.version}}
+                                        {{compiler.displayName}} {{compiler.version}}
                                     </a>
                                 </li>
                             </ul>
@@ -44,7 +44,7 @@
                     <a (click)="clickLoadTemplate(selectedCompiler.template)">Load template</a>
                 </p>
                 <div class="option-raw runtime-option-raw">
-                    <div class="checkbox" *ngFor="let option of selectedCompiler.options; let i=index;">
+                    <div class="form-group" *ngFor="let option of selectedCompiler.options; let i=index;">
                         <ng-container *ngIf="option.type === 'checkbox'">
                             <label (change)="changeOption(i, option)">
                                 <input type="checkbox" [(ngModel)]="option.item.checked" [attr.checked]="option.item.checked || null"/>
@@ -52,14 +52,14 @@
                             </label>
                         </ng-container>
                         <ng-container *ngIf="option.type === 'select'">
-                            <select class="col-md-12 wandbox-select-flags" [(ngModel)]="option.item.value" (change)="changeOption(i, option)">
+                            <select class="col-md-12 wandbox-select-flags form-control" [(ngModel)]="option.item.value" (change)="changeOption(i, option)">
                                 <option *ngFor="let name of option.item.names; let i=index;"
                                         value="{{option.item.values[i]}}">{{name}}</option>
                             </select>
                         </ng-container>
-                        <ng-container *ngIf="option.type === 'textarea'">
+                        <ng-container *ngIf="option.type === 'runtime' || option.type === 'compile'">
                             <p class="raw-flags">{{option.item.name}}:</p>
-                            <textarea (keyup)="changeOption(i, option)" [(ngModel)]="option.item.value" rows="{{option.item.value.split('\n').length + 1}}"></textarea>
+                            <textarea class="form-control" (keyup)="changeOption(i, option)" [(ngModel)]="option.item.value" rows="{{option.item.value.split('\n').length + 1}}"></textarea>
                         </ng-container>
                     </div>
                 </div>
