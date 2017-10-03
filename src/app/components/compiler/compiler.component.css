@@ -39,3 +39,7 @@ label.raw-flags {
     margin-bottom: 5px;
     font-weight: bolder;
 }
+
+.form-group {
+    margin-bottom: 0px;
+}

@@ -1,35 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { CompileService } from '../api/compile.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { PostCompileService } from '../api/compile.service';
+import { RunCompileService } from '../common/run-compile.service';
 
 @Component({
-  selector: 'wandbox-compile',
-  templateUrl: './compile.component.html',
-  styleUrls: ['./compile.component.css']
+    selector: 'wandbox-compile',
+    templateUrl: './compile.component.html',
+    styleUrls: ['./compile.component.css']
 })
 export class CompileComponent implements OnInit {
 
-  constructor(private apiService: CompileService) { }
+    @Output() compile = new EventEmitter();
 
-  ngOnInit() {
-  }
+    constructor(private apiService: PostCompileService,
+        private runCompile: RunCompileService) {
+        this.runCompile.executeCompile().subscribe(v => {
+            this.apiService.postCompile(v).subscribe(res => {
+                // receive compile result.
+                console.log(res);
+            });
+        });
+    }
 
-  postCompile() {
-      this.apiService.postCompile({
-          code: `#include <iostream>
-          int main() {
-              std::cout << "hello, world" << std::endl;
-          }
-          `,
-          codes: [],
-          compiler: 'gcc-head',
-          options: 'gnu++1y',
-          save: false,
-          stdin: '',
-          'compiler-option-raw': '',
-          'runtime-option-raw': ''
-      }).subscribe(v => {
-        console.log(v);
-      });
-  }
+    ngOnInit() {
+    }
+
+    postCompile() {
+        this.compile.emit();
+    }
 
 }
