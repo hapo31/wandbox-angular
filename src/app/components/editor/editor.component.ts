@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 
 import { EditorModel } from './editor.model';
-import { TabModel, TabChangedEvent } from '../tab/tab.model';
+import { TabModel, TabChangedEvent } from '../editor-tab/editor-tab.model';
 
 import { EditorService } from './editor.service';
 import { CompilerService } from '../compiler/compiler.service';
@@ -19,11 +19,13 @@ export class EditorComponent implements OnInit {
     tabIndex = 0;
 
     constructor(private service: EditorService, private compiler: CompilerService) {
+        // Detection changed mime event from compiler changing.
         this.compiler.selectedLanguage$.subscribe(mime => {
             this.model.mode = mime;
             this.changeConfig('mode', mime);
         });
 
+        // Detection load template from compiler component.
         this.compiler.loadTemplate$.subscribe(info => {
             this.tabIndex = 0;
             this.tabs[0].editorContent = info.code;

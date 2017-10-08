@@ -1,10 +1,10 @@
 import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import { TabModel, TabChangedEvent } from './tab.model';
+import { TabModel, TabChangedEvent } from './editor-tab.model';
 
 @Component({
     selector: 'editor-tab',
-    templateUrl: './tab.component.html',
-    styleUrls: ['./tab.component.css']
+    templateUrl: './editor-tab.component.html',
+    styleUrls: ['./editor-tab.component.css']
 })
 export class TabComponent implements AfterViewInit {
 
