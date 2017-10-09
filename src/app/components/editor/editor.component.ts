@@ -16,7 +16,7 @@ export class EditorComponent implements OnInit {
 
     model = new EditorModel();
     tabs = new Array<TabModel>();
-    tabIndex = 0;
+    activeTabIndex = 0;
 
     constructor(private service: EditorService, private compiler: CompilerService) {
         // Detection changed mime event from compiler changing.
@@ -27,7 +27,7 @@ export class EditorComponent implements OnInit {
 
         // Detection load template from compiler component.
         this.compiler.loadTemplate$.subscribe(info => {
-            this.tabIndex = 0;
+            this.activeTabIndex = 0;
             this.tabs[0].editorContent = info.code;
             this.service.changeEditorTabNext(info.code);
         });
@@ -39,6 +39,7 @@ export class EditorComponent implements OnInit {
         firstTab.fileName = '';
         firstTab.editorContent = '';
         this.tabs.push(firstTab);
+        console.log(this.tabs);
     }
 
     changeConfig(configName: string, value: string | number) {
@@ -51,13 +52,13 @@ export class EditorComponent implements OnInit {
 
     editorChanged(event: string | Event) {
         if (typeof event === 'string') {
-            this.tabs[this.tabIndex].editorContent = event;
+            this.tabs[this.activeTabIndex].editorContent = event;
         }
     }
 
     tabChanged(event: TabChangedEvent) {
-        this.tabIndex = event.index;
-        this.tabs[this.tabIndex].editorContent = event.data.editorContent;
+        this.activeTabIndex = event.index;
+        this.tabs[this.activeTabIndex].editorContent = event.data.editorContent;
         this.service.changeEditorTabNext(event.data.editorContent);
     }
 

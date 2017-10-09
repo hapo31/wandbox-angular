@@ -1,15 +1,23 @@
-<ul id="wandbox-editor-header" class="nav nav-tabs" role="tablist">
-    <li *ngFor="let tab of tabs; let i=index;" [class.active]="tab.isActive" (click)="tabClick(i)">
-        <a class="wandbox-editor-name-tab" [class.first]="i === 0" role="tab" data-toggle="tab">
-            <i class="glyphicon glyphicon-file"></i>
-            <span *ngIf="!tab.editing" class="wandbox-renamable" (dblclick)="editTab(i, fileNameInput)">{{tab.fileName}}</span>
-            <input #fileNameInput class="wandbox-renamable" (blur)="tab.editing = false;" (keypress)="editInputKeyPress(i, $event)" [hidden]="!tab.editing" [(ngModel)]="tab.fileName" />
-            <button *ngIf="i !== 0" class="glyphicon glyphicon-remove close" (click)="removeTab(i)"></button>
-        </a>
-    </li>
-    <li>
-        <a id="wandbox-editor-add-tab" class="btn btn-default" (click)="addTab()">
-            <i class="glyphicon glyphicon-plus"></i>
-        </a>
-    </li>
-</ul>
+<div class="wandbox-editor">
+    <ul id="wandbox-editor-header" class="nav nav-tabs" role="tablist">
+        <li *ngFor="let tab of tabs; let i=index;" [class.active]="tab.isActive" (click)="tabClick(i)">
+            <a class="wandbox-editor-name-tab" [class.first]="i === 0" role="tab" data-toggle="tab">
+                <i class="glyphicon glyphicon-file"></i>
+                <span *ngIf="!tab.editing" class="wandbox-renamable" (dblclick)="editTab(i, fileNameInput)">{{tab.fileName}}</span>
+                <input #fileNameInput class="wandbox-renamable" (blur)="tab.editing = false;" (keypress)="editInputKeyPress(i, $event)" [hidden]="!tab.editing" [(ngModel)]="tab.fileName" />
+                <button *ngIf="i !== 0" class="glyphicon glyphicon-remove close" (click)="removeTab(i)"></button>
+            </a>
+        </li>
+        <li>
+            <a id="wandbox-editor-add-tab" class="btn btn-default" (click)="addTab()">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+    <div id="wandbox-editor-content" class="tab-content">
+        <wandbox-codemirror [config]="config" (change)="tabChanged($event)" [value]="tabs[activeIndex].editorContent">
+
+        </wandbox-codemirror>
+    </div>
+</div>

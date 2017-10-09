@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { TabModel, TabChangedEvent } from './editor-tab.model';
+import { EditorConfigModel } from '../editor/editor.model';
 
 @Component({
     selector: 'editor-tab',
@@ -7,20 +8,18 @@ import { TabModel, TabChangedEvent } from './editor-tab.model';
     styleUrls: ['./editor-tab.component.css']
 })
 export class TabComponent implements AfterViewInit {
-
-    @Input() public get activeTabIndex() {
-        return this.activeIndex;
-    }
+    @Input() config: EditorConfigModel;
     @Input() tabs: Array<TabModel>;
-    @Output() tabChanged = new EventEmitter<TabChangedEvent>();
+    @Input() activeIndex;
 
-    private activeIndex = 0;
+    @Output() changed = new EventEmitter<TabChangedEvent>();
+
     private tabCount = 1;
 
     constructor() { }
 
     ngAfterViewInit() {
-
+        console.log('editor-tab', this.tabs);
     }
 
     /**
@@ -67,6 +66,19 @@ export class TabComponent implements AfterViewInit {
         setTimeout(() => element.focus(), 0);
     }
 
+
+    /**
+     * Handle tab changed event.
+     *
+     * @param {(string | Event)} event
+     * @memberof TabComponent
+     */
+    tabChanged(event: string | Event) {
+        if (typeof event === 'string') {
+            this.tabs[this.activeIndex].editorContent = event;
+        }
+    }
+
     /**
      * Tab's name input key event.
      *
@@ -106,7 +118,7 @@ export class TabComponent implements AfterViewInit {
         this.activeIndex = activateIndex;
         this.tabs.forEach(v => v.isActive = false);
         this.tabs[activateIndex].isActive = true;
-        this.tabChanged.emit({
+        this.changed.emit({
             index: activateIndex,
             data: this.tabs[activateIndex]
         });
