@@ -36,7 +36,7 @@ export class AppComponent {
         const runtimeOptionRawIndex = selectCompiler.options.findIndex(v => v.type === 'runtime');
 
         const [ compilerOptionRaw, runtimeOptionRaw ] = [
-            compileOptionRawIndex !== -1 ?  selectCompiler.options[compileOptionRawIndex].item.value : undefined,
+            compileOptionRawIndex !== -1 ? selectCompiler.options[compileOptionRawIndex].item.value : undefined,
             runtimeOptionRawIndex !== -1 ? selectCompiler.options[runtimeOptionRawIndex].item.value : undefined,
         ];
 
@@ -51,7 +51,11 @@ export class AppComponent {
             'runtime-option-raw': runtimeOptionRaw
         };
 
-        this.compile.executeCompileNext(request);
+        this.compile.executeCompileNext({
+            request: request,
+            compiler: selectCompiler,
+            tab: this.editorComponent.tabs
+        });
 
     }
 }
