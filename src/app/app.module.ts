@@ -18,6 +18,7 @@ import { CompilerService } from './components/compiler/compiler.service';
 import { CompilerListAPIService } from './components/api/compiler-list.service';
 import { TemplateAPIService } from './components/api/template.service';
 import { PostCompileService } from './components/api/compile.service';
+import { CompileResultTabComponent } from './components/compile-result-tab/compile-result-tab.component';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { PostCompileService } from './components/api/compile.service';
         SponsorsComponent,
         CompilerComponent,
         CompileComponent,
-        TabComponent
+        TabComponent,
+        CompileResultTabComponent
     ],
     exports: [
     ],

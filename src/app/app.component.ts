@@ -56,9 +56,10 @@ export class AppComponent {
         };
 
         this.compile.executeCompileNext({
+            language: this.compilerComponent.selectedLanguage.languageName,
             request: request,
             compiler: selectCompiler,
-            tab: this.editorComponent.tabs
+            tabs: this.editorComponent.tabs
         });
 
     }

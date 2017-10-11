@@ -18,7 +18,8 @@ export class RunCompileService {
 }
 
 interface RunCompileModel {
+    language: string;
     request: CompileRequest;
     compiler: CompilerModel;
-    tab: Array<TabModel>;
+    tabs: Array<TabModel>;
 }
