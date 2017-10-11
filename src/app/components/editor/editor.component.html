@@ -5,14 +5,14 @@
     <div class="col-md-2" id="wandbox-editor-settings">
         <label>Editor settings:</label>
         <div class="checkbox">
-            <select class="wandbox-select" [(ngModel)]="model.keyMap" (change)="changeConfig('keyMap', model.keyMap)">
+            <select class="form-control wandbox-select" [(ngModel)]="model.keyMap" (change)="changeConfig('keyMap', model.keyMap)">
                 <option value="default" selected="">editor: default</option>
                 <option value="vim">editor: Vim</option>
                 <option value="emacs">editor: Emacs</option>
             </select>
         </div>
         <div class="checkbox">
-            <select class="wandbox-spaces-or-tab" [(ngModel)]="model.tabSize" (change)="changeConfig('tabSize', model.tabSize)">
+            <select class="wandbox-spaces-or-tab form-control" [(ngModel)]="model.tabSize" (change)="changeConfig('tabSize', model.tabSize)">
                 <option value="2">tab: 2-spaces</option>
                 <option value="4" selected="">tab: 4-spaces</option>
                 <option value="8">tab: 8-spaces</option>
