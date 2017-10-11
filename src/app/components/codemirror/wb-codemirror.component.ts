@@ -6,6 +6,7 @@ import {
     Component,
     Input,
     Output,
+    ElementRef,
     EventEmitter,
     ViewChild,
     AfterViewInit
@@ -33,7 +34,7 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
 
     private codemirror: CodeMirror.Editor = null;
 
-    constructor(private service: EditorService) {
+    constructor(private service: EditorService, private element: ElementRef) {
         service.changeConfig$.subscribe(v => {
             this.codemirror.setOption(v.name, v.value);
         });
@@ -46,6 +47,8 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         this.codemirrorInit(this.config);
+        const codeMirror = (this.element.nativeElement as HTMLElement);
+        codeMirror.classList.add('cm-s-user');
     }
 
     private codemirrorInit(config: EditorConfigModel) {
