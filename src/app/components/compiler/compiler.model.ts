@@ -26,12 +26,15 @@ export class LanguageModel {
                 option.item = {
                     name: compilerFlag['display-name'],
                     value: compilerFlag.name,
-                    checked: compilerFlag.default
+                    checked: compilerFlag.default,
+                    displayFlag: compilerFlag['display-flags']
                 };
             } else {
                 const selectionFlag = flag as CompilerFlagSelectionInfo;
                 option.type = 'select';
                 option.item = {
+                    name: '',
+                    displayFlags: selectionFlag.options.map(v => v['display-flags']),
                     value: selectionFlag.default,
                     names: selectionFlag.options.map(v => v['display-name']),
                     values: selectionFlag.options.map(v => v.name)
@@ -71,6 +74,27 @@ export class CompilerModel {
     version: string;
     template: string;
     options: Array<CompilerOptionModel>;
+
+    get displayFlags(): string {
+        return this.options
+            // textarea type and has value
+            .filter(v =>
+                ((v.type === 'compile') && v.item.value.length > 0) ||
+                (v.type === 'checkbox' && (v.item as CheckboxOption).checked) ||
+                (v.type === 'select'))
+            .map(v => {
+                if (v.type === 'select') {
+                    const selectItem = v.item as SelectBoxOption;
+                    const index = selectItem.values.findIndex(item => item === selectItem.value);
+                    return selectItem.displayFlags[index];
+                } else if (v.type === 'compile') {
+                    return v.item.value;
+                } else {
+                    return v.item.displayFlag;
+                }
+            })
+            .join(' ');
+    }
 }
 
 export class CompilerOptionModel {
@@ -78,21 +102,22 @@ export class CompilerOptionModel {
     item: CheckboxOption | SelectBoxOption | TextAreaOption;
 }
 
-export interface CheckboxOption {
+export interface OptionItem {
     name: string;
     value: string;
+    displayFlag?: string;
+}
+
+export interface CheckboxOption extends OptionItem {
     checked: boolean;
 }
 
-export interface TextAreaOption {
-    name: string;
-    value: string;
-}
+export type TextAreaOption = OptionItem;
 
-export interface SelectBoxOption {
-    value: string;
+export interface SelectBoxOption extends OptionItem {
     names: string[];
     values: string[];
+    displayFlags: string[];
 }
 
 export type OptionType = CheckboxOption | SelectBoxOption | TextAreaOption;

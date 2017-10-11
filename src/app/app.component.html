@@ -15,7 +15,11 @@
             <wandbox-editor></wandbox-editor>
             <div class="row">
                 <div class="col-md-12">
-                    <p id="compile_command"><code>$ ほげほげ～ｗ  </code></p>
+                    <p id="compile_command">
+                        <code>
+                            $ {{compilerComponent.selectedCompiler.compileCommand}} {{flags}}
+                        </code>
+                    </p>
                 </div>
             </div>
             <wandbox-compile (compile)="onCompile()"></wandbox-compile>

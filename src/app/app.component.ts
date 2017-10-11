@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { EditorComponent } from './components/editor/editor.component';
 import { CompilerComponent } from './components/compiler/compiler.component';
+import { CheckboxOption, CompilerOptionModel, TextAreaOption, SelectBoxOption } from './components/compiler/compiler.model';
 import { RunCompileService } from './components/common/run-compile.service';
 import { CompileRequest } from './components/api/compile.model';
-import { CheckboxOption } from './components/compiler/compiler.model';
 
 @Component({
     selector: 'app-root',
@@ -15,7 +15,11 @@ export class AppComponent {
     @ViewChild(EditorComponent) editorComponent: EditorComponent;
     @ViewChild(CompilerComponent) compilerComponent: CompilerComponent;
 
-    constructor(private compile: RunCompileService) {}
+    get flags() {
+        return this.compilerComponent.selectedCompiler.displayFlags;
+    }
+
+    constructor(private compile: RunCompileService) { }
 
     onCompile() {
         const code = this.editorComponent.tabs[0].editorContent;
@@ -28,14 +32,14 @@ export class AppComponent {
         const options = selectCompiler.options.filter(v =>
             v.type !== 'checkbox' || (v.item as CheckboxOption).checked
         )
-        .filter(v => v.item.value.length > 0)
-        .map(v => v.item.value)
-        .join(',');
+            .filter(v => v.item.value.length > 0)
+            .map(v => v.item.value)
+            .join(',');
 
         const compileOptionRawIndex = selectCompiler.options.findIndex(v => v.type === 'compile');
         const runtimeOptionRawIndex = selectCompiler.options.findIndex(v => v.type === 'runtime');
 
-        const [ compilerOptionRaw, runtimeOptionRaw ] = [
+        const [compilerOptionRaw, runtimeOptionRaw] = [
             compileOptionRawIndex !== -1 ? selectCompiler.options[compileOptionRawIndex].item.value : undefined,
             runtimeOptionRawIndex !== -1 ? selectCompiler.options[runtimeOptionRawIndex].item.value : undefined,
         ];

@@ -20,29 +20,20 @@
         </div>
         <div class="checkbox">
             <label>
-                <input class="indent-with-tabs" type="checkbox" [(ngModel)]="model.indentWithTabs" (change)="changeConfig('indentWithTabs', model.indentWithTabs)" checked="">
-                Indent with Tabs
+                <input class="indent-with-tabs" type="checkbox" [(ngModel)]="model.indentWithTabs" (change)="changeConfig('indentWithTabs', model.indentWithTabs)"
+                    checked=""> Indent with Tabs
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input class="smart-indent" type="checkbox" [(ngModel)]="model.smartIndent"  (change)="changeConfig('smartIndent', model.smartIndent)" checked="">
-                Smart Indent
+                <input class="smart-indent" type="checkbox" [(ngModel)]="model.smartIndent" (change)="changeConfig('smartIndent', model.smartIndent)"
+                    checked=""> Smart Indent
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input class="expand-editor" type="checkbox" value="expand-editor" [(ngModel)]="model.expand">
-                Expand
+                <input class="expand-editor" type="checkbox" value="expand-editor" [(ngModel)]="model.expand"> Expand
             </label>
         </div>
     </div>
 </div>
-
-<code>
-    {{model.dump}}
-</code>
-<br>
-<code>
-    {{tabDump}}
-</code>

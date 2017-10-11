@@ -3,9 +3,9 @@
         <p class="wandbox-current-compiler-language label label-success">{{selectedLanguage.languageName}}</p>
         <div class="dropdown wandbox-compiler">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
-                    <span class="wandbox-current-compiler-text">{{selectedCompiler.displayName}} {{selectedCompiler.version}}</span>
-                    <span class="wandbox-current-compiler-caret caret"></span>
-                </button>
+                <span class="wandbox-current-compiler-text">{{selectedCompiler.displayName}} {{selectedCompiler.version}}</span>
+                <span class="wandbox-current-compiler-caret caret"></span>
+            </button>
             <div class="dropdown-menu wandbox-dropdown-area" role="menu" aria-labelledby="dropdown-language">
                 <div class="wandbox-dropdown-version"></div>
                 <div class="wandbox-dropdown-detail-area">
@@ -47,14 +47,12 @@
                     <div class="form-group" *ngFor="let option of selectedCompiler.options; let i=index;">
                         <ng-container *ngIf="option.type === 'checkbox'">
                             <label (change)="changeOption(i, option)">
-                                <input type="checkbox" [(ngModel)]="option.item.checked" [attr.checked]="option.item.checked || null"/>
-                                {{option.item.name}}
+                                <input type="checkbox" [(ngModel)]="option.item.checked" [attr.checked]="option.item.checked || null" /> {{option.item.name}}
                             </label>
                         </ng-container>
                         <ng-container *ngIf="option.type === 'select'">
                             <select class="col-md-12 wandbox-select-flags form-control" [(ngModel)]="option.item.value" (change)="changeOption(i, option)">
-                                <option *ngFor="let name of option.item.names; let i=index;"
-                                        value="{{option.item.values[i]}}">{{name}}</option>
+                                <option *ngFor="let name of option.item.names; let i=index;" value="{{option.item.values[i]}}">{{name}}</option>
                             </select>
                         </ng-container>
                         <ng-container *ngIf="option.type === 'runtime' || option.type === 'compile'">
@@ -70,10 +68,16 @@
 <div *ngIf="!fetched" class="row">
     <div class="col-md-12">
         <ng-container *ngIf="errorMessage.length === 0">
-            Loading...
+            <!-- TODO: なんかアイコン入れる -->
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
+                <span class="wandbox-current-compiler-text">Loading...</span>
+                <span class="wandbox-current-compiler-caret caret"></span>
+            </button>
         </ng-container>
         <ng-container *ngIf="errorMessage.length !== 0">
-            <span class="alert alert-danger">{{errorMessage}}</span>
+            <span class="wandbox-current-compiler-text">
+                <span class="alert alert-danger">{{errorMessage}}</span>
+            </span>
         </ng-container>
     </div>
 </div>

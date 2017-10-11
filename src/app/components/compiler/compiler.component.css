@@ -2,15 +2,6 @@
     resize: none;
 }
 
-
-/* .wandbox-compiler>button {
-    width: 192px;
-}
-
-.wandbox-current-compiler-caret {
-    left: 90%;
-} */
-
 .wandbox-insert-template {
     width: 180px;
 }
@@ -42,4 +33,12 @@ label.raw-flags {
 
 .form-group {
     margin-bottom: 0px;
+}
+
+.raw-flags {
+    margin-top: 20px;
+}
+
+textarea.form-control {
+    resize: none;
 }
