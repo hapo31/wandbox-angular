@@ -29,9 +29,10 @@ export class AppComponent {
         })) : [];
         const selectCompiler = this.compilerComponent.selectedCompiler;
         const compiler = selectCompiler.name;
-        const options = selectCompiler.options.filter(v =>
-            v.type !== 'checkbox' || (v.item as CheckboxOption).checked
-        )
+        const options = selectCompiler.options
+            .filter(v =>
+                v.type !== 'checkbox' || (v.item as CheckboxOption).checked
+            )
             .filter(v => v.item.value.length > 0)
             .map(v => v.item.value)
             .join(',');
