@@ -1,0 +1,57 @@
+<div id="result-container" *ngIf="results && results.length > 0">
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+            <li *ngFor="let result of results; let i=index;" [class.active]="i === activeIndex" (click)="activationResultTab(i)">
+                <button type="button" class="close" href="#">×</button>
+                <a data-toggle="tab" href="#result-container-tab-{{1}}">#{{i}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane result-window active">
+            <div class="permlink">
+                <a href="#" class="btn btn-default">
+                    <span class="glyphicon glyphicon-share"></span> Share</a>
+            </div>
+            <div class="wandbox-code-window">
+                <div class="wandbox-code-window-code panel panel-default">
+                    <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body" aria-expanded="true"
+                        class=""> Code </a>
+                    <div id="wandbox-resultwindow-code-body" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="wandbox-resultwindow-compiler">
+                                <div>
+                                    <p>[{{selectedResult.languageName}}] {{selectedResult.compilerName}}</p>
+                                </div>
+                            </div>
+                            <div class="wandbox-resultwindow-code">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li *ngFor="let tab of selectedResult.tabs; let i=index;" [class.active]="selectedResult.activeSourceTabIndex === i" (click)="activationSourceTab(i)">
+                                        <a class="" href="#wandbox-resultwindow-code-body-1-0" role="tab" data-toggle="tab">
+                                            <i class="glyphicon glyphicon-file"></i>
+                                            <span *ngIf="i !== 0">{{tab.fileName}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="wandbox-resultwindow-code-body" role="tabpanel" class="tab-pane active">
+                                        <pre>{{selectedResult.activeTab.editorContent}}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wandbox-resultwindow-stdin">
+                                <pre>{{selectedResult.stdin}}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="output-window">
+                <pre class="Control" data-type="Control" data-text="Start">Start</pre>
+                <pre class="StdOut" data-type="StdOut">{{selectedResult.programOutout}}</pre>
+                <pre class="ExitCode" data-type="ExitCode">{{selectedResult.status}}</pre>
+                <pre class="Control" data-type="Control" data-text="Finish">Finish</pre>
+            </div>
+        </div>
+    </div>
+</div>
