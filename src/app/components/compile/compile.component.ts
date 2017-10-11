@@ -22,7 +22,6 @@ export class CompileComponent implements OnInit {
             v.request.stdin = this.stdin;
             this.apiService.postCompile(v.request).subscribe(res => {
                 const result = new CompileResultModel();
-
                 result.compilerName = v.compiler.displayName + ' ' + v.compiler.version;
                 result.languageName = v.language;
                 result.programMessage = res.program_message;

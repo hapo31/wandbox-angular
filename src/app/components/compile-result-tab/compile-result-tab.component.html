@@ -3,7 +3,7 @@
         <ul class="nav nav-tabs">
             <li *ngFor="let result of results; let i=index;" [class.active]="i === activeIndex" (click)="activationResultTab(i)">
                 <button type="button" class="close" href="#">×</button>
-                <a data-toggle="tab" href="#result-container-tab-{{1}}">#{{i}}</a>
+                <a data-toggle="tab">#{{i+1}}</a>
             </li>
         </ul>
     </div>
@@ -15,8 +15,7 @@
             </div>
             <div class="wandbox-code-window">
                 <div class="wandbox-code-window-code panel panel-default">
-                    <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body" aria-expanded="true"
-                        class=""> Code </a>
+                    <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body" aria-expanded="true" class=""> Code </a>
                     <div id="wandbox-resultwindow-code-body" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="wandbox-resultwindow-compiler">

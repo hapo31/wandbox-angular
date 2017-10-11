@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CompileResultModel } from '../compile/compile.model';
+import { RunCompileService } from '../common/run-compile.service';
 
 @Component({
     selector: 'compile-result-tab',
@@ -16,7 +17,11 @@ export class CompileResultTabComponent implements OnInit {
         return this.results[this.activeIndex];
     }
 
-    constructor() { }
+    constructor(private compileService: RunCompileService) {
+        this.compileService.executeCompile().subscribe(v => {
+            this.activeIndex = this.results.length;
+        });
+     }
 
     ngOnInit() {
     }

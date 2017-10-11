@@ -1,13 +1,5 @@
-.option-raw.runtime-option-raw .checkbox>textarea {
-    resize: none;
-}
-
 .wandbox-insert-template {
     width: 180px;
-}
-
-.wandbox-select-flags {
-    max-width: 190px;
 }
 
 li>a.wandbox-dropdown-listitem.selected,
@@ -24,19 +16,14 @@ li>a.wandbox-dropdown-language-item.selected {
     cursor: pointer;
 }
 
-label.raw-flags {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 5px;
-    font-weight: bolder;
-}
-
 .form-group {
     margin-bottom: 0px;
 }
 
 .raw-flags {
-    margin-top: 20px;
+    margin: 5px 5px;
+    font-weight: bolder;
+    display: inline-block;
 }
 
 textarea.form-control {
