@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CompileResultModel } from '../compile/compile.model';
 import { RunCompileService } from '../common/run-compile.service';
 
@@ -10,18 +10,22 @@ import { RunCompileService } from '../common/run-compile.service';
 export class CompileResultTabComponent implements OnInit {
 
     @Input() results: Array<CompileResultModel>;
+    @Output() removeTab = new EventEmitter<number>();
 
-    activeIndex = 0;
+    activeIndex = -1;
+
+    private emptyTab = new CompileResultModel();
 
     get selectedResult() {
-        return this.results[this.activeIndex];
+        return this.results[this.activeIndex] || this.emptyTab;
     }
 
     constructor(private compileService: RunCompileService) {
+        this.emptyTab.tabs = [];
         this.compileService.executeCompile().subscribe(v => {
-            this.activeIndex = this.results.length;
+            this.activeIndex = this.results.length - 1;
         });
-     }
+    }
 
     ngOnInit() {
     }
@@ -32,6 +36,14 @@ export class CompileResultTabComponent implements OnInit {
 
     activationResultTab(index: number) {
         this.activeIndex = index;
+    }
+
+    clickRemoveTab(index: number) {
+        this.removeTab.emit(index);
+        if (this.results.length <= this.activeIndex) {
+            this.activationResultTab(this.results.length - 1);
+        }
+        console.log(this.activeIndex);
     }
 
 }

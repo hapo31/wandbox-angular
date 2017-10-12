@@ -1,6 +1,7 @@
 import { TabModel } from '../editor-tab/editor-tab.model';
 
 export class CompileResultModel {
+    tabName: string;
     languageName: string;
     compilerName: string;
     stdin: string;
