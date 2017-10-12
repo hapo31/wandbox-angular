@@ -16,12 +16,20 @@ export class CompileComponent implements OnInit {
 
     stdin: string;
 
+    compiling = false;
+
+    compileCount = 0;
+
     constructor(private apiService: PostCompileService,
         private runCompile: RunCompileService) {
         this.runCompile.executeCompile().subscribe(v => {
+            this.compiling = true;
             v.request.stdin = this.stdin;
+            const result = new CompileResultModel();
+            result.tabName = (this.compileCount + 1).toString();
+            this.compileCount++;
+            this.compileResults.push(result);
             this.apiService.postCompile(v.request).subscribe(res => {
-                const result = new CompileResultModel();
                 result.compilerName = v.compiler.displayName + ' ' + v.compiler.version;
                 result.languageName = v.language;
                 result.programMessage = res.program_message;
@@ -35,7 +43,7 @@ export class CompileComponent implements OnInit {
                 // receive compile result.
                 console.log(res);
 
-                this.compileResults.push(result);
+                this.compiling = false;
             });
         });
     }
@@ -45,6 +53,10 @@ export class CompileComponent implements OnInit {
 
     postCompile() {
         this.compile.emit();
+    }
+
+    removeTab(index: number) {
+        this.compileResults.splice(index, 1);
     }
 
 }
