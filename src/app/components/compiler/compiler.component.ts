@@ -13,22 +13,19 @@ import { CompilerInfo } from '../api/compiler-list.model';
 })
 export class CompilerComponent implements OnInit {
 
+    selectedLangIndex = 0;
+    languages = new Array<LanguageModel>();
+    fetched = false;
+    errorMessage = '';
+
     get selectedLanguage() {
-        return this.languages[this.selectedLangIndex];
+        return this.languages[this.selectedLangIndex] || null;
     }
 
     get selectedCompiler() {
         const selectedLanguage = this.selectedLanguage;
-        return selectedLanguage.compilers[selectedLanguage.selectedCompilerIndex || 0];
+        return selectedLanguage != null ? selectedLanguage.compilers[selectedLanguage.selectedCompilerIndex] : null;
     }
-
-    selectedLangIndex = 0;
-
-    languages = new Array<LanguageModel>();
-
-    fetched = false;
-
-    errorMessage = '';
 
     constructor(private service: CompilerService) {
         this.service.fetchCompilerList().subscribe(compilerList => {

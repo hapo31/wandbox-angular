@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <p id="compile_command">
-                        <code>
+                        <code *ngIf="compilerComponent.selectedCompiler != null">
                             $ {{compilerComponent.selectedCompiler.compileCommand}} {{flags}}
                         </code>
                     </p>

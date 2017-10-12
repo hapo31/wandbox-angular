@@ -1,5 +1,5 @@
 <div class="row" *ngIf="fetched">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="selectedLanguage != null">
         <p class="wandbox-current-compiler-language label label-success">{{selectedLanguage.languageName}}</p>
         <div class="dropdown wandbox-compiler">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
