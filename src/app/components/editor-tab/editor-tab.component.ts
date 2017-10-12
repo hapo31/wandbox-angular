@@ -1,6 +1,9 @@
 import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { TabModel, TabChangedEvent } from './editor-tab.model';
 import { EditorConfigModel } from '../editor/editor.model';
+import * as rxjs from 'rxjs/Rx';
+
+import { LocalStorageService } from '../common/local-storage.service';
 
 @Component({
     selector: 'editor-tab',
@@ -16,7 +19,7 @@ export class TabComponent implements AfterViewInit {
 
     private tabCount = 1;
 
-    constructor() { }
+    constructor(private storage: LocalStorageService) { }
 
     ngAfterViewInit() {
         console.log('editor-tab', this.tabs);
@@ -76,6 +79,12 @@ export class TabComponent implements AfterViewInit {
     tabChanged(event: string | Event) {
         if (typeof event === 'string') {
             this.tabs[this.activeIndex].editorContent = event;
+            rxjs.Observable.from([event])
+            .throttleTime(500)
+            .subscribe(_ => {
+                console.log('save to storage');
+                this.storage.setValue('tabs', this.tabs);
+            });
         }
     }
 

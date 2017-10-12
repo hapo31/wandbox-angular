@@ -5,11 +5,13 @@ import { CheckboxOption, CompilerOptionModel, TextAreaOption, SelectBoxOption } 
 import { RunCompileService } from './components/common/run-compile.service';
 import { CompileRequest } from './components/api/compile.model';
 
+import { LocalStorageService } from './components/common/local-storage.service';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    providers: [RunCompileService]
+    providers: [RunCompileService ]
 })
 export class AppComponent {
     @ViewChild(EditorComponent) editorComponent: EditorComponent;
@@ -19,7 +21,7 @@ export class AppComponent {
         return this.compilerComponent.selectedCompiler.displayFlags;
     }
 
-    constructor(private compile: RunCompileService) { }
+    constructor(private compile: RunCompileService, storage: LocalStorageService) { }
 
     onCompile() {
         const code = this.editorComponent.tabs[0].editorContent;
@@ -62,6 +64,5 @@ export class AppComponent {
             compiler: selectCompiler,
             tabs: this.editorComponent.tabs
         });
-
     }
 }

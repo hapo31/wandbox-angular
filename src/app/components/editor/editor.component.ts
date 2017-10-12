@@ -1,10 +1,15 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import * as rxjs from 'rxjs/Rx';
+
 
 import { EditorModel } from './editor.model';
 import { TabModel, TabChangedEvent } from '../editor-tab/editor-tab.model';
 
 import { EditorService } from './editor.service';
 import { CompilerService } from '../compiler/compiler.service';
+
+import { LocalStorageService } from '../common/local-storage.service';
 
 @Component({
     selector: 'wandbox-editor',
@@ -18,7 +23,9 @@ export class EditorComponent implements OnInit {
     tabs = new Array<TabModel>();
     activeTabIndex = 0;
 
-    constructor(private service: EditorService, private compiler: CompilerService) {
+    constructor(private service: EditorService,
+        private compiler: CompilerService,
+        private storage: LocalStorageService) {
         // Detection changed mime event from compiler changing.
         this.compiler.selectedLanguage$.subscribe(mime => {
             this.model.mode = mime;
@@ -34,11 +41,16 @@ export class EditorComponent implements OnInit {
     }
 
     ngOnInit() {
-        const firstTab = new TabModel();
-        firstTab.isActive = true;
-        firstTab.fileName = '';
-        firstTab.editorContent = '';
-        this.tabs.push(firstTab);
+        if (this.storage.hasValue('tabs')) {
+            this.tabs = this.storage.getValue('tabs');
+            this.activeTabIndex = this.tabs.findIndex(v => v.isActive);
+        } else {
+            const firstTab = new TabModel();
+            firstTab.isActive = true;
+            firstTab.fileName = '';
+            firstTab.editorContent = '';
+            this.tabs.push(firstTab);
+        }
         console.log(this.tabs);
     }
 
@@ -48,12 +60,6 @@ export class EditorComponent implements OnInit {
             name: configName,
             value: value
         });
-    }
-
-    editorChanged(event: string | Event) {
-        if (typeof event === 'string') {
-            this.tabs[this.activeTabIndex].editorContent = event;
-        }
     }
 
     tabChanged(event: TabChangedEvent) {

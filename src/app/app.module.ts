@@ -18,7 +18,11 @@ import { CompilerService } from './components/compiler/compiler.service';
 import { CompilerListAPIService } from './components/api/compiler-list.service';
 import { TemplateAPIService } from './components/api/template.service';
 import { PostCompileService } from './components/api/compile.service';
+import { LocalStorageService } from './components/common/local-storage.service';
+
 import { CompileResultTabComponent } from './components/compile-result-tab/compile-result-tab.component';
+
+
 
 @NgModule({
     imports: [
@@ -39,7 +43,13 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
     ],
     exports: [
     ],
-    providers: [TemplateAPIService, CompilerListAPIService, CompilerService, PostCompileService],
+    providers: [
+        TemplateAPIService,
+        CompilerListAPIService,
+        CompilerService,
+        PostCompileService,
+        LocalStorageService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
