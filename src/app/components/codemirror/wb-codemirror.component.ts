@@ -17,6 +17,11 @@ import { EditorService } from '../editor/editor.service';
 
 @Component({
     selector: 'wandbox-codemirror',
+    styles: [`
+        textarea {
+            display: none;
+        }
+    `],
     template: `
         <textarea #host></textarea>
   `
