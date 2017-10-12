@@ -11,6 +11,7 @@ export class CompileResultModel {
     programMessage: string;
     programErrorMessage: string;
     compilerErrorMessage: string;
+    signalMessage: string;
     status: number;
 
     showCode: boolean;

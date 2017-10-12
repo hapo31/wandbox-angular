@@ -36,7 +36,8 @@ export class CompileComponent implements OnInit {
                 result.programOutout = res.program_output;
                 result.compilerErrorMessage = res.compiler_error;
                 result.programErrorMessage = res.program_error;
-                result.status = +res.status;
+                result.signalMessage = res.signal;
+                result.status = +(res.status !== undefined ? res.status : -1);
                 // TODO: ディープコピーが適当すぎる
                 result.tabs = JSON.parse(JSON.stringify(v.tabs));
 

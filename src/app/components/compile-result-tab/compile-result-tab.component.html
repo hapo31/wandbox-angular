@@ -15,8 +15,7 @@
             </div>
             <div class="wandbox-code-window">
                 <div class="wandbox-code-window-code panel panel-default">
-                    <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body" aria-expanded="true"
-                        class=""> Code </a>
+                    <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body" aria-expanded="true" class=""> Code </a>
                     <div id="wandbox-resultwindow-code-body" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="wandbox-resultwindow-compiler">
@@ -46,11 +45,13 @@
                     </div>
                 </div>
             </div>
-            <div class="output-window">
-                <pre class="Control" data-type="Control" data-text="Start">Start</pre>
-                <pre class="StdOut" data-type="StdOut">{{selectedResult.programOutout}}</pre>
-                <pre class="ExitCode" data-type="ExitCode">{{selectedResult.status}}</pre>
-                <pre class="Control" data-type="Control" data-text="Finish">Finish</pre>
+            <div class="output-window" *ngIf="selectedResult != null">
+                <!-- <pre class="Control">Start</pre> -->
+                <pre class="CompilerMessageE">{{selectedResult.compilerErrorMessage}}</pre>
+                <pre class="StdOut">{{selectedResult.programOutout}}</pre>
+                <pre class="Signal">{{selectedResult.signalMessage}}</pre>
+                <pre class="ExitCode" *ngIf="selectedResult.status !== -1">{{selectedResult.status}}</pre>
+                <!-- <pre class="Control">Finish</pre> -->
             </div>
         </div>
     </div>
