@@ -35,6 +35,8 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
     @Output() focus = new EventEmitter<void>();
     @Output() change = new EventEmitter<string>();
 
+    @Output() compileCommand = new EventEmitter<void>();
+
     @ViewChild('host') host;
 
     private codemirror: CodeMirror.Editor = null;
@@ -89,7 +91,9 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
             'Shift-Tab': (cm) => {
                 cm.execCommand('indentLess');
             },
-
+            'Ctrl-Enter': (cm) => {
+                this.compileCommand.emit();
+            },
         });
     }
 }
