@@ -8,4 +8,4 @@
 - ❌ Show output realtime.
 - ❌ Test code.
 - ❌ Sponsers list
-- ❌ Remove log output in release build.
+- ❌ Remove output log in release build.
