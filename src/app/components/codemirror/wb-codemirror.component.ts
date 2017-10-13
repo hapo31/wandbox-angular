@@ -56,6 +56,11 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
         this.codemirrorInit(this.config);
         const codeMirror = (this.element.nativeElement as HTMLElement);
         codeMirror.classList.add('cm-s-user');
+        this.clearHistory();
+    }
+
+    public clearHistory() {
+        this.codemirror.getDoc().clearHistory();
     }
 
     private codemirrorInit(config: EditorConfigModel) {
@@ -94,6 +99,9 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
             'Ctrl-Enter': (cm) => {
                 this.compileCommand.emit();
             },
+            'Ctrl-Shift-T': (cm) => {
+                console.log('hogehoge');
+            }
         });
     }
 }

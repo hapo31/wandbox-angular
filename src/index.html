@@ -19,9 +19,6 @@
     <script async="" src="https://www.google-analytics.com/analytics.js"></script>
     <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/codemirror.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/keymap/vim.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/keymap/emacs.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/codemirror.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/addon/mode/simple.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/clike/clike.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/mode/d/d.min.js"></script>
@@ -70,7 +67,7 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.2/timeago.min.js"></script>
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             var timeAgo = timeago();
             timeAgo.render(document.querySelectorAll('.time-ago'));
         });
@@ -84,8 +81,8 @@
 <body data-webroot="/">
 
     <noscript>
-    &lt;h1&gt;&lt;a href="/nojs"&gt;Click this for noscript browsers&lt;/a&gt;&lt;/h1&gt;
-  </noscript>
+        &lt;h1&gt;&lt;a href="/nojs"&gt;Click this for noscript browsers&lt;/a&gt;&lt;/h1&gt;
+    </noscript>
 
     <div id="main" role="main">
         <app-root></app-root>
@@ -98,6 +95,8 @@
       window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})
     </script>
   <![endif]-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/keymap/vim.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/keymap/emacs.min.js"></script>
 </body>
 
 </html>
