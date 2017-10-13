@@ -88,7 +88,10 @@ export class CompilerModel {
                     const index = selectItem.values.findIndex(item => item === selectItem.value);
                     return selectItem.displayFlags[index];
                 } else if (v.type === 'compile') {
-                    return `"${v.item.value}"`;
+                    return v.item.value
+                        .split('\n')
+                        .filter(str => str.length > 0)
+                        .map(str => `"${str}"`).join(' ');
                 } else {
                     return v.item.displayFlag;
                 }
