@@ -39,8 +39,7 @@ export class CompilerComponent implements OnInit {
                 languageDic[languageName].addCompiler(compilerList[i]);
             }
             this.languages = Object.keys(languageDic)
-                                .sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
-                                .map(key => languageDic[key]);
+                .map(key => languageDic[key]);
             this.fetched = true;
 
 
@@ -98,7 +97,7 @@ export class CompilerComponent implements OnInit {
     }
 
     changeOption(index: number, item: OptionType) {
-        const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage,this.selectedCompiler);
+        const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage, this.selectedCompiler);
         this.storage.setValue(keyName, this.selectedCompiler.options);
 
         console.log('changed', index, item);
