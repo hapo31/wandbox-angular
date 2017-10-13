@@ -19,7 +19,15 @@ export class TabComponent implements AfterViewInit {
 
     private tabCount = 1;
 
-    constructor(private storage: LocalStorageService) { }
+    private saveContentSubject = new rxjs.Subject<string>();
+
+    constructor(private storage: LocalStorageService) {
+        this.saveContentSubject.asObservable()
+            .debounceTime(200)
+            .subscribe(_ => {
+                this.storage.setValue('tabs', this.tabs);
+            });
+    }
 
     ngAfterViewInit() {
         console.log('editor-tab', this.tabs);
@@ -79,12 +87,7 @@ export class TabComponent implements AfterViewInit {
     tabChanged(event: string | Event) {
         if (typeof event === 'string') {
             this.tabs[this.activeIndex].editorContent = event;
-            rxjs.Observable.from([event])
-            .throttleTime(500)
-            .subscribe(_ => {
-                console.log('save to storage');
-                this.storage.setValue('tabs', this.tabs);
-            });
+            this.saveContentSubject.next(event);
         }
     }
 
