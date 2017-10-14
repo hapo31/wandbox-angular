@@ -37,3 +37,29 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p id="compile_command">
+            <code *ngIf="selectedLanguage != null && selectedLanguage.selectedCompiler != null">
+                $ {{selectedLanguage.selectedCompiler.compileCommand}} {{selectedLanguage.selectedCompiler.displayFlags}}
+            </code>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="panel-group" role="tablist" id="wandbox-stdin-accordion" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <a id="wandbox-stdin-button" data-toggle="collapse" data-parent="#wandbox-stdin-accordion" href="#wandbox-stdin-body" aria-expanded="true">
+                    Stdin
+                </a>
+                <div id="wandbox-stdin-body" class="panel-collapse collapse">
+                    <textarea class="form-control" [(ngModel)]="model.stdin"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<wandbox-compile [tabs]="tabs" [stdin]="model.stdin" [selectedLanguage]="selectedLanguage"></wandbox-compile>

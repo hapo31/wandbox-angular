@@ -21,11 +21,6 @@ export class CompilerComponent implements OnInit {
         return this.languages[this.selectedLangIndex] || null;
     }
 
-    get selectedCompiler() {
-        const selectedLanguage = this.selectedLanguage;
-        return selectedLanguage != null ? selectedLanguage.compilers[selectedLanguage.selectedCompilerIndex] : null;
-    }
-
     constructor(private service: CompilerService,
         private storage: LocalStorageService) {
         this.service.fetchCompilerList().subscribe(compilerList => {
@@ -73,7 +68,7 @@ export class CompilerComponent implements OnInit {
         if (this.storage.hasValue('compiler')) {
             const compiler = this.storage.getValue('compiler');
             let compilerIndex = this.selectedLanguage.compilers
-                .findIndex(v => this.generateCompileOptionStorageKey(this.selectedLanguage, v) === compiler);
+                .findIndex(v => this.generateCompileOptionStorageKey(this.selectedLanguage) === compiler);
             if (compilerIndex === -1) {
                 this.storage.removeValue('compiler');
                 compilerIndex = 0;
@@ -82,23 +77,23 @@ export class CompilerComponent implements OnInit {
         } else {
             this.selectedLanguage.selectedCompilerIndex = 0;
         }
-        this.service.selectedLanguageNext(this.selectedLanguage.languageName);
+        this.service.selectedLanguageNext(this.selectedLanguage);
         console.log('active', this.selectedLangIndex);
     }
 
     clickCompiler(index: number) {
-        const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage, this.selectedCompiler);
+        const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage);
         this.selectedLanguage.selectedCompilerIndex = index;
         this.storage.setValue('compiler', keyName);
         if (this.storage.hasValue(keyName)) {
             const options = this.storage.getValue(keyName);
-            this.selectedCompiler.options = options;
+            this.selectedLanguage.selectedCompiler.options = options;
         }
     }
 
     changeOption(index: number, item: OptionType) {
-        const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage, this.selectedCompiler);
-        this.storage.setValue(keyName, this.selectedCompiler.options);
+        const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage);
+        this.storage.setValue(keyName, this.selectedLanguage.selectedCompiler.options);
 
         console.log('changed', index, item);
     }
@@ -108,7 +103,7 @@ export class CompilerComponent implements OnInit {
         console.log('template', templateName);
     }
 
-    private generateCompileOptionStorageKey(language: LanguageModel, compiler: CompilerModel) {
-        return `compilerOptions-${language.languageName}-${compiler.displayName}-${compiler.version}`;
+    private generateCompileOptionStorageKey(language: LanguageModel) {
+        return `compilerOptions-${language.languageName}-${language.selectedCompiler.displayName}-${language.selectedCompiler.version}`;
     }
 }

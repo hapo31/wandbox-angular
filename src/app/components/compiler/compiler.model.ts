@@ -6,11 +6,15 @@ export class LanguageModel {
     selectedCompilerIndex = 0;
     compilers: Array<CompilerModel> = [];
 
-    addable(compiler: CompilerInfo) {
+    public get selectedCompiler() {
+        return this.compilers[this.selectedCompilerIndex];
+    }
+
+    public addable(compiler: CompilerInfo) {
         return this.languageName === compiler.language;
     }
 
-    addCompiler(compiler: CompilerInfo) {
+    public addCompiler(compiler: CompilerInfo) {
         const result = new CompilerModel();
         result.name = compiler.name;
         result.displayName = compiler['display-name'];

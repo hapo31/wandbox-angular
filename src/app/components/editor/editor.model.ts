@@ -7,6 +7,7 @@
  */
 export class EditorModel {
     config: EditorConfigModel = new EditorConfigModel();
+    stdin: string;
 
     get dump() {
         return JSON.stringify(this.config, null, '\n');

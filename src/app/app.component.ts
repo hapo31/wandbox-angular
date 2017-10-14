@@ -17,52 +17,5 @@ export class AppComponent {
     @ViewChild(EditorComponent) editorComponent: EditorComponent;
     @ViewChild(CompilerComponent) compilerComponent: CompilerComponent;
 
-    get flags() {
-        return this.compilerComponent.selectedCompiler.displayFlags;
-    }
-
     constructor(private compile: RunCompileService, storage: LocalStorageService) { }
-
-    onCompile() {
-        const code = this.editorComponent.tabs[0].editorContent;
-        const codes = this.editorComponent.tabs.length > 1 ? this.editorComponent.tabs.map(v => ({
-            code: v.editorContent,
-            file: v.fileName
-        })) : [];
-        const selectCompiler = this.compilerComponent.selectedCompiler;
-        const compiler = selectCompiler.name;
-        const options = selectCompiler.options
-            .filter(v =>
-                v.type !== 'checkbox' || (v.item as CheckboxOption).checked
-            )
-            .filter(v => v.item.value.length > 0)
-            .map(v => v.item.value)
-            .join(',');
-
-        const compileOptionRawIndex = selectCompiler.options.findIndex(v => v.type === 'compile');
-        const runtimeOptionRawIndex = selectCompiler.options.findIndex(v => v.type === 'runtime');
-
-        const [compilerOptionRaw, runtimeOptionRaw] = [
-            compileOptionRawIndex !== -1 ? selectCompiler.options[compileOptionRawIndex].item.value : undefined,
-            runtimeOptionRawIndex !== -1 ? selectCompiler.options[runtimeOptionRawIndex].item.value : undefined,
-        ];
-
-        const request: CompileRequest = {
-            code: code,
-            compiler: compiler,
-            options: options,
-            save: false,
-            stdin: '',
-            codes: codes,
-            'compiler-option-raw': compilerOptionRaw,
-            'runtime-option-raw': runtimeOptionRaw
-        };
-
-        this.compile.executeCompileNext({
-            language: this.compilerComponent.selectedLanguage.languageName,
-            request: request,
-            compiler: selectCompiler,
-            tabs: this.editorComponent.tabs
-        });
-    }
 }

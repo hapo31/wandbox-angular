@@ -1,4 +1,4 @@
-<div id="result-container" *ngIf="activeIndex !== -1 && results.length > 0">
+<div id="result-container" *ngIf="results.length > 0">
     <div class="tabbable tabs-left">
         <ul class="nav nav-tabs">
             <li *ngFor="let result of results; let i=index;" [class.active]="i === activeIndex" (click)="activationResultTab(i)">

@@ -3,7 +3,7 @@
         <p class="wandbox-current-compiler-language label label-success">{{selectedLanguage.languageName}}</p>
         <div class="dropdown wandbox-compiler">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
-                <span class="wandbox-current-compiler-text">{{selectedCompiler.displayName}} {{selectedCompiler.version}}</span>
+                <span class="wandbox-current-compiler-text">{{selectedLanguage.selectedCompiler.displayName}} {{selectedLanguage.selectedCompiler.version}}</span>
                 <span class="wandbox-current-compiler-caret caret"></span>
             </button>
             <div class="dropdown-menu wandbox-dropdown-area" role="menu" aria-labelledby="dropdown-language">
@@ -41,10 +41,10 @@
         <div class="tab-content">
             <div class="tab-pane-">
                 <p class="wandbox-insert-template">
-                    <a (click)="clickLoadTemplate(selectedCompiler.template)">Load template</a>
+                    <a (click)="clickLoadTemplate(selectedLanguage.selectedCompiler.template)">Load template</a>
                 </p>
                 <div class="option-raw runtime-option-raw">
-                    <div class="form-group" *ngFor="let option of selectedCompiler.options; let i=index;">
+                    <div class="form-group" *ngFor="let option of selectedLanguage.selectedCompiler.options; let i=index;">
                         <ng-container *ngIf="option.type === 'checkbox'">
                             <label (change)="changeOption(i, option)">
                                 <input type="checkbox" [(ngModel)]="option.item.checked" [attr.checked]="option.item.checked || null" /> {{option.item.name}}

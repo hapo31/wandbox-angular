@@ -12,7 +12,7 @@ export class CompileResultTabComponent implements OnInit {
     @Input() results: Array<CompileResultModel>;
     @Output() removeTab = new EventEmitter<number>();
 
-    activeIndex = -1;
+    @Input() activeIndex = -1;
 
     private emptyTab = new CompileResultModel();
 
@@ -22,9 +22,9 @@ export class CompileResultTabComponent implements OnInit {
 
     constructor(private compileService: RunCompileService) {
         this.emptyTab.tabs = [];
-        this.compileService.executeCompile().subscribe(v => {
-            this.activeIndex = this.results.length - 1;
-        });
+        // this.compileService.executeCompile().subscribe(v => {
+        //     this.activeIndex = this.results.length - 1;
+        // });
     }
 
     ngOnInit() {
