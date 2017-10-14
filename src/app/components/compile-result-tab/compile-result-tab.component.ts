@@ -10,9 +10,10 @@ import { RunCompileService } from '../common/run-compile.service';
 export class CompileResultTabComponent implements OnInit {
 
     @Input() results: Array<CompileResultModel>;
+    @Input() changeTab = new EventEmitter<number>();
     @Output() removeTab = new EventEmitter<number>();
 
-    @Input() activeIndex = -1;
+    @Input() activeIndex;
 
     private emptyTab = new CompileResultModel();
 
@@ -35,7 +36,7 @@ export class CompileResultTabComponent implements OnInit {
     }
 
     activationResultTab(index: number) {
-        this.activeIndex = index;
+        this.changeTab.emit(index);
     }
 
     clickRemoveTab(index: number) {
