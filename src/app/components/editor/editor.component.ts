@@ -44,27 +44,47 @@ export class EditorComponent implements OnInit {
     }
 
     ngOnInit() {
+        // Load tab data from local storage.
         if (this.storage.hasValue('tabs')) {
             this.tabs = this.storage.getValue('tabs');
             this.activeTabIndex = this.tabs.findIndex(v => v.isActive);
         } else {
+            // initialize tab data.
             const firstTab = new TabModel();
             firstTab.isActive = true;
             firstTab.fileName = '';
             firstTab.editorContent = '';
             this.tabs.push(firstTab);
         }
-        console.log(this.tabs);
+
+        if (this.storage.hasValue('editorConfig')) {
+            this.model.config = this.storage.getValue('editorConfig');
+        }
     }
 
+    /**
+     * Detection changed config.
+     *
+     * @param {string} configName
+     * @param {(string | number)} value
+     * @memberof EditorComponent
+     */
     changeConfig(configName: string, value: string | number) {
-        console.log(configName, value);
+        this.storage.setValue('editorConfig', this.model.config);
+
+        // send config data to codemirror component.
         this.service.changeConfigNext$({
             name: configName,
             value: value
         });
     }
 
+    /**
+     * Detection changed tab.
+     *
+     * @param {TabChangedEvent} event
+     * @memberof EditorComponent
+     */
     tabChanged(event: TabChangedEvent) {
         this.activeTabIndex = event.index;
         this.tabs[this.activeTabIndex].editorContent = event.data.editorContent;

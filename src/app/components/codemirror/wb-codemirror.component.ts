@@ -41,11 +41,15 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
 
     private codemirror: CodeMirror.Editor = null;
 
-    constructor(private service: EditorService, private element: ElementRef) {
+    constructor(private service: EditorService,
+        private element: ElementRef) {
+
+        // apply change config.
         service.changeConfig$.subscribe(v => {
             this.codemirror.setOption(v.name, v.value);
         });
 
+        // set tab data
         service.changeEditorTab$.subscribe(v => {
             this.value = v;
             this.codemirror.setValue(v);
@@ -55,6 +59,7 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
     ngAfterViewInit(): void {
         this.codemirrorInit(this.config);
         const codeMirror = (this.element.nativeElement as HTMLElement);
+        // codemirror style setting from class style definition in css.
         codeMirror.classList.add('cm-s-user');
         this.clearHistory();
     }
@@ -79,12 +84,14 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
             this.blur.emit();
         });
 
+        // definition shortcut key.
         this.codemirror.setOption('extraKeys', {
             Tab: (cm) => {
                 if (cm.somethingSelected()) {
                     cm.execCommand('indentMore');
                     return;
                 }
+                // tab insertion.
                 if (this.config.indentWithTabs) {
                     cm.execCommand('insertTab');
                 } else {
