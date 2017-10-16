@@ -5,5 +5,6 @@
 
 export const environment = {
     baseUrl: 'https://wandbox.org/api/',
-    production: false
+    production: false,
+    DEFAULT_COMPILER: 'gcc-head'
 };
