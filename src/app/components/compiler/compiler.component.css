@@ -1,5 +1,6 @@
 .wandbox-insert-template {
     width: 180px;
+    cursor: pointer;
 }
 
 li>a.wandbox-dropdown-listitem.selected,
