@@ -49,8 +49,8 @@ export class TabComponent implements AfterViewInit {
     /**
      * Add tab button click event.
      *
-     * @param {string} [fileName=`noname-${this.tabCount}`] default tab name.
-     * @param {string} [content=''] default tab content.
+     * @param {string} [fileName = `noname-${this.tabCount}`] default tab name.
+     * @param {string} [content = ''] default tab content.
      * @memberof TabComponent
      */
     addTab(fileName = `noname-${this.tabCount}`, content = '') {

@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <a (click)="!compiling && postCompile()" class="btn btn-default" id="wandbox-compile">
+        <a (click)="!model.compiling && postCompile()" class="btn btn-default" id="wandbox-compile">
             <ng-container *ngIf="model.compiling">
                 <img src="./assets/image/compiling.gif" alt="Compiling" class="btn btn-default" id="wandbox-compiling">
             </ng-container>
-            <ng-container *ngIf="!compiling">
+            <ng-container *ngIf="!model.compiling">
                 Run (or Ctrl+Enter)
             </ng-container>
         </a>

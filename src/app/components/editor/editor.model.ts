@@ -1,12 +1,12 @@
 import { TabModel } from '../editor-tab/editor-tab.model';
 import { LanguageModel } from '../compiler/compiler.model';
 
-/**
- * Model for EditorComponent
- *
- * @export
- * @class EditorModel
- */
+/* *
+* Model for EditorComponent
+*
+* @export
+* @class EditorModel
+*/
 export class EditorComponentModel {
     config: EditorConfigModel = new EditorConfigModel();
     stdin: string;
