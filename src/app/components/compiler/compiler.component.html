@@ -14,7 +14,7 @@
                             <legend>{{selectedLanguage.languageName}}</legend>
                             <ul>
                                 <li *ngFor="let compiler of selectedLanguage.compilers;let i=index;">
-                                    <a class="wandbox-dropdown-listitem" [class.selected]="selectedLanguage.selectedCompilerIndex === i" (click)="clickCompiler(i)">
+                                    <a class="wandbox-dropdown-listitem" [class.selected]="selectedLanguage.selectedCompilerIndex === i" (click)="selectCompiler(i)">
                                         {{compiler.displayName}} {{compiler.version}}
                                     </a>
                                 </li>
@@ -26,7 +26,7 @@
                     <legend>Languages</legend>
                     <ul>
                         <li *ngFor="let language of model.languages; let i=index;">
-                            <a class="wandbox-dropdown-language-item" [class.selected]="model.selectedLangIndex === i" (click)="clickLanguage(i, $event)">{{language.languageName}}</a>
+                            <a class="wandbox-dropdown-language-item" [class.selected]="model.selectedLangIndex === i" (click)="selectLanguage(i, null, $event)">{{language.languageName}}</a>
                             <span class="wandbox-badge">{{language.compilers.length}}</span>
                         </li>
                     </ul>
@@ -68,9 +68,10 @@
 <div *ngIf="!model.fetched" class="row">
     <div class="col-md-12">
         <ng-container *ngIf="model.errorMessage.length === 0">
-            <!-- TODO: なんかアイコン入れる -->
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
-                <span class="wandbox-current-compiler-text">Loading...</span>
+                <span class="wandbox-current-compiler-text">
+                    <img src="./assets/image/compiling.gif" alt="Compiling" class="btn btn-default" id="wandbox-compiling">
+                </span>
                 <span class="wandbox-current-compiler-caret caret"></span>
             </button>
         </ng-container>
