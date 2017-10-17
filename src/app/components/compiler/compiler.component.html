@@ -1,4 +1,4 @@
-<div class="row" *ngIf="fetched">
+<div class="row" *ngIf="model.fetched">
     <div class="col-md-12" *ngIf="selectedLanguage != null">
         <p class="wandbox-current-compiler-language label label-success">{{selectedLanguage.languageName}}</p>
         <div class="dropdown wandbox-compiler">
@@ -25,8 +25,8 @@
                 <div class="wandbox-dropdown-lang-area">
                     <legend>Languages</legend>
                     <ul>
-                        <li *ngFor="let language of languages; let i=index;">
-                            <a class="wandbox-dropdown-language-item" [class.selected]="selectedLangIndex === i" (click)="clickLanguage(i, $event)">{{language.languageName}}</a>
+                        <li *ngFor="let language of model.languages; let i=index;">
+                            <a class="wandbox-dropdown-language-item" [class.selected]="model.selectedLangIndex === i" (click)="clickLanguage(i, $event)">{{language.languageName}}</a>
                             <span class="wandbox-badge">{{language.compilers.length}}</span>
                         </li>
                     </ul>
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div *ngIf="fetched" class="row">
+<div *ngIf="model.fetched" class="row">
     <div class="col-md-12">
         <div class="tab-content">
             <div class="tab-pane-">
@@ -67,16 +67,16 @@
 </div>
 <div *ngIf="!fetched" class="row">
     <div class="col-md-12">
-        <ng-container *ngIf="errorMessage.length === 0">
+        <ng-container *ngIf="model.errorMessage.length === 0">
             <!-- TODO: なんかアイコン入れる -->
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdown-language" data-toggle="dropdown" aria-expanded="true">
                 <span class="wandbox-current-compiler-text">Loading...</span>
                 <span class="wandbox-current-compiler-caret caret"></span>
             </button>
         </ng-container>
-        <ng-container *ngIf="errorMessage.length !== 0">
+        <ng-container *ngIf="model.errorMessage.length !== 0">
             <span class="wandbox-current-compiler-text">
-                <span class="alert alert-danger">{{errorMessage}}</span>
+                <span class="alert alert-danger">{{model.errorMessage}}</span>
             </span>
         </ng-container>
     </div>

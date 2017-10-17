@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { LanguageModel, CompilerModel, OptionType } from './compiler.model';
+import { CompilerComponentModel, LanguageModel, CompilerModel, OptionType } from './compiler.model';
 import { CompilerService } from './compiler.service';
 import { CompilerInfo } from '../api/compiler-list.model';
 import { LocalStorageService } from '../common/local-storage.service';
@@ -12,13 +12,10 @@ import { LocalStorageService } from '../common/local-storage.service';
 })
 export class CompilerComponent implements OnInit {
 
-    selectedLangIndex = 0;
-    languages = new Array<LanguageModel>();
-    fetched = false;
-    errorMessage = '';
+    model = new CompilerComponentModel();
 
     get selectedLanguage() {
-        return this.languages[this.selectedLangIndex] || null;
+        return this.model.languages[this.model.selectedLangIndex] || null;
     }
 
     constructor(private service: CompilerService,
@@ -33,14 +30,14 @@ export class CompilerComponent implements OnInit {
                 }
                 languageDic[languageName].addCompiler(compilerList[i]);
             }
-            this.languages = Object.keys(languageDic)
+            this.model.languages = Object.keys(languageDic)
                 .map(key => languageDic[key]);
-            this.fetched = true;
+            this.model.fetched = true;
 
 
             if (this.storage.hasValue('language')) {
                 const language = this.storage.getValue('language');
-                let langIndex = this.languages.findIndex(v => v.languageName === language);
+                let langIndex = this.model.languages.findIndex(v => v.languageName === language);
                 if (langIndex === -1) {
                     this.storage.removeValue('language');
                     langIndex = 0;
@@ -49,7 +46,7 @@ export class CompilerComponent implements OnInit {
             }
 
         }, (err) => {
-            this.errorMessage = 'failed loading compiler list!';
+            this.model.errorMessage = 'failed loading compiler list!';
         });
     }
 
@@ -62,7 +59,7 @@ export class CompilerComponent implements OnInit {
             event.preventDefault();
         }
 
-        this.selectedLangIndex = index;
+        this.model.selectedLangIndex = index;
         this.storage.setValue('language', this.selectedLanguage.languageName);
 
         if (this.storage.hasValue('compiler')) {
@@ -78,7 +75,7 @@ export class CompilerComponent implements OnInit {
             this.selectedLanguage.selectedCompilerIndex = 0;
         }
         this.service.selectedLanguageNext(this.selectedLanguage);
-        console.log('active', this.selectedLangIndex);
+        console.log('active', this.model.selectedLangIndex);
     }
 
     clickCompiler(index: number) {

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PostCompileService } from '../api/compile.service';
 import { RunCompileService } from '../common/run-compile.service';
-import { CompileResultModel } from './compile.model';
+import { CompileResultModel, CompileComponentModel } from './compile.model';
 import { TabModel, TabChangedEvent } from '../editor-tab/editor-tab.model';
 import { LanguageModel } from '../compiler/compiler.model';
 
@@ -18,10 +18,7 @@ export class CompileComponent implements OnInit {
     @Input() stdin: string;
     @Input() selectedLanguage: LanguageModel;
 
-    compileResults = new Array<CompileResultModel>();
-    activeResultIndex = -1;
-    compiling = false;
-    compileCount = 0;
+    model = new CompileComponentModel();
 
     constructor(private runCompile: RunCompileService) {
     }
@@ -35,12 +32,13 @@ export class CompileComponent implements OnInit {
      * @memberof CompileComponent
      */
     postCompile() {
-        this.compiling = true;
+        this.model.compiling = true;
         const result = new CompileResultModel();
-        result.tabName = (this.compileCount + 1).toString();
-        this.compileCount++;
-        this.compileResults.push(result);
-        this.activeResultIndex = this.compileResults.length - 1;
+        result.tabName = (this.model.compileCount + 1).toString();
+        this.model.compileCount++;
+        // push to head
+        this.model.compileResults.splice(0, 0, result);
+        this.model.activeResultIndex = 0;
         this.runCompile.run(this.stdin, this.tabs, this.selectedLanguage).subscribe(res => {
             const compiler = this.selectedLanguage.selectedCompiler;
 
@@ -55,16 +53,17 @@ export class CompileComponent implements OnInit {
             // TODO: ディープコピーが適当すぎる
             result.tabs = JSON.parse(JSON.stringify(this.tabs));
 
-            this.compiling = false;
+            result.resultFetched = true;
+            this.model.compiling = false;
         });
     }
 
     removeTab(index: number) {
-        this.compileResults.splice(index, 1);
+        this.model.compileResults.splice(index, 1);
     }
 
     changeTab(index: number) {
-        this.activeResultIndex = index;
+        this.model.activeResultIndex = index;
     }
 
 }

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-10">
-        <editor-tab (changed)="tabChanged($event)" [tabs]="tabs" [config]="model.config" [activeIndex]="activeTabIndex"></editor-tab>
+        <editor-tab (changed)="tabChanged($event)" [tabs]="model.tabs" [config]="model.config" [activeIndex]="model.activeTabIndex"></editor-tab>
     </div>
     <div class="col-md-2" id="wandbox-editor-settings">
         <label>Editor settings:</label>
@@ -41,8 +41,8 @@
 <div class="row">
     <div class="col-md-12">
         <p id="compile_command">
-            <code *ngIf="selectedLanguage != null && selectedLanguage.selectedCompiler != null">
-                $ {{selectedLanguage.selectedCompiler.compileCommand}} {{selectedLanguage.selectedCompiler.displayFlags}}
+            <code *ngIf="model.selectedLanguage != null && model.selectedLanguage.selectedCompiler != null">
+                $ {{model.selectedLanguage.selectedCompiler.compileCommand}} {{model.selectedLanguage.selectedCompiler.displayFlags}}
             </code>
         </p>
     </div>
@@ -62,4 +62,4 @@
         </div>
     </div>
 </div>
-<wandbox-compile [tabs]="tabs" [stdin]="model.stdin" [selectedLanguage]="selectedLanguage"></wandbox-compile>
+<wandbox-compile [tabs]="model.tabs" [stdin]="model.stdin" [selectedLanguage]="model.selectedLanguage"></wandbox-compile>

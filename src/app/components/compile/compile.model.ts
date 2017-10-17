@@ -15,8 +15,16 @@ export class CompileResultModel {
     status: number;
 
     showCode: boolean;
+    resultFetched = false;
 
     get activeTab() {
         return this.tabs[this.activeSourceTabIndex];
     }
+}
+
+export class CompileComponentModel {
+    compileResults = new Array<CompileResultModel>();
+    activeResultIndex = -1;
+    compiling = false;
+    compileCount = 0;
 }

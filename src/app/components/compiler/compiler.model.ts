@@ -128,3 +128,11 @@ export interface SelectBoxOption extends OptionItem {
 }
 
 export type OptionType = CheckboxOption | SelectBoxOption | TextAreaOption;
+
+
+export class CompilerComponentModel {
+    selectedLangIndex = 0;
+    languages = new Array<LanguageModel>();
+    fetched = false;
+    errorMessage = '';
+}

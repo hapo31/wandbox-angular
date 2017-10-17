@@ -1,3 +1,5 @@
+import { TabModel } from '../editor-tab/editor-tab.model';
+import { LanguageModel } from '../compiler/compiler.model';
 
 /**
  * Model for EditorComponent
@@ -5,9 +7,12 @@
  * @export
  * @class EditorModel
  */
-export class EditorModel {
+export class EditorComponentModel {
     config: EditorConfigModel = new EditorConfigModel();
     stdin: string;
+    tabs = new Array<TabModel>();
+    selectedLanguage: LanguageModel;
+    activeTabIndex = 0;
 
     get dump() {
         return JSON.stringify(this.config, null, '\n');

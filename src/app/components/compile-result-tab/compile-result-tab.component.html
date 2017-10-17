@@ -15,7 +15,8 @@
             </div>
             <div class="wandbox-code-window">
                 <div class="wandbox-code-window-code panel panel-default">
-                    <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body" aria-expanded="true" class=""> Code </a>
+                    <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body" aria-expanded="true"
+                        class=""> Code </a>
                     <div id="wandbox-resultwindow-code-body" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="wandbox-resultwindow-compiler">
@@ -23,7 +24,7 @@
                                     <p>[{{selectedResult.languageName}}] {{selectedResult.compilerName}}</p>
                                 </div>
                             </div>
-                            <div class="wandbox-resultwindow-code">
+                            <div class="wandbox-resultwindow-code" *ngIf="selectedResult.resultFetched">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li *ngFor="let tab of selectedResult.tabs; let i=index;" [class.active]="selectedResult.activeSourceTabIndex === i" (click)="activationSourceTab(i)">
                                         <a class="" href="#wandbox-resultwindow-code-body-1-0" role="tab" data-toggle="tab">

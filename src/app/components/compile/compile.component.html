@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <a (click)="!compiling && postCompile()" class="btn btn-default" id="wandbox-compile">
-            <ng-container *ngIf="compiling">
+            <ng-container *ngIf="model.compiling">
                 <img src="./assets/image/compiling.gif" alt="Compiling" class="btn btn-default" id="wandbox-compiling">
             </ng-container>
             <ng-container *ngIf="!compiling">
@@ -13,7 +13,8 @@
 
 <div class="row">
     <div class="col-md-10">
-        <compile-result-tab [activeIndex]="activeResultIndex" [results]="compileResults" (changeTab)="changeTab($event)" (removeTab)="removeTab($event)"></compile-result-tab>
+        <compile-result-tab [activeIndex]="model.activeResultIndex" [results]="model.compileResults" (changeTab)="changeTab($event)"
+            (removeTab)="removeTab($event)"></compile-result-tab>
     </div>
     <div class="col-md-2">
         <div id="result-container-settings">
