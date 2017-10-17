@@ -14,6 +14,9 @@ export class CompileResultModel {
     signalMessage: string;
     status: number;
 
+    eventSource: boolean;
+    outputLines: Array<EventOutput> = [];
+
     showCode: boolean;
     resultFetched = false;
 
@@ -26,5 +29,11 @@ export class CompileComponentModel {
     compileResults = new Array<CompileResultModel>();
     activeResultIndex = -1;
     compiling = false;
+    enableEventSource = false;
     compileCount = 0;
+}
+
+export class EventOutput {
+    type: string;
+    message: string;
 }

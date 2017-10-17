@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-2">
         <a (click)="!model.compiling && postCompile()" class="btn btn-default" id="wandbox-compile">
             <ng-container *ngIf="model.compiling">
                 <img src="./assets/image/compiling.gif" alt="Compiling" class="btn btn-default" id="wandbox-compiling">
@@ -8,6 +8,11 @@
                 Run (or Ctrl+Enter)
             </ng-container>
         </a>
+    </div>
+    <div class="col-md-4">
+        <label>
+            <input type="checkbox" [(ngModel)]="model.enableEventSource"> Enable Realtime Outout(Experimental)
+        </label>
     </div>
 </div>
 

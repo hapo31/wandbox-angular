@@ -14,7 +14,7 @@ export class RunCompileService {
     }
 
     /**
-     * Create compile request params
+     * Post compile request.
      *
      * @param {string} stdin
      * @param {Array<TabModel>} tabs
@@ -23,6 +23,32 @@ export class RunCompileService {
      * @memberof RunCompileService
      */
     public run(stdin: string, tabs: Array<TabModel>, language: LanguageModel) {
+        return this.compileApi.postCompile(this.createRequestParams(stdin, tabs, language));
+    }
+
+    /**
+     * Post compile request event stream enable.
+     * NOTE: this method created observables must be unsubscribe when all process done.
+     *
+     * @param {string} stdin
+     * @param {Array<TabModel>} tabs
+     * @param {LanguageModel} language
+     * @memberof RunCompileService
+     */
+    public runOnEventSource(stdin: string, tabs: Array<TabModel>, language: LanguageModel) {
+        return this.compileApi.postCompileEventStream(this.createRequestParams(stdin, tabs, language));
+    }
+
+    /**
+     * Create compile request params
+     *
+     * @param {string} stdin
+     * @param {Array<TabModel>} tabs
+     * @param {LanguageModel} language
+     * @returns
+     * @memberof RunCompileService
+     */
+    private createRequestParams(stdin: string, tabs: Array<TabModel>, language: LanguageModel) {
         const code = tabs[0].editorContent;
         const codes = tabs.length > 1 ? tabs.map(v => ({
             code: v.editorContent,
@@ -46,7 +72,7 @@ export class RunCompileService {
             runtimeOptionRawIndex !== -1 ? selectCompiler.options[runtimeOptionRawIndex].item.value : undefined,
         ];
 
-        const request: CompileRequest = {
+        return {
             code: code,
             compiler: compiler,
             options: options,
@@ -55,11 +81,8 @@ export class RunCompileService {
             codes: codes,
             'compiler-option-raw': compilerOptionRaw,
             'runtime-option-raw': runtimeOptionRaw
-        };
-
-        return this.compileApi.postCompile(request);
+        } as CompileRequest;
     }
-
 }
 
 interface RunCompileModel {

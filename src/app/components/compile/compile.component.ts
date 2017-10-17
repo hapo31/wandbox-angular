@@ -39,23 +39,65 @@ export class CompileComponent implements OnInit {
         // push to head
         this.model.compileResults.splice(0, 0, result);
         this.model.activeResultIndex = 0;
-        this.runCompile.run(this.stdin, this.tabs, this.selectedLanguage).subscribe(res => {
-            const compiler = this.selectedLanguage.selectedCompiler;
 
-            result.compilerName = compiler.displayName + ' ' + compiler.version;
-            result.languageName = this.selectedLanguage.languageName;
-            result.programMessage = res.program_message;
-            result.programOutout = res.program_output;
-            result.compilerErrorMessage = res.compiler_error;
-            result.programErrorMessage = res.program_error;
-            result.signalMessage = res.signal;
-            result.status = +(res.status !== undefined ? res.status : -1);
-            // TODO: ディープコピーが適当すぎる
-            result.tabs = JSON.parse(JSON.stringify(this.tabs));
+        const evEnable = true;
+        const compiler = this.selectedLanguage.selectedCompiler;
 
-            result.resultFetched = true;
-            this.model.compiling = false;
-        });
+
+        result.compilerName = compiler.displayName + ' ' + compiler.version;
+        result.languageName = this.selectedLanguage.languageName;
+        // TODO: ディープコピーが適当すぎる
+        result.tabs = JSON.parse(JSON.stringify(this.tabs));
+
+        if (this.model.enableEventSource) {
+            result.eventSource = true;
+            const subscription = this.runCompile.runOnEventSource(this.stdin, this.tabs, this.selectedLanguage)
+                .subscribe(event => {
+                    console.log('compile', event);
+                    switch (event.type) {
+                        case 'open':
+                            break;
+                        case 'timeout':
+                        case 'error':
+                        case 'exception':
+                            result.outputLines.push({
+                                type: 'Control',
+                                message: 'Finish'
+                            });
+                            result.resultFetched = true;
+                            this.model.compiling = false;
+                            subscription.unsubscribe();
+                            break;
+
+                        case 'message':
+                            result.outputLines.push({ type: event.messageType, message: event.payload });
+                            break;
+
+                    }
+                }, () => {
+                    subscription.unsubscribe();
+                    result.resultFetched = true;
+                    this.model.compiling = false;
+                }, () => {
+                    subscription.unsubscribe();
+                    result.resultFetched = true;
+                    this.model.compiling = false;
+                });
+
+        } else {
+            result.eventSource = false;
+            this.runCompile.run(this.stdin, this.tabs, this.selectedLanguage).subscribe(res => {
+                result.programMessage = res.program_message;
+                result.programOutout = res.program_output;
+                result.compilerErrorMessage = res.compiler_error;
+                result.programErrorMessage = res.program_error;
+                result.signalMessage = res.signal;
+                result.status = +(res.status !== undefined ? res.status : -1);
+
+                result.resultFetched = true;
+                this.model.compiling = false;
+            });
+        }
     }
 
     removeTab(index: number) {

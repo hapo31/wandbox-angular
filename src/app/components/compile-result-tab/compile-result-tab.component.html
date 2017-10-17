@@ -47,12 +47,18 @@
                 </div>
             </div>
             <div class="output-window" *ngIf="selectedResult != null">
-                <!-- <pre class="Control">Start</pre> -->
-                <pre class="CompilerMessageE">{{selectedResult.compilerErrorMessage}}</pre>
-                <pre class="StdOut">{{selectedResult.programOutout}}</pre>
-                <pre class="Signal">{{selectedResult.signalMessage}}</pre>
-                <pre class="ExitCode" *ngIf="selectedResult.status !== -1">{{selectedResult.status}}</pre>
-                <!-- <pre class="Control">Finish</pre> -->
+
+                <ng-container *ngIf="selectedResult.eventSource">
+                    <pre *ngFor="let line of selectedResult.outputLines" class="{{line.type}}">{{line.message}}</pre>
+                </ng-container>
+                <ng-container *ngIf="!selectedResult.eventSource">
+                    <!-- <pre class="Control">Start</pre> -->
+                    <pre class="CompilerMessageE">{{selectedResult.compilerErrorMessage}}</pre>
+                    <pre class="StdOut">{{selectedResult.programOutout}}</pre>
+                    <pre class="Signal">{{selectedResult.signalMessage}}</pre>
+                    <pre class="ExitCode" *ngIf="selectedResult.status !== -1">{{selectedResult.status}}</pre>
+                    <!-- <pre class="Control">Finish</pre> -->
+                </ng-container>
             </div>
         </div>
     </div>
