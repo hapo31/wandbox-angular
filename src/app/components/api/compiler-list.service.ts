@@ -13,6 +13,6 @@ export class CompilerListAPIService {
     constructor(private http: HttpClient) { }
 
     fetch(): Observable<Array<CompilerInfo>> {
-        return this.http.get(environment.baseUrl + 'list.json') as any;
+        return this.http.get(environment.baseApiUrl + 'list.json') as any;
     }
 }

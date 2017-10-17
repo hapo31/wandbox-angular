@@ -9,6 +9,6 @@ export class TemplateAPIService {
     constructor(private http: HttpClient) {
     }
     public fetch(templateName: string): Observable<TemplateInfo> {
-        return this.http.get(environment.baseUrl + 'template/' + templateName) as any;
+        return this.http.get(environment.baseApiUrl + 'template/' + templateName) as any;
     }
 }
