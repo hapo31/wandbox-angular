@@ -16,7 +16,7 @@
         "test": "test.ts",
         "tsconfig": "tsconfig.app.json",
         "testTsconfig": "tsconfig.spec.json",
-        "prefix": "wandbox",
+        "prefix": "app",
         "styles": [
             "styles.css"
         ],
