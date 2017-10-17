@@ -5,7 +5,7 @@
 ## TODO
 
 - ❌ Source code share.
-- ❌ Show output realtime.
+- 🔺 Show output realtime(partial).
 - ❌ Test code.
 - ❌ Sponsers list
 - ❌ Remove output log in release build.
