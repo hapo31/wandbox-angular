@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CompilerComponentModel, LanguageModel, CompilerModel, OptionType } from './compiler.model';
 import { CompilerService } from './compiler.service';
 import { CompilerInfo } from '../api/compiler-list.model';
 import { LocalStorageService } from '../common/local-storage.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'wandbox-compiler',
     templateUrl: './compiler.component.html',
     styleUrls: ['./compiler.component.css'],
 })
-export class CompilerComponent implements OnInit {
+export class CompilerComponent {
 
     model = new CompilerComponentModel();
 
@@ -34,15 +35,29 @@ export class CompilerComponent implements OnInit {
                 .map(key => languageDic[key]);
             this.model.fetched = true;
 
-
-            if (this.storage.hasValue('language')) {
+            if (!this.storage.hasValue('language')) {
                 const language = this.storage.getValue('language');
                 let langIndex = this.model.languages.findIndex(v => v.languageName === language);
                 if (langIndex === -1) {
                     this.storage.removeValue('language');
                     langIndex = 0;
                 }
-                this.clickLanguage(langIndex);
+                this.selectLanguage(langIndex);
+            } else {
+                // get default compiler.
+                const defaultCompiler = environment.DEFAULT_COMPILER;
+
+                (() => {
+                    for (const l of this.model.languages.map((lang, index) => ({ lang, index }))) {
+                        for (const c of l.lang.compilers.map((compiler, index) => ({ compiler, index }))) {
+                            if (c.compiler.name === defaultCompiler) {
+                                this.selectLanguage(l.index, c.index, null);
+                                // break multiple loop
+                                return;
+                            }
+                        }
+                    }
+                })();
             }
 
         }, (err) => {
@@ -50,10 +65,15 @@ export class CompilerComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
-    }
-
-    clickLanguage(index: number, event?: UIEvent) {
+    /**
+     * Activate selected language.
+     *
+     * @param {number} index
+     * @param {number} [selectCompilerIndex]
+     * @param {UIEvent} [event]
+     * @memberof CompilerComponent
+     */
+    selectLanguage(index: number, selectCompilerIndex?: number, event?: UIEvent) {
         if (event) {
             event.stopPropagation();
             event.preventDefault();
@@ -62,32 +82,50 @@ export class CompilerComponent implements OnInit {
         this.model.selectedLangIndex = index;
         this.storage.setValue('language', this.selectedLanguage.languageName);
 
-        if (this.storage.hasValue('compiler')) {
+        if (selectCompilerIndex != null) {
+            this.selectCompiler(selectCompilerIndex);
+        } else if (this.storage.hasValue('compiler')) {
             const compiler = this.storage.getValue('compiler');
+            // find index of saved compiler key.
             let compilerIndex = this.selectedLanguage.compilers
                 .findIndex(v => this.generateCompileOptionStorageKey(this.selectedLanguage) === compiler);
             if (compilerIndex === -1) {
                 this.storage.removeValue('compiler');
                 compilerIndex = 0;
             }
-            this.clickCompiler(compilerIndex);
+            this.selectCompiler(compilerIndex);
         } else {
-            this.selectedLanguage.selectedCompilerIndex = 0;
+            // default compiler is head of compiler list.
+            this.selectCompiler(0);
         }
         this.service.selectedLanguageNext(this.selectedLanguage);
         console.log('active', this.model.selectedLangIndex);
     }
 
-    clickCompiler(index: number) {
+    /**
+     * Activate selected compiler.
+     *
+     * @param {number} index
+     * @memberof CompilerComponent
+     */
+    selectCompiler(index: number) {
         const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage);
         this.selectedLanguage.selectedCompilerIndex = index;
         this.storage.setValue('compiler', keyName);
+        // load compiler options.
         if (this.storage.hasValue(keyName)) {
             const options = this.storage.getValue(keyName);
             this.selectedLanguage.selectedCompiler.options = options;
         }
     }
 
+    /**
+     * Detection changed config.
+     *
+     * @param {number} index
+     * @param {OptionType} item
+     * @memberof CompilerComponent
+     */
     changeOption(index: number, item: OptionType) {
         const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage);
         this.storage.setValue(keyName, this.selectedLanguage.selectedCompiler.options);
@@ -95,6 +133,12 @@ export class CompilerComponent implements OnInit {
         console.log('changed', index, item);
     }
 
+    /**
+     * Load template code from API for active language.
+     *
+     * @param {string} templateName
+     * @memberof CompilerComponent
+     */
     clickLoadTemplate(templateName: string) {
         this.service.loadTemplateNext(templateName);
         console.log('template', templateName);
