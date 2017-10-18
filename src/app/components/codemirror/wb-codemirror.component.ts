@@ -106,6 +106,9 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
             'Ctrl-Enter': (cm) => {
                 this.compileCommand.emit();
             },
+            'Cmd-Enter': (cm) => {
+                this.compileCommand.emit();
+            },
             'Ctrl-Shift-T': (cm) => {
                 console.log('hogehoge');
             }
