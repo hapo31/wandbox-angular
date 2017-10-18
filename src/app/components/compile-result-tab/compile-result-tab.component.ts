@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CompileResultModel } from '../compile/compile.model';
 import { RunCompileService } from '../common/run-compile.service';
 
@@ -7,10 +7,10 @@ import { RunCompileService } from '../common/run-compile.service';
     templateUrl: './compile-result-tab.component.html',
     styleUrls: ['./compile-result-tab.component.css']
 })
-export class CompileResultTabComponent implements OnInit {
+export class CompileResultTabComponent {
 
     @Input() results: Array<CompileResultModel>;
-    @Input() changeTab = new EventEmitter<number>();
+    @Output() changeTab = new EventEmitter<number>();
     @Output() removeTab = new EventEmitter<number>();
 
     @Input() activeIndex;
@@ -26,9 +26,6 @@ export class CompileResultTabComponent implements OnInit {
         // this.compileService.executeCompile().subscribe(v => {
         //     this.activeIndex = this.results.length - 1;
         // });
-    }
-
-    ngOnInit() {
     }
 
     activationSourceTab(index: number) {

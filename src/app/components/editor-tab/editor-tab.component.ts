@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TabModel, TabChangedEvent } from './editor-tab.model';
 import { EditorConfigModel } from '../editor/editor.model';
 import * as rxjs from 'rxjs/Rx';
@@ -10,12 +10,13 @@ import { LocalStorageService } from '../common/local-storage.service';
     templateUrl: './editor-tab.component.html',
     styleUrls: ['./editor-tab.component.css']
 })
-export class TabComponent implements AfterViewInit {
+export class TabComponent {
     @Input() config: EditorConfigModel;
     @Input() tabs: Array<TabModel>;
     @Input() activeIndex;
 
     @Output() changed = new EventEmitter<TabChangedEvent>();
+    @Output() compileCommand = new EventEmitter<void>();
 
     private tabCount = 1;
 
@@ -27,10 +28,6 @@ export class TabComponent implements AfterViewInit {
             .subscribe(_ => {
                 this.storage.setValue('tabs', this.tabs);
             });
-    }
-
-    ngAfterViewInit() {
-        console.log('editor-tab', this.tabs);
     }
 
     /**
@@ -155,5 +152,9 @@ export class TabComponent implements AfterViewInit {
     tabBack() {
         const activeIndex = this.activeIndex - 1 < 0 ? this.tabs.length - 1 : this.activeIndex - 1;
         this.toggleActive(activeIndex);
+    }
+
+    onCompileCommand() {
+        this.compileCommand.emit();
     }
 }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import * as rxjs from 'rxjs/Rx';
 
 import { EditorComponentModel } from './editor.model';
+import { CompileComponent } from '../compile/compile.component';
 import { TabModel, TabChangedEvent } from '../editor-tab/editor-tab.model';
 import { EditorService } from './editor.service';
 import { CompilerService } from '../compiler/compiler.service';
@@ -18,6 +19,8 @@ import { mime } from '../common/language-mime.util';
     providers: [EditorService]
 })
 export class EditorComponent implements OnInit {
+
+    @ViewChild(CompileComponent) compileComponent: CompileComponent;
 
     model = new EditorComponentModel();
 
@@ -86,5 +89,9 @@ export class EditorComponent implements OnInit {
         this.model.activeTabIndex = event.index;
         this.model.tabs[this.model.activeTabIndex].editorContent = event.data.editorContent;
         this.service.changeEditorTabNext(event.data.editorContent);
+    }
+
+    onCompileCommand() {
+        this.compileComponent.postCompile();
     }
 }

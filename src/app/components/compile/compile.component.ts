@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { PostCompileService } from '../api/compile.service';
 import { RunCompileService } from '../common/run-compile.service';
 import { CompileResultModel, CompileComponentModel } from './compile.model';
 import { TabModel, TabChangedEvent } from '../editor-tab/editor-tab.model';
 import { LanguageModel } from '../compiler/compiler.model';
+import { CompileResultTabComponent } from '../compile-result-tab/compile-result-tab.component';
 
 @Component({
     selector: 'wandbox-compile',
@@ -17,6 +18,8 @@ export class CompileComponent implements OnInit {
     @Input() tabs: Array<TabModel>;
     @Input() stdin: string;
     @Input() selectedLanguage: LanguageModel;
+
+    @ViewChild(CompileResultTabComponent) resultTabComponent: CompileResultTabComponent;
 
     model = new CompileComponentModel();
 
@@ -32,6 +35,9 @@ export class CompileComponent implements OnInit {
      * @memberof CompileComponent
      */
     postCompile() {
+        if (this.model.compiling) {
+            return;
+        }
         this.model.compiling = true;
         const result = new CompileResultModel();
         result.tabName = (this.model.compileCount + 1).toString();
