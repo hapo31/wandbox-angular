@@ -2,7 +2,6 @@ import subprocess
 import shutil
 import os
 import re
-import time
 
 """
     ***for python3***
