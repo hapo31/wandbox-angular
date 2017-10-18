@@ -19,7 +19,6 @@ export class TabComponent {
     @Output() compileCommand = new EventEmitter<void>();
 
     private tabCount = 1;
-
     private saveContentSubject = new rxjs.Subject<string>();
 
     constructor(private storage: LocalStorageService) {

@@ -17,13 +17,11 @@ import { EditorService } from '../editor/editor.service';
 
 @Component({
     selector: 'wandbox-codemirror',
-    styles: [`
-        textarea {
-            display: none;
-        }
-    `],
+    styleUrls: ['./wb-codemirror.component.css'],
     template: `
-        <textarea #host></textarea>
+        <div class="wandbox-codemirror-container" [class.expand]="config.expand">
+            <textarea #host></textarea>
+        </div>
   `
 })
 export class WandboxCodemirrorComponent implements AfterViewInit {
@@ -45,14 +43,19 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
         private element: ElementRef) {
 
         // apply change config.
-        service.changeConfig$.subscribe(v => {
-            this.codemirror.setOption(v.name, v.value);
-        });
+        service.changeConfig$
+            .filter(v => v.name !== 'expand')
+            .subscribe(v => {
+                this.config[v.name] = v.value;
+                this.codemirror.setOption(v.name, v.value);
+                this.codemirror.refresh();
+            });
 
         // set tab data
         service.changeEditorTab$.subscribe(v => {
             this.value = v;
             this.codemirror.setValue(v);
+            this.codemirror.refresh();
         });
     }
 
@@ -113,5 +116,6 @@ export class WandboxCodemirrorComponent implements AfterViewInit {
                 console.log('hogehoge');
             }
         });
+        this.codemirror.refresh();
     }
 }

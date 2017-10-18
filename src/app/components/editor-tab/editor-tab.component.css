@@ -6,3 +6,7 @@
     height: 20px;
     width: 150px;
 }
+
+#wandbox-editor-add-tab {
+    border: none;
+}

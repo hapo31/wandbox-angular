@@ -139,11 +139,6 @@ footer {
 
 /* editor() */
 
-.wandbox-smart-editor {
-    margin: 0px;
-    min-height: 300px;
-}
-
 wandbox-codemirror .CodeMirror pre {
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', 'Courier New', monospace;
     font-size: 12px;
@@ -151,19 +146,26 @@ wandbox-codemirror .CodeMirror pre {
 }
 
 .wandbox-legacy-editor {
-    height: 300px;
+    border: 1px solid #eee;
     font-family: "Courier New", monospace;
 }
 
-.wandbox-smart-editor.wandbox-expand .CodeMirror {
+.wandbox-codemirror-container .CodeMirror {
+    border: 1px solid #eee;
+    margin: 0px;
     min-height: 300px;
-    height: auto;
 }
 
-.wandbox-smart-editor.wandbox-expand .CodeMirror-scroll {
+.wandbox-codemirror-container.expand .CodeMirror {
+    height: auto;
     min-height: 300px;
+    max-height: 1200px;
+}
+
+.wandbox-codemirror-container.expand .CodeMirror-scroll {
     overflow-y: hidden;
     overflow-x: auto;
+    min-height: 300px;
 }
 
 .cm-s-user span.cm-comment {

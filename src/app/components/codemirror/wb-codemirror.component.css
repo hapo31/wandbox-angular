@@ -1,0 +1,26 @@
+textarea {
+    display: none;
+}
+
+.wandbox-codemirror-container .CodeMirror pre {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.wandbox-codemirror-container .CodeMirror {
+    height: auto;
+    margin: 0px;
+    min-height: 300px;
+}
+
+.wandbox-codemirror-container.expand .CodeMirror {
+    height: auto;
+    min-height: 300px;
+}
+
+.wandbox-codemirror-container.expand .CodeMirror-scroll {
+    overflow-y: hidden;
+    overflow-x: auto;
+    min-height: 300px;
+}

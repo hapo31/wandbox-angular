@@ -79,4 +79,5 @@ export class EditorConfigModel {
     tabSize = 4;
     indentUnit = 4;
     mode = 'text/x-csrc';
+    viewportMargin = Infinity;
 }
