@@ -35,7 +35,7 @@ export class CompilerComponent {
                 .map(key => languageDic[key]);
             this.model.fetched = true;
 
-            if (!this.storage.hasValue('language')) {
+            if (this.storage.hasValue('language')) {
                 const language = this.storage.getValue('language');
                 let langIndex = this.model.languages.findIndex(v => v.languageName === language);
                 if (langIndex === -1) {
@@ -99,7 +99,7 @@ export class CompilerComponent {
             this.selectCompiler(0);
         }
         this.service.selectedLanguageNext(this.selectedLanguage);
-        console.log('active', this.model.selectedLangIndex);
+        console.log('active', this.selectedLanguage);
     }
 
     /**
