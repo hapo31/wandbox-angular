@@ -9,10 +9,6 @@ footer {
     text-align: right;
 }
 
-#header {}
-
-#keybinding {}
-
 #wandbox-compile {
     margin-bottom: 10px;
 }
@@ -29,7 +25,12 @@ footer {
     width: 100%;
 }
 
-# tabs-left and tabs-right is removed in bootstrap 3 # http: //stackoverflow.com/questions/18432577/stacked-tabs-in-bootstrap-3
+
+/*
+# tabs-left and tabs-right is removed in bootstrap 3
+# http: //stackoverflow.com/questions/18432577/stacked-tabs-in-bootstrap-3
+*/
+
 .tabs-below>.nav-tabs,
 .tabs-right>.nav-tabs,
 .tabs-left>.nav-tabs {
@@ -80,7 +81,7 @@ footer {
 
 .tabs-left>.nav-tabs>li>a,
 .tabs-right>.nav-tabs>li>a {
-    #min-width: 74px;
+    /* #min-width: 74px; */
     margin-right: 0;
     margin-bottom: 3px;
 }
@@ -468,7 +469,7 @@ wandbox-codemirror .CodeMirror pre {
     margin-top: 4px;
     margin-left: 2px;
     border-radius: 4px;
-    border: 1px solid #transparent;
+    border: 1px solid/*#transparent;*/
 }
 
 .wandbox-renaming>input {
