@@ -32,7 +32,8 @@ export class EditorComponent implements OnInit {
             const mimeStr = mime(language.languageName);
             this.model.mode = mimeStr;
             this.model.selectedLanguage = language;
-            this.changeConfig('mode', mimeStr);
+            this.model.config.mode = mimeStr;
+            this.changeConfig('mode');
         });
 
         // Detection load template from compiler component.
@@ -59,6 +60,10 @@ export class EditorComponent implements OnInit {
 
         if (this.storage.hasValue('editorConfig')) {
             this.model.config = this.storage.getValue('editorConfig');
+            // JSON.stringfy() converts Infinity to null
+            if (this.model.config.viewportMargin === null) {
+                this.model.config.viewportMargin = Infinity;
+            }
         }
     }
 
@@ -66,16 +71,14 @@ export class EditorComponent implements OnInit {
      * Detection changed config.
      *
      * @param {string} configName
-     * @param {(string | number)} value
      * @memberof EditorComponent
      */
-    changeConfig(configName: string, value: string | number) {
+    changeConfig(configName: string) {
         this.storage.setValue('editorConfig', this.model.config);
-
         // send config data to codemirror component.
         this.service.changeConfigNext$({
             name: configName,
-            value: value
+            value: this.model.config[configName]
         });
     }
 

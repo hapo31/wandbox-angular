@@ -1,19 +1,18 @@
 <div class="row">
     <div class="col-md-10">
-        <editor-tab (compileCommand)="onCompileCommand()" (changed)="tabChanged($event)" [tabs]="model.tabs" [config]="model.config"
-            [activeIndex]="model.activeTabIndex"></editor-tab>
+        <editor-tab (compileCommand)="onCompileCommand()" (changed)="tabChanged($event)" [tabs]="model.tabs" [config]="model.config" [activeIndex]="model.activeTabIndex"></editor-tab>
     </div>
     <div class="col-md-2" id="wandbox-editor-settings">
         <label>Editor settings:</label>
         <div class="checkbox">
-            <select class="form-control wandbox-select" [(ngModel)]="model.keyMap" (change)="changeConfig('keyMap', model.keyMap)">
+            <select class="form-control wandbox-select" [(ngModel)]="model.keyMap" (change)="changeConfig('keyMap')">
                 <option value="default" selected="">editor: default</option>
                 <option value="vim">editor: Vim</option>
                 <option value="emacs">editor: Emacs</option>
             </select>
         </div>
         <div class="checkbox">
-            <select class="wandbox-spaces-or-tab form-control" [(ngModel)]="model.tabSize" (change)="changeConfig('tabSize', model.tabSize)">
+            <select class="wandbox-spaces-or-tab form-control" [(ngModel)]="model.tabSize" (change)="changeConfig('tabSize')">
                 <option value="2">tab: 2-spaces</option>
                 <option value="4" selected="">tab: 4-spaces</option>
                 <option value="8">tab: 8-spaces</option>
@@ -21,19 +20,19 @@
         </div>
         <div class="checkbox">
             <label>
-                <input class="indent-with-tabs" type="checkbox" [(ngModel)]="model.indentWithTabs" (change)="changeConfig('indentWithTabs', model.indentWithTabs)"
+                <input class="indent-with-tabs" type="checkbox" [(ngModel)]="model.indentWithTabs" (change)="changeConfig('indentWithTabs')"
                     checked=""> Indent with Tabs
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input class="smart-indent" type="checkbox" [(ngModel)]="model.smartIndent" (change)="changeConfig('smartIndent', model.smartIndent)"
+                <input class="smart-indent" type="checkbox" [(ngModel)]="model.smartIndent" (change)="changeConfig('smartIndent')"
                     checked=""> Smart Indent
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input class="expand-editor" type="checkbox" value="expand-editor" [(ngModel)]="model.expand"> Expand
+                <input class="expand-editor" type="checkbox" value="expand-editor" [(ngModel)]="model.expand" (change)="changeConfig('expand')"> Expand
             </label>
         </div>
     </div>
