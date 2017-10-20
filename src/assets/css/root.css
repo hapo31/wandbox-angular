@@ -159,10 +159,10 @@ wandbox-codemirror .CodeMirror pre {
 .wandbox-codemirror-container.expand .CodeMirror {
     height: auto;
     min-height: 300px;
-    max-height: 1200px;
 }
 
 .wandbox-codemirror-container.expand .CodeMirror-scroll {
+    height: auto;
     overflow-y: hidden;
     overflow-x: auto;
     min-height: 300px;
