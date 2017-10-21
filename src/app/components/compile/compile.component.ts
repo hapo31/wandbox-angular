@@ -46,18 +46,14 @@ export class CompileComponent implements OnInit {
         this.model.compileResults.splice(0, 0, result);
         this.model.activeResultIndex = 0;
 
-        const evEnable = true;
-        const compiler = this.selectedLanguage.selectedCompiler;
-
-
-        result.compilerName = compiler.displayName + ' ' + compiler.version;
-        result.languageName = this.selectedLanguage.languageName;
         // TODO: ディープコピーが適当すぎる
+        result.languageInfo = this.selectedLanguage;
         result.tabs = JSON.parse(JSON.stringify(this.tabs));
+        result.stdin = this.stdin;
 
         if (this.model.enableEventSource) {
             result.eventSource = true;
-            const subscription = this.runCompile.runOnEventSource(this.stdin, this.tabs, this.selectedLanguage)
+            const subscription = this.runCompile.runOnEventSource(this.stdin, this.tabs, this.selectedLanguage, false)
                 .subscribe(event => {
                     console.log('compile', event);
                     switch (event.type) {
@@ -92,7 +88,7 @@ export class CompileComponent implements OnInit {
 
         } else {
             result.eventSource = false;
-            this.runCompile.run(this.stdin, this.tabs, this.selectedLanguage).subscribe(res => {
+            this.runCompile.run(this.stdin, this.tabs, this.selectedLanguage, false).subscribe(res => {
                 result.programMessage = res.program_message;
                 result.programOutout = res.program_output;
                 result.compilerErrorMessage = res.compiler_error;

@@ -19,11 +19,12 @@ export class RunCompileService {
      * @param {string} stdin
      * @param {Array<TabModel>} tabs
      * @param {LanguageModel} language
+     * @param {boolean} save
      * @returns
      * @memberof RunCompileService
      */
-    public run(stdin: string, tabs: Array<TabModel>, language: LanguageModel) {
-        return this.compileApi.postCompile(this.createRequestParams(stdin, tabs, language));
+    public run(stdin: string, tabs: Array<TabModel>, language: LanguageModel, save: boolean) {
+        return this.compileApi.postCompile(this.createRequestParams(stdin, tabs, language, save));
     }
 
     /**
@@ -33,10 +34,11 @@ export class RunCompileService {
      * @param {string} stdin
      * @param {Array<TabModel>} tabs
      * @param {LanguageModel} language
+     * @param {boolean} save
      * @memberof RunCompileService
      */
-    public runOnEventSource(stdin: string, tabs: Array<TabModel>, language: LanguageModel) {
-        return this.compileApi.postCompileEventStream(this.createRequestParams(stdin, tabs, language));
+    public runOnEventSource(stdin: string, tabs: Array<TabModel>, language: LanguageModel, save: boolean) {
+        return this.compileApi.postCompileEventStream(this.createRequestParams(stdin, tabs, language, save));
     }
 
     /**
@@ -48,7 +50,7 @@ export class RunCompileService {
      * @returns
      * @memberof RunCompileService
      */
-    private createRequestParams(stdin: string, tabs: Array<TabModel>, language: LanguageModel) {
+    private createRequestParams(stdin: string, tabs: Array<TabModel>, language: LanguageModel, save: boolean) {
         const code = tabs[0].editorContent;
         const codes = tabs.length > 1 ? tabs.map(v => ({
             code: v.editorContent,
@@ -76,7 +78,7 @@ export class RunCompileService {
             code: code,
             compiler: compiler,
             options: options,
-            save: false,
+            save: save,
             stdin: stdin,
             codes: codes,
             'compiler-option-raw': compilerOptionRaw,

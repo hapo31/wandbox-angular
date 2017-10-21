@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CompileResultModel } from '../compile/compile.model';
+import { CompileResultModel, ShareResultModel } from '../compile/compile.model';
 import { RunCompileService } from '../common/run-compile.service';
+import { } from './compiler-result.model';
 
 @Component({
     selector: 'compile-result-tab',
@@ -42,6 +43,21 @@ export class CompileResultTabComponent {
             this.activationResultTab(this.results.length - 1);
         }
         console.log(this.activeIndex);
+    }
+
+    onShare() {
+        if (!this.selectedResult.resultFetched || this.selectedResult.shareResult != null) {
+            return;
+        }
+        this.selectedResult.shareResult = new ShareResultModel();
+        this.compileService.run(
+            this.selectedResult.stdin,
+            this.selectedResult.tabs,
+            this.selectedResult.languageInfo,
+            true).subscribe(res => {
+                this.selectedResult.shareResult.url = res.permlink;
+                this.selectedResult.shareResult.isFetched = true;
+            });
     }
 
 }

@@ -10,13 +10,23 @@
     <div class="tab-content">
         <div class="tab-pane result-window active">
             <div class="permlink">
-                <a href="#" class="btn btn-default">
-                    <span class="glyphicon glyphicon-share"></span> Share</a>
+                <ng-container *ngIf="selectedResult.shareResult == null">
+                    <a class="btn btn-default" (click)="onShare()">
+                        <span class="glyphicon glyphicon-share"></span> Share
+                    </a>
+                </ng-container>
+                <ng-container *ngIf="selectedResult.shareResult != null">
+                    <ng-container *ngIf="!selectedResult.shareResult.isFetched">
+                        <img src="./assets/image/compiling.gif" alt="Compiling" class="btn btn-default" id="wandbox-compiling">
+                    </ng-container>
+                    <ng-container *ngIf="selectedResult.shareResult.isFetched">
+                        <a class="btn btn-primary" target="_blank" href="permlink/{{selectedResult.shareResult.url}}">URL</a>
+                    </ng-container>
+                </ng-container>
             </div>
             <div class="wandbox-code-window">
                 <div class="wandbox-code-window-code panel panel-default">
-                    <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body" aria-expanded="true"
-                        class=""> Code </a>
+                    <a id="wandbox-resultwindow-code-header-1" data-toggle="collapse" href="#wandbox-resultwindow-code-body" aria-expanded="true" class=""> Code </a>
                     <div id="wandbox-resultwindow-code-body" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="wandbox-resultwindow-compiler">
