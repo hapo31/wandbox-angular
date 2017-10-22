@@ -50,7 +50,7 @@ export class CompileResultTabComponent {
             return;
         }
         this.selectedResult.shareResult = new ShareResultModel();
-        this.compileService.run(
+        this.compileService.run$(
             this.selectedResult.stdin,
             this.selectedResult.tabs,
             this.selectedResult.languageInfo,

@@ -35,8 +35,8 @@ export class CompilerService {
         this.languageSubject.next(language);
     }
 
-    public fetchCompilerList() {
-        return this.listApi.fetch();
+    public fetchCompilerList$() {
+        return this.listApi.fetch$();
     }
 
     public get loadTemplate$() {

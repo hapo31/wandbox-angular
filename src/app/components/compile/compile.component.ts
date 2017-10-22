@@ -11,7 +11,7 @@ import { CompileResultTabComponent } from '../compile-result-tab/compile-result-
     templateUrl: './compile.component.html',
     styleUrls: ['./compile.component.css'],
 })
-export class CompileComponent implements OnInit {
+export class CompileComponent {
 
     @Output() compile = new EventEmitter();
 
@@ -24,9 +24,6 @@ export class CompileComponent implements OnInit {
     model = new CompileComponentModel();
 
     constructor(private runCompile: RunCompileService) {
-    }
-
-    ngOnInit() {
     }
 
     /**
@@ -53,7 +50,7 @@ export class CompileComponent implements OnInit {
 
         if (this.model.enableEventSource) {
             result.eventSource = true;
-            const subscription = this.runCompile.runOnEventSource(this.stdin, this.tabs, this.selectedLanguage, false)
+            const subscription = this.runCompile.runOnEventSource$(this.stdin, this.tabs, this.selectedLanguage, false)
                 .subscribe(event => {
                     console.log('compile', event);
                     switch (event.type) {
@@ -88,7 +85,7 @@ export class CompileComponent implements OnInit {
 
         } else {
             result.eventSource = false;
-            this.runCompile.run(this.stdin, this.tabs, this.selectedLanguage, false).subscribe(res => {
+            this.runCompile.run$(this.stdin, this.tabs, this.selectedLanguage, false).subscribe(res => {
                 result.programMessage = res.program_message;
                 result.programOutout = res.program_output;
                 result.compilerErrorMessage = res.compiler_error;

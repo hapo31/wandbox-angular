@@ -23,8 +23,8 @@ export class RunCompileService {
      * @returns
      * @memberof RunCompileService
      */
-    public run(stdin: string, tabs: Array<TabModel>, language: LanguageModel, save: boolean) {
-        return this.compileApi.postCompile(this.createRequestParams(stdin, tabs, language, save));
+    public run$(stdin: string, tabs: Array<TabModel>, language: LanguageModel, save: boolean) {
+        return this.compileApi.postCompile$(this.createRequestParams(stdin, tabs, language, save));
     }
 
     /**
@@ -37,8 +37,8 @@ export class RunCompileService {
      * @param {boolean} save
      * @memberof RunCompileService
      */
-    public runOnEventSource(stdin: string, tabs: Array<TabModel>, language: LanguageModel, save: boolean) {
-        return this.compileApi.postCompileEventStream(this.createRequestParams(stdin, tabs, language, save));
+    public runOnEventSource$(stdin: string, tabs: Array<TabModel>, language: LanguageModel, save: boolean) {
+        return this.compileApi.postCompileEventStream$(this.createRequestParams(stdin, tabs, language, save));
     }
 
     /**

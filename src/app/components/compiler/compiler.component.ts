@@ -21,7 +21,7 @@ export class CompilerComponent {
 
     constructor(private service: CompilerService,
         private storage: LocalStorageService) {
-        this.service.fetchCompilerList().subscribe(compilerList => {
+        this.service.fetchCompilerList$().subscribe(compilerList => {
             const languageDic: { [key: string]: LanguageModel } = {};
             for (let i = 0; i < compilerList.length; ++i) {
                 const languageName = compilerList[i].language;
