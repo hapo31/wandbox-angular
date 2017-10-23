@@ -71,6 +71,9 @@ export class EditorComponentModel {
 }
 
 export class EditorConfigModel {
+
+    [key: string]: any;
+
     keyMap = 'default';
     lineNumbers = true;
     indentWithTabs = true;

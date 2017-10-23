@@ -14,7 +14,7 @@ export class CompileResultTabComponent {
     @Output() changeTab = new EventEmitter<number>();
     @Output() removeTab = new EventEmitter<number>();
 
-    @Input() activeIndex;
+    @Input() activeIndex: number;
 
     private emptyTab = new CompileResultModel();
 
