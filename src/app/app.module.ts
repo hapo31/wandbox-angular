@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModel } from '@angular/forms';
 import { NgModule, Pipe, Directive, Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -29,6 +31,10 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
         BrowserModule,
         FormsModule,
         HttpClientModule,
+        RouterModule.forRoot([
+            { path: 'permlink/:id', component: AppComponent },
+            { path: '', component: AppComponent, pathMatch: 'full' },
+        ]),
     ],
     declarations: [
         AppComponent,
@@ -48,7 +54,8 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
         CompilerListAPIService,
         CompilerService,
         PostCompileService,
-        LocalStorageService
+        LocalStorageService,
+        [{ provide: APP_BASE_HREF, useValue: '' }],
     ],
     bootstrap: [AppComponent]
 })
