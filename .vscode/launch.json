@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+        "name": "Launch Chrome against localhost, with sourcemaps",
+        "type": "chrome",
+        "request": "launch",
+        "sourceMaps": true,
+        "url": "http://localhost:4200/",
+        "runtimeArgs": [
+            "--disable-web-security",
+            "--user-data-dir"
+        ],
+        "webRoot": "${workspaceRoot}",
+        "sourceMapPathOverrides": {
+            "webpack:///${workspaceRoot}/*": "${webRoot}/*"
+        }
+    }]
+}
