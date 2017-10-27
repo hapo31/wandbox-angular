@@ -11,10 +11,8 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/codemirror.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.24.2/addon/dialog/dialog.min.css">
-    <link rel="stylesheet" href="./assets/css/root.css">
 
     <script async="" src="https://www.google-analytics.com/analytics.js"></script>
     <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -51,9 +49,8 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.2/timeago.min.js"></script>
     <script type="text/javascript">
-        $(function () {
+        $(function() {
             var timeAgo = timeago();
             timeAgo.render(document.querySelectorAll('.time-ago'));
         });
@@ -64,12 +61,12 @@
     </script>
 </head>
 
-<body data-webroot="/">
-
+<body>
     <noscript>
         &lt;h1&gt;&lt;a href="/nojs"&gt;Click this for noscript browsers&lt;/a&gt;&lt;/h1&gt;
     </noscript>
 
+    <base href="/">
     <div id="main" role="main">
         <app-root></app-root>
     </div>
