@@ -21,9 +21,8 @@ import { CompilerListAPIService } from './components/api/compiler-list.service';
 import { TemplateAPIService } from './components/api/template.service';
 import { PostCompileService } from './components/api/compile.service';
 import { LocalStorageService } from './components/common/local-storage.service';
-
+import { PermlinkService } from './components/api/permlink.service';
 import { CompileResultTabComponent } from './components/compile-result-tab/compile-result-tab.component';
-
 
 
 @NgModule({
@@ -31,8 +30,10 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
         BrowserModule,
         FormsModule,
         HttpClientModule,
+        // configuration app routing.
         RouterModule.forRoot([
             { path: 'permlink/:id', component: AppComponent },
+            { path: 'permlink', redirectTo: '' },
             { path: '', component: AppComponent, pathMatch: 'full' },
         ]),
     ],
@@ -55,6 +56,7 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
         CompilerService,
         PostCompileService,
         LocalStorageService,
+        PermlinkService,
         [{ provide: APP_BASE_HREF, useValue: '' }],
     ],
     bootstrap: [AppComponent]
