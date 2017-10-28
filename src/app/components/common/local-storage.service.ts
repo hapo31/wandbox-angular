@@ -12,7 +12,6 @@ export class LocalStorageService {
     }
 
     public setValue<T>(key: string, value: T) {
-        console.log('storage store', key, value);
         this.storage.setItem(key, JSON.stringify(value));
     }
 
