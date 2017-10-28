@@ -12,6 +12,8 @@ export class PermlinkService {
 
     constructor(private http: HttpClient, private route: ActivatedRoute) {
         this.route.params
+            .do(v => console.log('[PermlinkService]', v))
+            .filter(linkId => linkId && linkId.id != null)
             .flatMap(linkId => {
                 return this.http.get(environment.baseApiUrl + 'permlink/' + linkId);
             })

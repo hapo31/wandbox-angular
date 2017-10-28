@@ -10,6 +10,7 @@ import { CompilerService } from '../compiler/compiler.service';
 import { LanguageModel } from '../compiler/compiler.model';
 import { LocalStorageService } from '../common/local-storage.service';
 import { RunCompileService } from '../common/run-compile.service';
+import { ActivatedRoute } from '@angular/router';
 import { mime } from '../common/language-mime.util';
 
 @Component({
@@ -26,7 +27,8 @@ export class EditorComponent implements OnInit {
 
     constructor(private service: EditorService,
         private compiler: CompilerService,
-        private storage: LocalStorageService) {
+        private storage: LocalStorageService,
+        private route: ActivatedRoute) {
         // Detection changed mime event from compiler changing.
         this.compiler.selectedLanguage$.subscribe(language => {
             const mimeStr = mime(language.languageName);
@@ -45,6 +47,9 @@ export class EditorComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        console.log('param', this.route.snapshot.params);
+
         // Load tab data from local storage.
         if (this.storage.hasValue('tabs')) {
             this.model.tabs = this.storage.getValue('tabs');

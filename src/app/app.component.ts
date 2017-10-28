@@ -4,7 +4,7 @@ import { PermlinkService } from './components/api/permlink.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-    selector: 'app-root',
+    selector: 'app-wandbox',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     providers: [RunCompileService]

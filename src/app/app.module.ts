@@ -7,7 +7,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-
+import { RouterRootComponent } from './root.component';
 import { WandboxCodemirrorComponent } from './components/codemirror/wb-codemirror.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -26,6 +26,7 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
 
 
 @NgModule({
+    bootstrap: [RouterRootComponent],
     imports: [
         BrowserModule,
         FormsModule,
@@ -33,11 +34,11 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
         // configuration app routing.
         RouterModule.forRoot([
             { path: 'permlink/:id', component: AppComponent },
-            { path: 'permlink', redirectTo: '' },
             { path: '', component: AppComponent, pathMatch: 'full' },
         ]),
     ],
     declarations: [
+        RouterRootComponent,
         AppComponent,
         WandboxCodemirrorComponent,
         EditorComponent,
@@ -59,6 +60,5 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
         PermlinkService,
         [{ provide: APP_BASE_HREF, useValue: '' }],
     ],
-    bootstrap: [AppComponent]
 })
 export class AppModule { }
