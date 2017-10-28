@@ -99,7 +99,6 @@ export class CompilerComponent {
             this.selectCompiler(0);
         }
         this.service.selectedLanguageNext(this.selectedLanguage);
-        console.log('active', this.selectedLanguage);
     }
 
     /**
@@ -129,8 +128,6 @@ export class CompilerComponent {
     changeOption(index: number, item: OptionType) {
         const keyName = this.generateCompileOptionStorageKey(this.selectedLanguage);
         this.storage.setValue(keyName, this.selectedLanguage.selectedCompiler.options);
-
-        console.log('changed', index, item);
     }
 
     /**
@@ -141,7 +138,6 @@ export class CompilerComponent {
      */
     clickLoadTemplate(templateName: string) {
         this.service.loadTemplateNext(templateName);
-        console.log('template', templateName);
     }
 
     private generateCompileOptionStorageKey(language: LanguageModel) {
