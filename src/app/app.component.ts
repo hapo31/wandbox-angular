@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RunCompileService } from './components/common/run-compile.service';
-import { PermlinkService } from './components/api/permlink.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -10,10 +9,7 @@ import { Observable } from 'rxjs/Observable';
     providers: [RunCompileService]
 })
 export class AppComponent {
-
-    test = new Observable<number>();
-
-    constructor(private permlink: PermlinkService) {
+    constructor() {
 
     }
 }
