@@ -4,7 +4,9 @@ import { CompilerComponentModel, LanguageModel, CompilerModel, OptionType } from
 import { CompilerService } from './compiler.service';
 import { CompilerInfo } from '../api/compiler-list.model';
 import { LocalStorageService } from '../common/local-storage.service';
+import { PermlinkService } from '../api/permlink.service';
 import { environment } from '../../../environments/environment';
+
 
 @Component({
     selector: 'wandbox-compiler',
@@ -20,8 +22,9 @@ export class CompilerComponent {
     }
 
     constructor(private service: CompilerService,
-        private storage: LocalStorageService) {
-        this.service.fetchCompilerList$().subscribe(compilerList => {
+        private storage: LocalStorageService,
+        private permlink: PermlinkService) {
+        this.service.fetchCompilerList$.subscribe(compilerList => {
             const languageDic: { [key: string]: LanguageModel } = {};
             for (let i = 0; i < compilerList.length; ++i) {
                 const languageName = compilerList[i].language;
@@ -35,7 +38,29 @@ export class CompilerComponent {
                 .map(key => languageDic[key]);
             this.model.fetched = true;
 
-            if (this.storage.hasValue('language')) {
+            if (this.permlink.requested) {
+                this.permlink.checkPermlink$.subscribe(res => {
+
+                    const { parameter, result } = res;
+                    const compilerInfo = parameter['compiler-info'];
+
+                    let langIndex = this.model.languages.findIndex(v => v.languageName === compilerInfo.language);
+                    if (langIndex === -1) {
+                        // why arrive code?
+                        console.error('not found language.', compilerInfo.language);
+                        langIndex = 0;
+                    }
+
+                    let compilerIndex = this.model.languages[langIndex].compilers
+                        .findIndex(v => v.name === parameter.compiler);
+                    if (compilerIndex === -1) {
+                        // why arrive code?
+                        console.error('not found compiler.', parameter.compiler);
+                        compilerIndex = 0;
+                    }
+                    this.selectLanguage(langIndex, compilerIndex);
+                });
+            } else if (this.storage.hasValue('language')) {
                 const language = this.storage.getValue('language');
                 let langIndex = this.model.languages.findIndex(v => v.languageName === language);
                 if (langIndex === -1) {

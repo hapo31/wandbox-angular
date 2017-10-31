@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute } from '@angular/router';
 import * as rxjs from 'rxjs/Rx';
 
 import { EditorComponentModel } from './editor.model';
@@ -10,7 +11,7 @@ import { CompilerService } from '../compiler/compiler.service';
 import { LanguageModel } from '../compiler/compiler.model';
 import { LocalStorageService } from '../common/local-storage.service';
 import { RunCompileService } from '../common/run-compile.service';
-import { ActivatedRoute } from '@angular/router';
+import { PermlinkService } from '../api/permlink.service';
 import { mime } from '../common/language-mime.util';
 
 @Component({
@@ -28,7 +29,7 @@ export class EditorComponent implements OnInit {
     constructor(private service: EditorService,
         private compiler: CompilerService,
         private storage: LocalStorageService,
-        private route: ActivatedRoute) {
+        private permlink: PermlinkService) {
         // Detection changed mime event from compiler changing.
         this.compiler.selectedLanguage$.subscribe(language => {
             const mimeStr = mime(language.languageName);
@@ -44,14 +45,39 @@ export class EditorComponent implements OnInit {
             this.model.tabs[0].editorContent = info.code;
             this.service.changeEditorTabNext(info.code);
         });
+
+        this.permlink.checkPermlink$.subscribe(res => {
+
+            console.log(res);
+
+            const { parameter, result } = res;
+
+            this.model.tabs = [];
+
+            const permlinkTab = new TabModel();
+            permlinkTab.isActive = true;
+            permlinkTab.fileName = '';
+            permlinkTab.editorContent = parameter.code;
+
+            this.model.tabs.push(permlinkTab);
+
+            this.service.changeEditorTabNext(permlinkTab.editorContent);
+
+            this.model.activeTabIndex = 0;
+            if (parameter.codes && parameter.codes.length > 0) {
+                for (const code of parameter.codes) {
+                    const tab = new TabModel();
+                    tab.fileName = code.file;
+                    tab.editorContent = code.code;
+                    this.model.tabs.push(tab);
+                }
+            }
+        });
     }
 
     ngOnInit() {
-
-        console.log('param', this.route.snapshot.params);
-
         // Load tab data from local storage.
-        if (this.storage.hasValue('tabs')) {
+        if (!this.permlink.requested && this.storage.hasValue('tabs')) {
             this.model.tabs = this.storage.getValue('tabs');
             this.model.activeTabIndex = this.model.tabs.findIndex(v => v.isActive);
         } else {
