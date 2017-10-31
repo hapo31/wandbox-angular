@@ -52,10 +52,11 @@ export class RunCompileService {
      */
     private createRequestParams(stdin: string, tabs: Array<TabModel>, language: LanguageModel, save: boolean) {
         const code = tabs[0].editorContent;
-        const codes = tabs.length > 1 ? tabs.map(v => ({
-            code: v.editorContent,
-            file: v.fileName
-        })) : [];
+        const codes = tabs.length > 1 ? tabs.filter((v, i) => i !== 0) // split of tabs head and later.
+            .map(v => ({
+                code: v.editorContent,
+                file: v.fileName
+            })) : [];
         const selectCompiler = language.selectedCompiler;
         const compiler = selectCompiler.name;
         const options = selectCompiler.options
