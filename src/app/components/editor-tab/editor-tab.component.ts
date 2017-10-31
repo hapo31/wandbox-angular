@@ -3,6 +3,7 @@ import { TabModel, TabChangedEvent } from './editor-tab.model';
 import { EditorConfigModel } from '../editor/editor.model';
 import * as rxjs from 'rxjs/Rx';
 
+import { PermlinkService } from '../api/permlink.service';
 import { LocalStorageService } from '../common/local-storage.service';
 
 @Component({
@@ -21,8 +22,10 @@ export class TabComponent {
     private tabCount = 1;
     private saveContentSubject = new rxjs.Subject<string>();
 
-    constructor(private storage: LocalStorageService) {
+    constructor(private storage: LocalStorageService,
+        private permlink: PermlinkService) {
         this.saveContentSubject.asObservable()
+            .filter(_ => !this.permlink.requested)
             .debounceTime(200)
             .subscribe(_ => {
                 this.storage.setValue('tabs', this.tabs);
