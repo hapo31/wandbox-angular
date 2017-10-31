@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { PostCompileService } from '../api/compile.service';
 import { RunCompileService } from '../common/run-compile.service';
+import { PermlinkService } from '../api/permlink.service';
 import { CompileResultModel, CompileComponentModel } from './compile.model';
 import { TabModel, TabChangedEvent } from '../editor-tab/editor-tab.model';
 import { LanguageModel } from '../compiler/compiler.model';
@@ -23,7 +24,51 @@ export class CompileComponent {
 
     model = new CompileComponentModel();
 
-    constructor(private runCompile: RunCompileService) {
+    constructor(private runCompile: RunCompileService,
+        private permlink: PermlinkService) {
+        if (this.permlink.requested) {
+            this.permlink.checkPermlink$.subscribe(res => {
+
+                const { result, parameter } = res;
+
+                const permlinkTab = new CompileResultModel();
+                permlinkTab.tabName = 'permlink';
+                permlinkTab.programMessage = result.program_message;
+                permlinkTab.programOutout = result.program_output;
+                permlinkTab.compilerErrorMessage = result.compiler_error;
+                permlinkTab.programErrorMessage = result.program_error;
+                permlinkTab.signalMessage = result.signal;
+                permlinkTab.status = +(result.status !== undefined ? result.status : -1);
+                permlinkTab.stdin = parameter.stdin;
+
+                permlinkTab.languageInfo = new LanguageModel();
+                permlinkTab.languageInfo.languageName = parameter['compiler-info'].language;
+                permlinkTab.languageInfo.addCompiler(parameter['compiler-info']);
+
+                permlinkTab.tabs = [];
+
+                const sourceTab = new TabModel();
+                sourceTab.fileName = '';
+                sourceTab.editorContent = parameter.code;
+
+                permlinkTab.tabs.push(sourceTab);
+
+                if (parameter.codes && parameter.codes.length > 0) {
+                    for (const code of parameter.codes) {
+                        const tab = new TabModel();
+                        tab.fileName = code.file;
+                        tab.editorContent = code.code;
+                        permlinkTab.tabs.push(tab);
+                    }
+                }
+
+                // push to head
+                this.model.compileResults.splice(0, 0, permlinkTab);
+                this.model.activeResultIndex = 0;
+            });
+
+        }
+
     }
 
     /**
