@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 export class TemplateAPIService {
     constructor(private http: HttpClient) {
     }
-    public fetch(templateName: string): Observable<TemplateInfo> {
+    public fetch$(templateName: string): Observable<TemplateInfo> {
         return this.http.get(environment.baseApiUrl + 'template/' + templateName) as any;
     }
 }

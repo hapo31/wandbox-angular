@@ -35,13 +35,13 @@ export class CompilerService {
         this.languageSubject.next(language);
     }
 
-    public fetchCompilerList$() {
+    public get fetchCompilerList$() {
         return this.listApi.fetch$();
     }
 
     public get loadTemplate$() {
         return this.loadTemplateSubject.asObservable()
-            .flatMap(template => this.templateApi.fetch(template));
+            .flatMap(template => this.templateApi.fetch$(template));
     }
 
     public loadTemplateNext(templateName: string) {
