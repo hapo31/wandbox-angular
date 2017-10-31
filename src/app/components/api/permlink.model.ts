@@ -1,5 +1,5 @@
 import { CompilerInfo } from './compiler-list.model';
-import { CompileResponse } from './compile.model';
+import { CompileResponse, CodeListModel } from './compile.model';
 
 export interface PermlinkResponse {
     parameter: Parameter;
@@ -9,7 +9,7 @@ export interface PermlinkResponse {
 
 export interface Parameter {
     code: string;
-    codes?: string[];
+    codes?: CodeListModel[];
     compiler: string;
     'compiler-info': CompilerInfo;
     'compiler-option-raw': string;
