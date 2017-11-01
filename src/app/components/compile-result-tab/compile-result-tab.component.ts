@@ -39,7 +39,7 @@ export class CompileResultTabComponent {
 
     clickRemoveTab(index: number) {
         this.removeTab.emit(index);
-        if (this.results.length <= this.activeIndex) {
+        if (this.activeIndex >= this.results.length) {
             this.activationResultTab(this.results.length - 1);
         }
         console.log(this.activeIndex);
@@ -54,10 +54,11 @@ export class CompileResultTabComponent {
             this.selectedResult.stdin,
             this.selectedResult.tabs,
             this.selectedResult.languageInfo,
-            true).subscribe(res => {
-                this.selectedResult.shareResult.url = res.permlink;
-                this.selectedResult.shareResult.isFetched = true;
-            });
+            true
+        ).subscribe(res => {
+            this.selectedResult.shareResult.url = res.permlink;
+            this.selectedResult.shareResult.isFetched = true;
+        });
     }
 
 }
