@@ -7,7 +7,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { RouterRootComponent } from './root.component';
+// import { RouterRootComponent } from './root.component';
 import { WandboxCodemirrorComponent } from './components/codemirror/wb-codemirror.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -26,19 +26,20 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
 
 
 @NgModule({
-    bootstrap: [RouterRootComponent],
+    // bootstrap: [RouterRootComponent],
+    bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         FormsModule,
         HttpClientModule,
         // configuration app routing.
-        RouterModule.forRoot([
-            { path: 'permlink/:id', component: AppComponent },
-            { path: '', component: AppComponent, pathMatch: 'full' },
-        ]),
+        // RouterModule.forRoot([
+        //     { path: 'permlink/:id', component: AppComponent },
+        //     { path: '', component: AppComponent, pathMatch: 'full' },
+        // ]),
     ],
     declarations: [
-        RouterRootComponent,
+        // RouterRootComponent,
         AppComponent,
         WandboxCodemirrorComponent,
         EditorComponent,
@@ -58,7 +59,7 @@ import { CompileResultTabComponent } from './components/compile-result-tab/compi
         PostCompileService,
         LocalStorageService,
         PermlinkService,
-        [{ provide: APP_BASE_HREF, useValue: '' }],
+        // [{ provide: APP_BASE_HREF, useValue: '' }],
     ],
 })
 export class AppModule { }

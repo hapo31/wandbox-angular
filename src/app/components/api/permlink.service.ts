@@ -18,7 +18,9 @@ export class PermlinkService {
 
     private subject = new Subject<PermlinkResponse>();
 
-    constructor(private http: HttpClient, private route: ActivatedRoute) {
+    constructor(private http: HttpClient
+        // , private route: ActivatedRoute
+    ) {
         const match = location.href.match(/.*\/permlink\/(.*)\/?/);
         if (match && match.length) {
             this._linkId = match[1];
