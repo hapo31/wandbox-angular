@@ -1,3 +1,6 @@
 {
-    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+    "editor.formatOnSave": true,
+    "javascript.referencesCodeLens.enabled": true,
+    "tslint.configFile": "tslint.json",
+    "prettier.singleQuote": true,
 }
